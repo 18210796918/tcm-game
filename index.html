@@ -584,7 +584,7 @@ body {
   <div class="header-3d">
     <div class="lantern-icon">🏮</div>
     <h1>杏林妙手</h1>
-    <p>探秘中医传世名方 · 因证寻方</p>
+    <p>探秘中医传世名方 · 古籍文献检索</p>
   </div>
   
   <div class="welcome-scene">
@@ -592,8 +592,8 @@ body {
     <div class="welcome-title-3d">踏入杏林，识方悟道</div>
     <div class="welcome-subtitle">
       中医千年智慧，凝于方寸方剂<br>
-      或因证寻方，或探方识药<br>
-      今日，开启你的中医之旅
+      检索古籍文献，探秘传世经典<br>
+      今日，开启你的中医文化之旅
     </div>
   </div>
   
@@ -608,7 +608,7 @@ body {
   </div>
   
   <button class="btn-3d" onclick="goToAIConsult()" style="margin-top:24px;">
-    🔍 因证寻方
+    🔍 古籍检索
   </button>
   <button class="btn-3d btn-3d-secondary" onclick="goToSyndrome()">
     📚 探方识药
@@ -620,29 +620,29 @@ body {
   <div class="header-3d" style="position:relative;">
     <button class="back-btn-3d" onclick="goBack('screen-welcome')">←</button>
     <div class="lantern-icon" style="font-size:28px;margin-bottom:4px;">🔍</div>
-    <h1 style="font-size:20px;">因证寻方</h1>
-    <p>描述症状，AI匹配古籍名方</p>
+    <h1 style="font-size:20px;">古籍检索</h1>
+    <p>输入症状关键词，检索古籍名方记载</p>
   </div>
   
   <div class="ai-input-area">
     <div style="font-size:14px;color:#8d6e63;margin-bottom:12px;">
-      📝 请描述您的症状（如："最近总是鼻塞，流清鼻涕，遇冷打喷嚏"）
+      📝 请描述症状关键词（如："鼻塞，流清鼻涕，遇冷打喷嚏"）
     </div>
-    <textarea class="ai-textarea" id="symptom-input" placeholder="例如：&#10;· 最近总是鼻塞，流清鼻涕，遇冷打喷嚏&#10;· 秋天嗓子干疼，干咳少痰&#10;· 感冒发烧，头疼汗出，怕冷"></textarea>
+    <textarea class="ai-textarea" id="symptom-input" placeholder="例如：&#10;· 鼻塞，流清鼻涕，遇冷打喷嚏&#10;· 秋天嗓子干疼，干咳少痰&#10;· 感冒发烧，头疼汗出，怕冷"></textarea>
   </div>
   
-  <div class="section-title-3d">💡 快捷症状</div>
+  <div class="section-title-3d">💡 快捷关键词</div>
   <div class="keyword-cloud">
-    <span class="keyword-tag" onclick="fillSymptom('鼻塞流涕，喷嚏连连，遇风加重')">🤧 鼻塞喷嚏</span>
-    <span class="keyword-tag" onclick="fillSymptom('头疼发热，汗出恶风，鼻塞干呕')">🤒 感冒发烧</span>
-    <span class="keyword-tag" onclick="fillSymptom('咽干口燥，干咳少痰，声音嘶哑')">😷 咽干咳嗽</span>
-    <span class="keyword-tag" onclick="fillSymptom('胃脘胀痛，食欲不振，消化不良')">🍲 胃胀积食</span>
-    <span class="keyword-tag" onclick="fillSymptom('失眠多梦，心悸健忘，面色萎黄')">😴 失眠心悸</span>
-    <span class="keyword-tag" onclick="fillSymptom('腰膝酸软，畏寒肢冷，精神疲惫')">❄️ 畏寒腰酸</span>
+    <span class="keyword-tag" onclick="fillSymptom('鼻塞，流涕，喷嚏，遇风加重')">🤧 鼻塞喷嚏</span>
+    <span class="keyword-tag" onclick="fillSymptom('头疼，发热，汗出，恶风')">🤒 感冒发烧</span>
+    <span class="keyword-tag" onclick="fillSymptom('咽干，口燥，干咳，少痰')">😷 咽干咳嗽</span>
+    <span class="keyword-tag" onclick="fillSymptom('胃胀，食欲不振，消化不良')">🍲 胃胀积食</span>
+    <span class="keyword-tag" onclick="fillSymptom('失眠，多梦，心悸，健忘')">😴 失眠心悸</span>
+    <span class="keyword-tag" onclick="fillSymptom('腰酸，畏寒，肢冷，疲惫')">❄️ 畏寒腰酸</span>
   </div>
   
   <button class="btn-3d" onclick="analyzeSymptom()">
-    🔮 AI 辨证寻方
+    🔮 检索古籍名方
   </button>
   
   <div id="ai-result-area"></div>
@@ -650,10 +650,10 @@ body {
   <div class="card-3d" style="margin-top:20px;background:linear-gradient(145deg,#fff3e0,#fce4ec);">
     <div style="font-size:13px;color:#8d6e63;line-height:1.8;">
       <strong>⚠️ 重要声明：</strong><br>
-      · 本功能仅根据症状关键词匹配古籍记载的方剂，仅供参考学习<br>
-      · 不构成诊疗建议，不替代专业医师面诊<br>
-      · 中药方剂需在执业医师指导下使用，切勿自行抓药服用<br>
-      · 急重症请立即就医
+      · 本功能仅根据关键词检索古籍记载的方剂文献，供中医文化学习参考<br>
+      · 不构成任何诊疗建议，不替代专业医师面诊<br>
+      · 中药方剂涉及用药安全，切勿自行抓药服用<br>
+      · 如有身体不适，请及时前往正规医疗机构就诊
     </div>
   </div>
 </div>
@@ -794,17 +794,25 @@ body {
   </div>
   
   <div class="card-3d" style="text-align:center;">
-    <div style="font-size:16px;font-weight:700;color:#5d4037;margin-bottom:12px;">📤 分享你的药方笺</div>
-    <button class="btn-3d btn-3d-secondary" onclick="saveRecipeCard()" style="margin:0 auto;width:calc(100% - 32px);">
-      💾 保存药方笺图片
-    </button>
+    <div style="font-size:16px;font-weight:700;color:#5d4037;margin-bottom:12px;">📤 分享药方笺</div>
+    <div style="display:flex;gap:10px;justify-content:center;">
+      <button class="btn-3d" onclick="saveRecipeCard()" style="margin:0;flex:1;max-width:160px;font-size:14px;padding:12px;">
+        💾 保存图片
+      </button>
+      <button class="btn-3d btn-3d-secondary" onclick="copyLink()" style="margin:0;flex:1;max-width:160px;font-size:14px;padding:12px;">
+        📋 复制链接
+      </button>
+    </div>
+    <div style="font-size:12px;color:#a1887f;margin-top:10px;">
+      保存图片后可在微信/小红书分享
+    </div>
   </div>
   
   <button class="btn-3d" onclick="goToSyndrome()">
     📚 再学一方
   </button>
   <button class="btn-3d btn-3d-secondary" onclick="goToAIConsult()">
-    🔍 因证寻方
+    🔍 古籍检索
   </button>
 </div>
 
@@ -914,12 +922,12 @@ const prescriptions = [
 function analyzeSymptom() {
   const input = document.getElementById('symptom-input').value.trim();
   if (!input) {
-    showToast('请先描述您的症状');
+    showToast('请先输入症状关键词');
     return;
   }
   
   const resultArea = document.getElementById('ai-result-area');
-  resultArea.innerHTML = '<div style="text-align:center;padding:20px;"><div style="font-size:40px;">🔮</div><div style="color:#8d6e63;">AI正在辨证...</div></div>';
+  resultArea.innerHTML = '<div style="text-align:center;padding:20px;"><div style="font-size:40px;">📚</div><div style="color:#8d6e63;">正在检索古籍文献...</div></div>';
   
   setTimeout(() => {
     const matched = matchPrescription(input);
@@ -951,13 +959,13 @@ function renderAIResult(rx, input) {
   if (!rx) {
     resultArea.innerHTML = `
       <div class="ai-result-3d">
-        <div style="font-size:18px;font-weight:700;color:#c62828;margin-bottom:12px;">🤔 未能匹配到明确方剂</div>
+        <div style="font-size:18px;font-weight:700;color:#c62828;margin-bottom:12px;">📚 未检索到匹配方剂</div>
         <div style="font-size:14px;color:#5d4037;line-height:1.8;">
-          根据您描述的症状，暂未在数据库中找到高度匹配的古籍名方。<br><br>
-          建议您：<br>
+          根据输入的关键词，暂未在古籍数据库中检索到高度匹配的方剂记载。<br><br>
+          建议：<br>
           · 尝试使用更明确的症状关键词（如"鼻塞""干咳""畏寒"）<br>
           · 或前往<a href="#" onclick="goToSyndrome();return false;" style="color:#c62828;font-weight:700;">探方识药</a>模块学习经典方剂<br>
-          · 如症状持续，请及时就医
+          · 如有身体不适，请及时前往正规医疗机构就诊
         </div>
       </div>
     `;
@@ -968,7 +976,7 @@ function renderAIResult(rx, input) {
   
   resultArea.innerHTML = `
     <div class="ai-result-3d">
-      <div style="font-size:18px;font-weight:700;color:#c62828;margin-bottom:8px;">📜 推荐方剂</div>
+      <div style="font-size:18px;font-weight:700;color:#c62828;margin-bottom:8px;">📜 检索结果</div>
       <div style="font-size:24px;font-weight:700;color:#3e2723;margin-bottom:4px;">${rx.name}</div>
       <div style="font-size:13px;color:#8d6e63;margin-bottom:12px;">${rx.source} · ${rx.author}</div>
       
@@ -978,14 +986,14 @@ function renderAIResult(rx, input) {
       </div>
       
       <div style="margin-bottom:12px;">
-        <div style="font-size:14px;font-weight:700;color:#5d4037;margin-bottom:6px;">💊 组成</div>
+        <div style="font-size:14px;font-weight:700;color:#5d4037;margin-bottom:6px;">💊 古籍记载组成</div>
         <div style="display:flex;flex-wrap:wrap;gap:8px;">
           ${rx.herbs.map(h => '<span style="padding:4px 12px;background:linear-gradient(135deg,#e8dcc8,#d4c4a8);border-radius:12px;font-size:13px;color:#5d4037;">' + h.emoji + ' ' + h.name + ' ' + h.amount + '</span>').join('')}
         </div>
       </div>
       
       <div style="margin-bottom:12px;">
-        <div style="font-size:14px;font-weight:700;color:#5d4037;margin-bottom:6px;">🎯 主治</div>
+        <div style="font-size:14px;font-weight:700;color:#5d4037;margin-bottom:6px;">🎯 典籍主治记载</div>
         <div style="font-size:14px;color:#5d4037;line-height:1.8;">${rx.indication}</div>
       </div>
       
@@ -996,7 +1004,7 @@ function renderAIResult(rx, input) {
       
       <div style="background:linear-gradient(145deg,#ffebee,#fff3e0);border-radius:12px;padding:12px;margin-top:16px;">
         <div style="font-size:12px;color:#8d6e63;line-height:1.8;">
-          <strong>⚠️ 声明：</strong>以上为古籍记载方剂，仅供中医文化学习参考。是否适用需经专业中医师辨证，切勿自行抓药服用。
+          <strong>⚠️ 声明：</strong>以上为古籍文献记载，仅供中医文化学习参考。是否适用需经专业中医师辨证，切勿自行抓药服用。如有身体不适，请及时就医。
         </div>
       </div>
     </div>
@@ -1213,6 +1221,29 @@ function saveRecipeCard() {
   showToast('药方笺已保存！');
 }
 
+function copyLink() {
+  const url = window.location.href;
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(url).then(() => {
+      showToast('链接已复制，快去微信粘贴分享吧！');
+    }).catch(() => {
+      fallbackCopy(url);
+    });
+  } else {
+    fallbackCopy(url);
+  }
+}
+
+function fallbackCopy(text) {
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  document.body.appendChild(ta);
+  ta.select();
+  document.execCommand('copy');
+  document.body.removeChild(ta);
+  showToast('链接已复制，快去微信粘贴分享吧！');
+}
+
 // ===== Toast =====
 function showToast(msg) {
   const toast = document.getElementById('toast');
@@ -1224,7 +1255,7 @@ function showToast(msg) {
 
 <!-- Disclaimer -->
 <div class="disclaimer-3d">
-  ⚠️ 本应用仅供中医文化学习，不构成诊疗建议。中药方剂需在执业医师指导下使用，急重症请立即就医。
+  ⚠️ 本应用为中医文化科普工具，所有内容均来自古籍文献记载，仅供学习参考。不构成任何诊疗建议，不替代专业医疗诊断。如有身体不适，请立即前往正规医疗机构就诊，切勿自行用药。
 </div>
 
 </body>
