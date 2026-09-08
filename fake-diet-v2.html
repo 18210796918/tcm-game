@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>减脂针决心计算器 - 过把瘾就好</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  background: #f5f7fa;
+  min-height: 100vh;
+  overflow-x: hidden;
+  color: #333;
+}
+.app-container {
+  max-width: 430px;
+  margin: 0 auto;
+  min-height: 100vh;
+  background: #f5f7fa;
+  position: relative;
+  padding-bottom: 80px;
+}
+
+/* ===== Screens ===== */
+.screen {
+  display: none;
+  animation: fadeIn 0.4s ease;
+}
+.screen.active { display: block; }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== Header ===== */
+.header {
+  background: linear-gradient(135deg, #4f6ef7 0%, #8b5cf6 100%);
+  padding: 24px 20px;
+  text-align: center;
+  color: white;
+  position: relative;
+}
+.header h1 { font-size: 22px; font-weight: 700; }
+.header p { font-size: 13px; opacity: 0.9; margin-top: 4px; }
+
+/* ===== Product Cards ===== */
+.product-section { padding: 20px 16px; }
+.section-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.product-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.product-card {
+  background: white;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.3s;
+  position: relative;
+}
+.product-card:hover { transform: translateY(-2px); box-shadow: 0 4px 20px rgba(79,110,247,0.15); }
+.product-card.selected {
+  border-color: #4f6ef7;
+  background: linear-gradient(135deg, #f0f4ff 0%, #f5f0ff 100%);
+}
+.product-emoji { font-size: 40px; text-align: center; margin-bottom: 8px; }
+.product-name { font-size: 15px; font-weight: 700; color: #1a1a2e; text-align: center; }
+.product-type { font-size: 11px; color: #888; text-align: center; margin-top: 2px; }
+.product-price-original {
+  font-size: 12px;
+  color: #999;
+  text-decoration: line-through;
+  text-align: center;
+  margin-top: 6px;
+}
+.product-price-now {
+  font-size: 18px;
+  font-weight: 700;
+  color: #4f6ef7;
+  text-align: center;
+}
+.product-tag {
+  position: absolute;
+  top: -8px;
+  right: 8px;
+  background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+  color: white;
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+/* ===== Commit Button ===== */
+.commit-btn {
+  margin: 0 16px 20px;
+  width: calc(100% - 32px);
+  padding: 16px;
+  background: linear-gradient(135deg, #4f6ef7 0%, #8b5cf6 100%);
+  color: white;
+  border: none;
+  border-radius: 14px;
+  font-size: 17px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(79,110,247,0.3);
+  transition: all 0.3s;
+}
+.commit-btn:disabled {
+  background: #ccc;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+/* ===== Dose Selection ===== */
+.dose-screen { padding: 20px 16px; }
+.dose-product-info {
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  text-align: center;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+.dose-emoji { font-size: 50px; }
+.dose-name { font-size: 18px; font-weight: 700; color: #1a1a2e; margin-top: 8px; }
+.dose-desc { font-size: 13px; color: #888; margin-top: 4px; }
+
+.dose-options {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+.dose-option {
+  padding: 12px 20px;
+  background: white;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #555;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.dose-option.selected {
+  border-color: #4f6ef7;
+  background: linear-gradient(135deg, #4f6ef7, #8b5cf6);
+  color: white;
+}
+
+/* ===== Commitment Meter ===== */
+.commitment-area {
+  background: white;
+  border-radius: 20px;
+  padding: 30px 20px;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  margin-bottom: 20px;
+}
+.commitment-title { font-size: 16px; color: #666; margin-bottom: 8px; }
+.commitment-amount {
+  font-size: 48px;
+  font-weight: 800;
+  background: linear-gradient(135deg, #4f6ef7, #8b5cf6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.commitment-label { font-size: 14px; color: #999; margin-top: 4px; }
+
+.commitment-slider-container {
+  margin: 24px 0;
+  position: relative;
+}
+.commitment-slider {
+  width: 100%;
+  height: 12px;
+  border-radius: 6px;
+  background: #e8e8e8;
+  -webkit-appearance: none;
+  appearance: none;
+  outline: none;
+}
+.commitment-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #4f6ef7, #8b5cf6);
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(79,110,247,0.4);
+}
+.commitment-slider::-moz-range-thumb {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #4f6ef7, #8b5cf6);
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 10px rgba(79,110,247,0.4);
+}
+
+.hold-button {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #4f6ef7 0%, #8b5cf6 100%);
+  color: white;
+  border: none;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 8px 30px rgba(79,110,247,0.4);
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: transform 0.1s;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.hold-button:active { transform: scale(0.95); }
+.hold-button .btn-icon { font-size: 40px; }
+.hold-button .btn-text { font-size: 14px; opacity: 0.9; }
+
+.progress-ring-container {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  margin: 0 auto;
+}
+.progress-ring-svg {
+  transform: rotate(-90deg);
+}
+.progress-ring-bg {
+  fill: none;
+  stroke: #e8e8e8;
+  stroke-width: 8;
+}
+.progress-ring-fill {
+  fill: none;
+  stroke: url(#grad1);
+  stroke-width: 8;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.1s;
+}
+
+/* ===== Result Screen ===== */
+.result-screen { padding: 20px 16px; }
+.result-card {
+  background: white;
+  border-radius: 20px;
+  padding: 30px 20px;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  margin-bottom: 20px;
+}
+.result-emoji { font-size: 60px; }
+.result-title { font-size: 22px; font-weight: 700; color: #1a1a2e; margin: 12px 0; }
+.result-saved {
+  font-size: 42px;
+  font-weight: 800;
+  background: linear-gradient(135deg, #4f6ef7, #8b5cf6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.result-saved-label { font-size: 14px; color: #666; margin-bottom: 16px; }
+.result-equivalent {
+  background: linear-gradient(135deg, #f0f4ff 0%, #fff0f5 100%);
+  border-radius: 12px;
+  padding: 16px;
+  margin: 16px 0;
+}
+.result-equivalent-text { font-size: 15px; color: #555; line-height: 1.8; }
+.result-equivalent-highlight { font-weight: 700; color: #4f6ef7; }
+
+/* ===== Poster Card ===== */
+.poster-card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 16px;
+  padding: 30px 24px;
+  color: white;
+  text-align: center;
+  margin: 20px 0;
+  position: relative;
+  overflow: hidden;
+}
+.poster-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+}
+.poster-title { font-size: 20px; font-weight: 700; position: relative; z-index: 1; }
+.poster-amount { font-size: 48px; font-weight: 800; position: relative; z-index: 1; margin: 12px 0; }
+.poster-subtitle { font-size: 14px; opacity: 0.9; position: relative; z-index: 1; }
+.poster-footer {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255,255,255,0.2);
+  font-size: 12px;
+  opacity: 0.8;
+  position: relative;
+  z-index: 1;
+}
+
+/* ===== Share Buttons ===== */
+.share-btns {
+  display: flex;
+  gap: 10px;
+  margin: 16px 0;
+}
+.share-btn {
+  flex: 1;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.share-btn-wechat {
+  background: linear-gradient(135deg, #07C160, #05a350);
+  color: white;
+  box-shadow: 0 4px 12px rgba(7,193,96,0.3);
+}
+.share-btn-save {
+  background: white;
+  color: #4f6ef7;
+  border: 2px solid #4f6ef7;
+}
+
+/* ===== Science Entry ===== */
+.science-entry {
+  background: linear-gradient(135deg, #f0f4ff 0%, #e8f5e9 100%);
+  border-radius: 16px;
+  padding: 24px 20px;
+  margin: 20px 0;
+  border: 2px dashed #4f6ef7;
+}
+.science-entry-title { font-size: 18px; font-weight: 700; color: #1a1a2e; margin-bottom: 8px; }
+.science-entry-desc { font-size: 14px; color: #555; line-height: 1.6; margin-bottom: 16px; }
+.science-entry-btn {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, #4f6ef7 0%, #8b5cf6 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* ===== Form Screen ===== */
+.form-screen { padding: 20px 16px; }
+.form-card {
+  background: white;
+  border-radius: 16px;
+  padding: 24px 20px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  margin-bottom: 16px;
+}
+.form-group { margin-bottom: 20px; }
+.form-label { font-size: 14px; font-weight: 600; color: #333; margin-bottom: 8px; display: block; }
+.form-input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 2px solid #e8e8e8;
+  border-radius: 10px;
+  font-size: 15px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+.form-input:focus { border-color: #4f6ef7; }
+.form-select {
+  width: 100%;
+  padding: 12px 14px;
+  border: 2px solid #e8e8e8;
+  border-radius: 10px;
+  font-size: 15px;
+  outline: none;
+  background: white;
+}
+.radio-group { display: flex; gap: 10px; flex-wrap: wrap; }
+.radio-option {
+  padding: 10px 16px;
+  background: #f5f5f5;
+  border-radius: 10px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: 2px solid transparent;
+}
+.radio-option.selected {
+  background: linear-gradient(135deg, #4f6ef7, #8b5cf6);
+  color: white;
+  border-color: transparent;
+}
+
+/* ===== AI Result ===== */
+.ai-result {
+  background: white;
+  border-radius: 16px;
+  padding: 24px 20px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+.ai-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.ai-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #4f6ef7, #8b5cf6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}
+.ai-title { font-size: 18px; font-weight: 700; color: #1a1a2e; }
+.ai-subtitle { font-size: 12px; color: #888; }
+
+.ai-section { margin-bottom: 20px; }
+.ai-section-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #4f6ef7;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.ai-section-content {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.8;
+  background: #f8f9fa;
+  padding: 14px;
+  border-radius: 10px;
+}
+.ai-tag {
+  display: inline-block;
+  padding: 4px 10px;
+  background: linear-gradient(135deg, #e3f2fd, #f3e5f5);
+  border-radius: 12px;
+  font-size: 12px;
+  color: #4f6ef7;
+  margin: 4px 4px 0 0;
+}
+
+/* ===== Disclaimer ===== */
+.disclaimer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(10px);
+  padding: 10px 16px;
+  font-size: 11px;
+  color: #999;
+  text-align: center;
+  border-top: 1px solid #eee;
+  z-index: 100;
+}
+.disclaimer a { color: #4f6ef7; text-decoration: none; }
+
+/* ===== Toast ===== */
+.toast {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-100px);
+  background: #333;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-size: 14px;
+  z-index: 300;
+  transition: transform 0.3s;
+}
+.toast.show { transform: translateX(-50%) translateY(0); }
+
+/* ===== Back Button ===== */
+.back-btn {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  border: none;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* ===== Hidden canvas for poster generation ===== */
+#posterCanvas { display: none; }
+
+/* ===== WeChat Tip ===== */
+.wechat-tip {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.85);
+  color: white;
+  padding: 40px 20px;
+  text-align: center;
+  z-index: 500;
+}
+.wechat-tip.show { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.wechat-tip-arrow { font-size: 40px; margin-bottom: 20px; }
+</style>
+</head>
+<body>
+
+<div class="app-container">
+  <svg width="0" height="0" style="position:absolute;">
+    <defs>
+      <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" style="stop-color:#4f6ef7" />
+        <stop offset="100%" style="stop-color:#8b5cf6" />
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <!-- ===== SCREEN 1: Product Selection ===== -->
+  <div class="screen active" id="screen-products">
+    <div class="header">
+      <h1>💉 减脂针决心计算器</h1>
+      <p>看看你的"减肥决心"值多少钱</p>
+    </div>
+    
+    <div class="product-section">
+      <div class="section-title">📋 选择你想"试"的方案</div>
+      <div class="product-grid">
+        <div class="product-card" data-product="0" onclick="selectProduct(this, 0)">
+          <div class="product-tag">热门</div>
+          <div class="product-emoji">💉</div>
+          <div class="product-name">控糖减重笔</div>
+          <div class="product-type">周制剂注射</div>
+          <div class="product-price-original">原价 ¥2,680/月</div>
+          <div class="product-price-now">¥0 体验</div>
+        </div>
+        <div class="product-card" data-product="1" onclick="selectProduct(this, 1)">
+          <div class="product-emoji">🎯</div>
+          <div class="product-name">双效控重笔</div>
+          <div class="product-type">周制剂注射</div>
+          <div class="product-price-original">原价 ¥3,280/月</div>
+          <div class="product-price-now">¥0 体验</div>
+        </div>
+        <div class="product-card" data-product="2" onclick="selectProduct(this, 2)">
+          <div class="product-emoji">📅</div>
+          <div class="product-name">日常控重笔</div>
+          <div class="product-type">日制剂注射</div>
+          <div class="product-price-original">原价 ¥1,880/月</div>
+          <div class="product-price-now">¥0 体验</div>
+        </div>
+        <div class="product-card" data-product="3" onclick="selectProduct(this, 3)">
+          <div class="product-tag">口服</div>
+          <div class="product-emoji">💊</div>
+          <div class="product-name">脂肪阻断胶囊</div>
+          <div class="product-type">口服胶囊</div>
+          <div class="product-price-original">原价 ¥980/月</div>
+          <div class="product-price-now">¥0 体验</div>
+        </div>
+      </div>
+    </div>
+    
+    <button class="commit-btn" id="btn-to-dose" onclick="goToDose()" disabled>
+      下一步：投入决心 💪
+    </button>
+  </div>
+
+  <!-- ===== SCREEN 2: Dose & Commitment ===== -->
+  <div class="screen" id="screen-dose">
+    <div class="header" style="position:relative;">
+      <button class="back-btn" onclick="goBack('screen-products')">←</button>
+      <h1>💪 投入你的决心</h1>
+      <p>长按按钮，积累减脂意志</p>
+    </div>
+    
+    <div class="dose-screen">
+      <div class="dose-product-info">
+        <div class="dose-emoji" id="dose-emoji">💉</div>
+        <div class="dose-name" id="dose-name">控糖减重笔</div>
+        <div class="dose-desc" id="dose-desc">选择你的起始决心值</div>
+      </div>
+      
+      <div class="dose-options" id="dose-options">
+        <div class="dose-option selected" data-dose="0" onclick="selectDose(this, 0)">2.5mg</div>
+        <div class="dose-option" data-dose="1" onclick="selectDose(this, 1)">5mg</div>
+        <div class="dose-option" data-dose="2" onclick="selectDose(this, 2)">7.5mg</div>
+        <div class="dose-option" data-dose="3" onclick="selectDose(this, 3)">10mg</div>
+        <div class="dose-option" data-dose="4" onclick="selectDose(this, 4)">12.5mg</div>
+        <div class="dose-option" data-dose="5" onclick="selectDose(this, 5)">15mg</div>
+      </div>
+      
+      <div class="commitment-area">
+        <div class="commitment-title">本次模拟投入</div>
+        <div class="commitment-amount" id="commit-amount">¥0</div>
+        <div class="commitment-label">长按下方按钮投入决心</div>
+        
+        <div class="progress-ring-container" id="progress-container" style="display:none;">
+          <svg class="progress-ring-svg" width="220" height="220">
+            <circle class="progress-ring-bg" cx="110" cy="110" r="100"/>
+            <circle class="progress-ring-fill" id="progress-ring" cx="110" cy="110" r="100"
+              stroke-dasharray="628" stroke-dashoffset="628"/>
+          </svg>
+        </div>
+        
+        <button class="hold-button" id="hold-btn"
+          ontouchstart="startHolding(event)" 
+          ontouchend="stopHolding(event)"
+          onmousedown="startHolding(event)" 
+          onmouseup="stopHolding(event)"
+          onmouseleave="stopHolding(event)">
+          <span class="btn-icon">👆</span>
+          <span class="btn-text">长按投入决心</span>
+        </button>
+        
+        <div class="commitment-slider-container">
+          <input type="range" class="commitment-slider" id="commit-slider" 
+            min="0" max="100" value="0" oninput="onSliderChange(this.value)">
+        </div>
+      </div>
+      
+      <button class="commit-btn" onclick="goToResult()">
+        查看我的决心账单 📊
+      </button>
+    </div>
+  </div>
+
+  <!-- ===== SCREEN 3: Result & Poster ===== -->
+  <div class="screen" id="screen-result">
+    <div class="header" style="position:relative;">
+      <button class="back-btn" onclick="goBack('screen-dose')">←</button>
+      <h1>🎉 决心投入完成</h1>
+      <p>你的意志力省下了真金白银</p>
+    </div>
+    
+    <div class="result-screen">
+      <div class="result-card">
+        <div class="result-emoji">🎯</div>
+        <div class="result-title">恭喜你！</div>
+        <div class="result-saved" id="result-saved">¥0</div>
+        <div class="result-saved-label">本次模拟已省下</div>
+        
+        <div class="result-equivalent">
+          <div class="result-equivalent-text" id="result-equivalent">
+            省下的钱可以<br>
+            <span class="result-equivalent-highlight">买 15 杯奶茶 🧋</span><br>
+            或 <span class="result-equivalent-highlight">1 套健身装备 👟</span><br>
+            或 <span class="result-equivalent-highlight">2 个月通勤卡 🚇</span>
+          </div>
+        </div>
+        
+        <div style="font-size:13px;color:#888;margin-top:12px;">
+          💡 提示：模拟体验仅供娱乐，不构成医疗建议
+        </div>
+      </div>
+      
+      <!-- Poster Preview -->
+      <div class="poster-card" id="poster-preview">
+        <div class="poster-title">💪 我的减脂决心值</div>
+        <div class="poster-amount" id="poster-amount">¥0</div>
+        <div class="poster-subtitle">已通过虚拟体验"注射"完成</div>
+        <div class="poster-footer">
+          扫码测测你的决心值 →<br>
+          <span style="font-size:10px;">减脂针决心计算器</span>
+        </div>
+      </div>
+      
+      <div class="share-btns">
+        <button class="share-btn share-btn-wechat" onclick="sharePoster()">📤 分享给好友</button>
+        <button class="share-btn share-btn-save" onclick="savePoster()">💾 保存海报</button>
+      </div>
+      
+      <!-- Science Entry -->
+      <div class="science-entry">
+        <div class="science-entry-title">🧠 真正想科学减重？</div>
+        <div class="science-entry-desc">
+          基于你的身高、体重、生活习惯，AI 可生成个性化减重方案，包括运动计划、饮食建议、营养补剂推荐等。
+        </div>
+        <button class="science-entry-btn" onclick="goToScience()">
+          获取我的 AI 减重方案 →
+        </button>
+      </div>
+      
+      <button class="commit-btn" onclick="goToProducts()" style="background:#f0f0f0;color:#666;box-shadow:none;">
+        ↩️ 再体验一次
+      </button>
+    </div>
+  </div>
+
+  <!-- ===== SCREEN 4: Science Form ===== -->
+  <div class="screen" id="screen-form">
+    <div class="header" style="position:relative;">
+      <button class="back-btn" onclick="goBack('screen-result')">←</button>
+      <h1>📝 身体数据收集</h1>
+      <p>AI 需要了解你，才能帮到你</p>
+    </div>
+    
+    <div class="form-screen">
+      <div class="form-card">
+        <div class="form-group">
+          <label class="form-label">📏 身高 (cm)</label>
+          <input type="number" class="form-input" id="form-height" placeholder="例如：165" min="100" max="250">
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">⚖️ 当前体重 (kg)</label>
+          <input type="number" class="form-input" id="form-weight" placeholder="例如：60" min="30" max="200">
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">🎯 目标体重 (kg)</label>
+          <input type="number" class="form-input" id="form-target" placeholder="例如：55" min="30" max="200">
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">🎂 年龄段</label>
+          <div class="radio-group">
+            <div class="radio-option" data-age="18-25" onclick="selectRadio(this, 'age')">18-25</div>
+            <div class="radio-option" data-age="26-35" onclick="selectRadio(this, 'age')">26-35</div>
+            <div class="radio-option" data-age="36-45" onclick="selectRadio(this, 'age')">36-45</div>
+            <div class="radio-option" data-age="46+" onclick="selectRadio(this, 'age')">46+</div>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">🏃 每周运动频率</label>
+          <div class="radio-group">
+            <div class="radio-option" data-exercise="0" onclick="selectRadio(this, 'exercise')">几乎不</div>
+            <div class="radio-option" data-exercise="1-2" onclick="selectRadio(this, 'exercise')">1-2次</div>
+            <div class="radio-option" data-exercise="3-4" onclick="selectRadio(this, 'exercise')">3-4次</div>
+            <div class="radio-option" data-exercise="5+" onclick="selectRadio(this, 'exercise')">5次以上</div>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">🍔 饮食习惯</label>
+          <div class="radio-group">
+            <div class="radio-option" data-diet="规律" onclick="selectRadio(this, 'diet')">规律三餐</div>
+            <div class="radio-option" data-diet="外卖" onclick="selectRadio(this, 'diet')">外卖为主</div>
+            <div class="radio-option" data-diet="夜宵" onclick="selectRadio(this, 'diet')">爱吃夜宵</div>
+            <div class="radio-option" data-diet="节食" onclick="selectRadio(this, 'diet')">经常节食</div>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">😴 睡眠质量</label>
+          <div class="radio-group">
+            <div class="radio-option" data-sleep="好" onclick="selectRadio(this, 'sleep')">很好</div>
+            <div class="radio-option" data-sleep="一般" onclick="selectRadio(this, 'sleep')">一般</div>
+            <div class="radio-option" data-sleep="差" onclick="selectRadio(this, 'sleep')">经常熬夜</div>
+            <div class="radio-option" data-sleep="失眠" onclick="selectRadio(this, 'sleep')">失眠</div>
+          </div>
+        </div>
+      </div>
+      
+      <button class="commit-btn" onclick="generateAIPlan()">
+        🧠 AI 生成我的减重方案
+      </button>
+    </div>
+  </div>
+
+  <!-- ===== SCREEN 5: AI Plan Result ===== -->
+  <div class="screen" id="screen-ai">
+    <div class="header" style="position:relative;">
+      <button class="back-btn" onclick="goBack('screen-form')">←</button>
+      <h1>📋 你的 AI 减重方案</h1>
+      <p>基于数据分析的个性化建议</p>
+    </div>
+    
+    <div class="form-screen">
+      <div class="ai-result" id="ai-result">
+        <!-- Generated by JS -->
+      </div>
+      
+      <div class="science-entry" style="margin-top:20px;background:linear-gradient(135deg,#fff3e0,#fce4ec);">
+        <div class="science-entry-title">⚠️ 重要提醒</div>
+        <div class="science-entry-desc">
+          以上方案由 AI 基于通用知识生成，仅供参考。BMI≥28 或伴有高血压/糖尿病等慢性病者，建议优先前往医院内分泌科或营养科就诊。
+        </div>
+      </div>
+      
+      <button class="commit-btn" onclick="shareAIPlan()">
+        📤 分享我的方案
+      </button>
+      
+      <button class="commit-btn" onclick="goToProducts()" style="background:#f0f0f0;color:#666;box-shadow:none;margin-top:10px;">
+        ↩️ 返回首页
+      </button>
+    </div>
+  </div>
+
+</div>
+
+<!-- WeChat Share Tip -->
+<div class="wechat-tip" id="wechatTip" onclick="this.classList.remove('show')">
+  <div class="wechat-tip-arrow">👆</div>
+  <div style="font-size:18px;font-weight:700;margin-bottom:12px;">点击右上角菜单</div>
+  <div style="font-size:14px;opacity:0.9;">选择「发送给朋友」或「分享到朋友圈」<br>把这份决心传递给更多人 💪</div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- Hidden Canvas for Poster -->
+<canvas id="posterCanvas" width="750" height="1334"></canvas>
+
+<script>
+// ===== Data =====
+const products = [
+  { name: '控糖减重笔', emoji: '💉', type: '周制剂注射', original: 2680, doseFactor: 1.0 },
+  { name: '双效控重笔', emoji: '🎯', type: '周制剂注射', original: 3280, doseFactor: 1.2 },
+  { name: '日常控重笔', emoji: '📅', type: '日制剂注射', original: 1880, doseFactor: 0.8 },
+  { name: '脂肪阻断胶囊', emoji: '💊', type: '口服胶囊', original: 980, doseFactor: 0.5 }
+];
+
+const equivalents = [
+  { max: 500, items: ['5杯奶茶 🧋', '2顿火锅 🍲', '1个月视频会员 📺'] },
+  { max: 1000, items: ['10杯奶茶 🧋', '1套运动装备 👟', '3个月通勤卡 🚇'] },
+  { max: 1500, items: ['15杯奶茶 🧋', '1套护肤品 💄', '2个月健身卡 🏋️'] },
+  { max: 2500, items: ['25杯奶茶 🧋', '1双限量球鞋 👟', '1次周边游 🚗'] },
+  { max: 3500, items: ['35杯奶茶 🧋', '1台Switch Lite 🎮', '1次省内旅行 ✈️'] },
+  { max: 5000, items: ['50杯奶茶 🧋', '1台iPad 📱', '1次跨省旅行 🌏'] }
+];
+
+// ===== State =====
+let state = {
+  selectedProduct: null,
+  selectedDose: 0,
+  commitmentValue: 0,
+  formData: {}
+};
+
+// ===== Navigation =====
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function goBack(screenId) {
+  showScreen(screenId);
+}
+
+function goToProducts() {
+  state.selectedProduct = null;
+  state.selectedDose = 0;
+  state.commitmentValue = 0;
+  document.getElementById('commit-slider').value = 0;
+  document.getElementById('commit-amount').textContent = '¥0';
+  document.querySelectorAll('.product-card').forEach(c => c.classList.remove('selected'));
+  document.getElementById('btn-to-dose').disabled = true;
+  showScreen('screen-products');
+}
+
+// ===== Product Selection =====
+function selectProduct(el, index) {
+  document.querySelectorAll('.product-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  state.selectedProduct = index;
+  document.getElementById('btn-to-dose').disabled = false;
+}
+
+function goToDose() {
+  if (state.selectedProduct === null) return;
+  const p = products[state.selectedProduct];
+  document.getElementById('dose-emoji').textContent = p.emoji;
+  document.getElementById('dose-name').textContent = p.name;
+  document.getElementById('dose-desc').textContent = p.type + ' · 选择起始决心值';
+  showScreen('screen-dose');
+}
+
+// ===== Dose Selection =====
+function selectDose(el, index) {
+  document.querySelectorAll('.dose-option').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  state.selectedDose = index;
+}
+
+// ===== Commitment Holding =====
+let holdInterval = null;
+let holdValue = 0;
+const HOLD_MAX = 100;
+
+function startHolding(e) {
+  if (e) e.preventDefault();
+  if (holdInterval) return;
+  
+  holdValue = state.commitmentValue;
+  holdInterval = setInterval(() => {
+    holdValue += 2;
+    if (holdValue > HOLD_MAX) holdValue = HOLD_MAX;
+    updateCommitment(holdValue);
+    
+    // Vibrate on mobile
+    if (navigator.vibrate && holdValue % 10 === 0) {
+      navigator.vibrate(20);
+    }
+  }, 50);
+}
+
+function stopHolding(e) {
+  if (e) e.preventDefault();
+  if (holdInterval) {
+    clearInterval(holdInterval);
+    holdInterval = null;
+  }
+  state.commitmentValue = holdValue;
+}
+
+function onSliderChange(val) {
+  holdValue = parseInt(val);
+  updateCommitment(holdValue);
+  state.commitmentValue = holdValue;
+}
+
+function updateCommitment(val) {
+  const p = products[state.selectedProduct];
+  const amount = Math.round(p.original * p.doseFactor * (val / 100));
+  document.getElementById('commit-amount').textContent = '¥' + amount.toLocaleString();
+  document.getElementById('commit-slider').value = val;
+  
+  // Update ring progress
+  const ring = document.getElementById('progress-ring');
+  if (ring) {
+    const circumference = 2 * Math.PI * 100;
+    const offset = circumference - (val / 100) * circumference;
+    ring.style.strokeDashoffset = offset;
+  }
+}
+
+// ===== Result =====
+function goToResult() {
+  const p = products[state.selectedProduct];
+  const saved = Math.round(p.original * p.doseFactor * (state.commitmentValue / 100));
+  
+  document.getElementById('result-saved').textContent = '¥' + saved.toLocaleString();
+  document.getElementById('poster-amount').textContent = '¥' + saved.toLocaleString();
+  
+  // Find equivalent
+  let eqText = '';
+  for (const eq of equivalents) {
+    if (saved <= eq.max) {
+      eqText = '省下的钱可以<br>' + eq.items.map(i => '<span class="result-equivalent-highlight">' + i + '</span>').join('<br>');
+      break;
+    }
+  }
+  if (!eqText) {
+    eqText = '省下的钱可以<br><span class="result-equivalent-highlight">请全家吃顿大餐 🍽️</span>';
+  }
+  document.getElementById('result-equivalent').innerHTML = eqText;
+  
+  showScreen('screen-result');
+}
+
+// ===== Poster Generation =====
+function generatePosterImage() {
+  const canvas = document.getElementById('posterCanvas');
+  const ctx = canvas.getContext('2d');
+  const w = 750, h = 1334;
+  
+  // Background
+  const grad = ctx.createLinearGradient(0, 0, w, h);
+  grad.addColorStop(0, '#667eea');
+  grad.addColorStop(1, '#764ba2');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, w, h);
+  
+  // Decorative circles
+  ctx.fillStyle = 'rgba(255,255,255,0.05)';
+  ctx.beginPath();
+  ctx.arc(w/2, h/3, 300, 0, Math.PI * 2);
+  ctx.fill();
+  
+  // Title
+  ctx.textAlign = 'center';
+  ctx.fillStyle = 'white';
+  ctx.font = 'bold 48px PingFang SC, sans-serif';
+  ctx.fillText('💪 我的减脂决心值', w/2, 200);
+  
+  // Product info
+  const p = products[state.selectedProduct];
+  ctx.font = '32px PingFang SC, sans-serif';
+  ctx.fillText(p.emoji + ' ' + p.name, w/2, 300);
+  
+  // Amount
+  const saved = Math.round(p.original * p.doseFactor * (state.commitmentValue / 100));
+  ctx.font = 'bold 120px PingFang SC, sans-serif';
+  ctx.fillText('¥' + saved.toLocaleString(), w/2, 500);
+  
+  ctx.font = '28px PingFang SC, sans-serif';
+  ctx.fillStyle = 'rgba(255,255,255,0.8)';
+  ctx.fillText('本次模拟体验已省下', w/2, 560);
+  
+  // Divider
+  ctx.strokeStyle = 'rgba(255,255,255,0.3)';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(150, 620);
+  ctx.lineTo(600, 620);
+  ctx.stroke();
+  
+  // Equivalent
+  ctx.fillStyle = 'white';
+  ctx.font = '30px PingFang SC, sans-serif';
+  ctx.fillText('省下的钱可以：', w/2, 700);
+  
+  ctx.font = '28px PingFang SC, sans-serif';
+  ctx.fillStyle = 'rgba(255,255,255,0.9)';
+  const eqs = equivalents.find(e => saved <= e.max)?.items || ['请全家吃顿大餐 🍽️'];
+  eqs.slice(0, 3).forEach((item, i) => {
+    ctx.fillText(item, w/2, 780 + i * 60);
+  });
+  
+  // QR placeholder
+  ctx.fillStyle = 'white';
+  ctx.fillRect(275, 1020, 200, 200);
+  ctx.fillStyle = '#333';
+  ctx.font = '20px PingFang SC, sans-serif';
+  ctx.fillText('扫码测决心', w/2, 1260);
+  
+  // Disclaimer
+  ctx.font = '20px PingFang SC, sans-serif';
+  ctx.fillStyle = 'rgba(255,255,255,0.6)';
+  ctx.fillText('本体验不宣传任何药品，无减重效果', w/2, 1300);
+  
+  return canvas.toDataURL('image/png');
+}
+
+function sharePoster() {
+  if (/MicroMessenger/i.test(navigator.userAgent)) {
+    document.getElementById('wechatTip').classList.add('show');
+  } else if (navigator.share) {
+    const p = products[state.selectedProduct];
+    const saved = Math.round(p.original * p.doseFactor * (state.commitmentValue / 100));
+    navigator.share({
+      title: '我的减脂决心值 ¥' + saved.toLocaleString(),
+      text: '刚在「减脂针决心计算器」完成虚拟体验，省下了' + saved + '元！',
+      url: window.location.href
+    }).catch(() => {});
+  } else {
+    showToast('请截图保存海报，发给好友 💪');
+  }
+}
+
+function savePoster() {
+  const dataUrl = generatePosterImage();
+  const link = document.createElement('a');
+  link.download = '我的减脂决心值.png';
+  link.href = dataUrl;
+  link.click();
+  showToast('海报已保存到相册！');
+}
+
+// ===== Science Form =====
+function goToScience() {
+  showScreen('screen-form');
+}
+
+function selectRadio(el, group) {
+  const parent = el.parentElement;
+  parent.querySelectorAll('.radio-option').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  state.formData[group] = el.dataset[group];
+}
+
+function generateAIPlan() {
+  const height = parseFloat(document.getElementById('form-height').value);
+  const weight = parseFloat(document.getElementById('form-weight').value);
+  const target = parseFloat(document.getElementById('form-target').value);
+  
+  if (!height || !weight || !target) {
+    showToast('请填写完整的身高、体重和目标体重');
+    return;
+  }
+  if (!state.formData.age || !state.formData.exercise || !state.formData.diet || !state.formData.sleep) {
+    showToast('请完成所有选项');
+    return;
+  }
+  
+  const bmi = (weight / (height/100) ** 2).toFixed(1);
+  const loseKg = (weight - target).toFixed(1);
+  const bmiCategory = bmi < 18.5 ? '偏瘦' : bmi < 24 ? '正常' : bmi < 28 ? '超重' : '肥胖';
+  
+  // Generate plan based on inputs
+  const exercisePlan = state.formData.exercise === '0' 
+    ? '建议从每天快走30分钟开始，逐步增加到每周3次有氧+2次力量训练。' 
+    : state.formData.exercise === '5+' 
+    ? '你的运动基础很好！建议保持现有频率，增加HIIT训练提升代谢。'
+    : '建议增加到每周4-5次运动，结合有氧（慢跑/游泳）和力量训练。';
+  
+  const dietPlan = state.formData.diet === '外卖'
+    ? '尽量减少外卖频率，学会自己做饭。控制每餐蛋白质:蔬菜:碳水 = 3:4:3。'
+    : state.formData.diet === '夜宵'
+    ? '戒掉夜宵是最快见效的方法。晚餐后禁食，实在饿可吃少量坚果或酸奶。'
+    : state.formData.diet === '节食'
+    ? '停止节食！长期低热量会导致代谢下降。建议每天吃够基础代谢的80%。'
+    : '保持规律三餐，注意蛋白质摄入（每公斤体重1.2-1.5g）。';
+  
+  const sleepPlan = state.formData.sleep === '差' || state.formData.sleep === '失眠'
+    ? '睡眠是减脂的关键！建议23点前入睡，保证7-8小时。睡前1小时远离手机。'
+    : '保持优质睡眠，睡前可补充镁元素或喝温牛奶助眠。';
+  
+  const supplementTags = ['蛋白粉', '复合维生素', '鱼油', '益生菌'];
+  if (state.formData.exercise === '0') supplementTags.push('左旋肉碱（配合运动）');
+  if (state.formData.sleep === '差') supplementTags.push('褪黑素（短期）');
+  if (bmi > 28) supplementTags.push('建议就医评估');
+  
+  const doctorAdvice = bmi > 28 
+    ? '⚠️ 你的BMI已达到' + bmi + '（肥胖范围），强烈建议先去医院内分泌科做全面检查，排除多囊卵巢综合征、甲减等病理性肥胖。医生可能会建议使用GLP-1类药物，但必须在专业指导下使用。'
+    : bmi > 24
+    ? '你的BMI为' + bmi + '（超重范围）。建议先通过饮食+运动干预3个月，如效果不佳再考虑就医。'
+    : '你的BMI为' + bmi + '，属于' + bmiCategory + '范围。通过科学饮食和运动即可达到目标。';
+  
+  const html = `
+    <div class="ai-header">
+      <div class="ai-avatar">🧠</div>
+      <div>
+        <div class="ai-title">AI 减重方案</div>
+        <div class="ai-subtitle">基于你的身体数据生成</div>
+      </div>
+    </div>
+    
+    <div class="ai-section">
+      <div class="ai-section-title">📊 身体数据分析</div>
+      <div class="ai-section-content">
+        身高 ${height}cm · 体重 ${weight}kg · 目标 ${target}kg<br>
+        BMI: <strong>${bmi}</strong>（${bmiCategory}）<br>
+        需减重: <strong>${loseKg}kg</strong>
+      </div>
+    </div>
+    
+    <div class="ai-section">
+      <div class="ai-section-title">🏃 运动计划</div>
+      <div class="ai-section-content">${exercisePlan}</div>
+    </div>
+    
+    <div class="ai-section">
+      <div class="ai-section-title">🥗 饮食建议</div>
+      <div class="ai-section-content">${dietPlan}</div>
+    </div>
+    
+    <div class="ai-section">
+      <div class="ai-section-title">😴 睡眠优化</div>
+      <div class="ai-section-content">${sleepPlan}</div>
+    </div>
+    
+    <div class="ai-section">
+      <div class="ai-section-title">💊 营养补剂参考</div>
+      <div class="ai-section-content">
+        ${supplementTags.map(t => '<span class="ai-tag">' + t + '</span>').join('')}
+        <br><small style="color:#999;">仅供参考，购买前请咨询医生或营养师</small>
+      </div>
+    </div>
+    
+    <div class="ai-section">
+      <div class="ai-section-title">🏥 就医建议</div>
+      <div class="ai-section-content">${doctorAdvice}</div>
+    </div>
+    
+    <div class="ai-section">
+      <div class="ai-section-title">📅 3个月目标</div>
+      <div class="ai-section-content">
+        第1个月：建立运动习惯，减 ${(loseKg * 0.3).toFixed(1)}kg<br>
+        第2个月：优化饮食结构，再减 ${(loseKg * 0.4).toFixed(1)}kg<br>
+        第3个月：巩固成果，冲刺目标体重
+      </div>
+    </div>
+  `;
+  
+  document.getElementById('ai-result').innerHTML = html;
+  showScreen('screen-ai');
+}
+
+function shareAIPlan() {
+  if (navigator.share) {
+    navigator.share({
+      title: '我的AI减重方案',
+      text: '刚生成了个性化的AI减重方案，包含运动、饮食、补剂建议！',
+      url: window.location.href
+    }).catch(() => {});
+  } else {
+    showToast('请截图保存，分享给好友 📤');
+  }
+}
+
+// ===== Toast =====
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2500);
+}
+</script>
+
+<!-- Disclaimer -->
+<div class="disclaimer">
+  ⚠️ 本体验仅供娱乐，不宣传任何药品，无减重效果。是否使用减重药物需经医生面诊评估。<br>
+  <a href="#" onclick="alert('本页面为虚拟体验工具，不构成医疗建议。如有减重需求，请咨询专业医生。');return false;">了解更多</a>
+</div>
+
+</body>
+</html>
