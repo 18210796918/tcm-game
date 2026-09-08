@@ -3,30 +3,44 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>减脂针决心计算器 - 过把瘾就好</title>
+<title>杏林妙手 - 中医名方探秘</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
-  background: #f5f7fa;
+  font-family: 'PingFang SC', 'Microsoft YaHei', 'Noto Serif SC', serif;
+  background: #f4ecd8;
   min-height: 100vh;
   overflow-x: hidden;
-  color: #333;
+  color: #3e2723;
 }
 .app-container {
   max-width: 430px;
   margin: 0 auto;
   min-height: 100vh;
-  background: #f5f7fa;
+  background: linear-gradient(180deg, #f4ecd8 0%, #ede0c4 100%);
   position: relative;
-  padding-bottom: 80px;
+}
+
+/* ===== Animations ===== */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+@keyframes inkSpread {
+  0% { transform: scale(0); opacity: 0; }
+  100% { transform: scale(1); opacity: 0.1; }
+}
+@keyframes steam {
+  0% { transform: translateY(0) scaleX(1); opacity: 0.6; }
+  100% { transform: translateY(-60px) scaleX(1.5); opacity: 0; }
+}
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
 }
 
 /* ===== Screens ===== */
-.screen {
-  display: none;
-  animation: fadeIn 0.4s ease;
-}
+.screen { display: none; animation: fadeIn 0.5s ease; }
 .screen.active { display: block; }
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
@@ -35,459 +49,328 @@ body {
 
 /* ===== Header ===== */
 .header {
-  background: linear-gradient(135deg, #4f6ef7 0%, #8b5cf6 100%);
-  padding: 24px 20px;
+  background: linear-gradient(135deg, #5d4037 0%, #3e2723 100%);
+  padding: 28px 20px;
   text-align: center;
-  color: white;
+  color: #f4ecd8;
+  position: relative;
+  overflow: hidden;
+}
+.header::before {
+  content: '';
+  position: absolute;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background: radial-gradient(circle, rgba(244,236,216,0.05) 0%, transparent 70%);
+}
+.header h1 { font-size: 26px; font-weight: 700; position: relative; z-index: 1; letter-spacing: 4px; }
+.header p { font-size: 13px; opacity: 0.85; margin-top: 6px; position: relative; z-index: 1; }
+.header-icon { font-size: 40px; margin-bottom: 8px; position: relative; z-index: 1; animation: float 3s ease-in-out infinite; }
+
+/* ===== Wooden Card ===== */
+.wood-card {
+  background: linear-gradient(135deg, #d4a574 0%, #c4956a 100%);
+  border-radius: 16px;
+  padding: 20px;
+  margin: 16px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 4px 15px rgba(62,39,35,0.15);
+  border: 1px solid #b8935f;
   position: relative;
 }
-.header h1 { font-size: 22px; font-weight: 700; }
-.header p { font-size: 13px; opacity: 0.9; margin-top: 4px; }
+.wood-card::before {
+  content: '';
+  position: absolute;
+  top: 8px; left: 8px; right: 8px; bottom: 8px;
+  border: 1px dashed rgba(255,255,255,0.3);
+  border-radius: 12px;
+  pointer-events: none;
+}
 
-/* ===== Product Cards ===== */
-.product-section { padding: 20px 16px; }
-.section-title {
-  font-size: 18px;
-  font-weight: 700;
-  color: #1a1a2e;
-  margin-bottom: 16px;
+/* ===== Paper Card ===== */
+.paper-card {
+  background: #fdf8e8;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 16px;
+  box-shadow: 0 2px 10px rgba(62,39,35,0.08);
+  border: 1px solid #e8dcc8;
+  position: relative;
+}
+.paper-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #c62828, #d4a574, #c62828);
+  border-radius: 12px 12px 0 0;
+}
+
+/* ===== Welcome Screen ===== */
+.welcome-deco {
+  text-align: center;
+  padding: 30px 20px;
+}
+.welcome-deco .big-emoji { font-size: 80px; margin-bottom: 16px; display: block; }
+.welcome-title { font-size: 24px; font-weight: 700; color: #5d4037; margin-bottom: 8px; }
+.welcome-subtitle { font-size: 14px; color: #8d6e63; line-height: 1.8; }
+
+/* ===== Syndrome Selection ===== */
+.syndrome-grid { display: grid; grid-template-columns: 1fr; gap: 12px; padding: 0 16px; }
+.syndrome-card {
+  background: linear-gradient(135deg, #fdf8e8 0%, #f5edd8 100%);
+  border-radius: 16px;
+  padding: 20px;
   display: flex;
   align-items: center;
-  gap: 8px;
-}
-.product-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
-.product-card {
-  background: white;
-  border-radius: 16px;
-  padding: 16px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-  border: 2px solid transparent;
+  gap: 16px;
   cursor: pointer;
   transition: all 0.3s;
-  position: relative;
+  border: 2px solid transparent;
+  box-shadow: 0 2px 10px rgba(62,39,35,0.06);
 }
-.product-card:hover { transform: translateY(-2px); box-shadow: 0 4px 20px rgba(79,110,247,0.15); }
-.product-card.selected {
-  border-color: #4f6ef7;
-  background: linear-gradient(135deg, #f0f4ff 0%, #f5f0ff 100%);
-}
-.product-emoji { font-size: 40px; text-align: center; margin-bottom: 8px; }
-.product-name { font-size: 15px; font-weight: 700; color: #1a1a2e; text-align: center; }
-.product-type { font-size: 11px; color: #888; text-align: center; margin-top: 2px; }
-.product-price-original {
-  font-size: 12px;
-  color: #999;
-  text-decoration: line-through;
-  text-align: center;
+.syndrome-card:hover { transform: translateX(4px); border-color: #c62828; }
+.syndrome-emoji { font-size: 48px; }
+.syndrome-info { flex: 1; }
+.syndrome-name { font-size: 18px; font-weight: 700; color: #3e2723; }
+.syndrome-desc { font-size: 13px; color: #8d6e63; margin-top: 4px; }
+.syndrome-tag {
+  display: inline-block;
+  padding: 2px 8px;
+  background: #c62828;
+  color: white;
+  border-radius: 8px;
+  font-size: 11px;
   margin-top: 6px;
 }
-.product-price-now {
-  font-size: 18px;
-  font-weight: 700;
-  color: #4f6ef7;
+
+/* ===== Prescription Page ===== */
+.prescription-header {
+  background: linear-gradient(135deg, #8d6e63 0%, #5d4037 100%);
+  color: #f4ecd8;
+  padding: 24px 20px;
   text-align: center;
+  position: relative;
 }
-.product-tag {
+.prescription-header .back-btn {
   position: absolute;
-  top: -8px;
-  right: 8px;
-  background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+  border: none;
   color: white;
-  font-size: 10px;
-  padding: 2px 8px;
-  border-radius: 10px;
-  font-weight: 600;
+  font-size: 18px;
+  cursor: pointer;
+}
+.prescription-name { font-size: 22px; font-weight: 700; letter-spacing: 3px; }
+.prescription-source { font-size: 12px; opacity: 0.8; margin-top: 4px; }
+
+/* ===== Herb Selection ===== */
+.herb-section-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #5d4037;
+  margin: 20px 16px 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.herb-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  padding: 0 16px;
+}
+.herb-item {
+  background: #fdf8e8;
+  border-radius: 12px;
+  padding: 14px 8px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s;
+  border: 2px solid transparent;
+  box-shadow: 0 2px 6px rgba(62,39,35,0.06);
+}
+.herb-item:hover { border-color: #d4a574; }
+.herb-item.selected {
+  border-color: #c62828;
+  background: linear-gradient(135deg, #ffebee, #fdf8e8);
+}
+.herb-item.correct { border-color: #2e7d32; background: #e8f5e9; }
+.herb-item.wrong { border-color: #c62828; background: #ffebee; opacity: 0.6; }
+.herb-emoji { font-size: 32px; display: block; margin-bottom: 4px; }
+.herb-name { font-size: 13px; font-weight: 600; color: #3e2723; }
+
+/* ===== Cauldron Animation ===== */
+.cauldron-area {
+  text-align: center;
+  padding: 30px 20px;
+}
+.cauldron {
+  font-size: 100px;
+  position: relative;
+  display: inline-block;
+}
+.steam {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 30px;
+  opacity: 0;
+}
+.steam.active { animation: steam 2s ease-out infinite; }
+.steam.active:nth-child(2) { animation-delay: 0.5s; }
+.steam.active:nth-child(3) { animation-delay: 1s; }
+
+/* ===== Recipe Card ===== */
+.recipe-card {
+  background: linear-gradient(135deg, #fdf8e8, #f5edd8);
+  border-radius: 16px;
+  padding: 24px 20px;
+  margin: 16px;
+  box-shadow: 0 4px 20px rgba(62,39,35,0.1);
+  border: 1px solid #d4a574;
+  position: relative;
+}
+.recipe-card::after {
+  content: '医';
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  font-size: 60px;
+  color: #c62828;
+  opacity: 0.1;
+  font-weight: 700;
+}
+.recipe-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #c62828;
+  text-align: center;
+  margin-bottom: 16px;
+  letter-spacing: 3px;
+}
+.recipe-section { margin-bottom: 16px; }
+.recipe-section-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #5d4037;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.recipe-section-content {
+  font-size: 14px;
+  color: #5d4037;
+  line-height: 1.8;
+  padding-left: 16px;
+}
+.recipe-herbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-left: 16px;
+}
+.recipe-herb-tag {
+  padding: 4px 12px;
+  background: linear-gradient(135deg, #e8dcc8, #d4c4a8);
+  border-radius: 12px;
+  font-size: 13px;
+  color: #5d4037;
 }
 
-/* ===== Commit Button ===== */
-.commit-btn {
+/* ===== Buttons ===== */
+.action-btn {
   margin: 0 16px 20px;
   width: calc(100% - 32px);
   padding: 16px;
-  background: linear-gradient(135deg, #4f6ef7 0%, #8b5cf6 100%);
-  color: white;
+  background: linear-gradient(135deg, #c62828 0%, #b71c1c 100%);
+  color: #f4ecd8;
   border: none;
   border-radius: 14px;
   font-size: 17px;
   font-weight: 700;
   cursor: pointer;
-  box-shadow: 0 4px 15px rgba(79,110,247,0.3);
+  box-shadow: 0 4px 15px rgba(198,40,40,0.3);
   transition: all 0.3s;
+  font-family: inherit;
 }
-.commit-btn:disabled {
+.action-btn:hover { transform: translateY(-2px); }
+.action-btn:disabled {
   background: #ccc;
   box-shadow: none;
   cursor: not-allowed;
 }
-
-/* ===== Dose Selection ===== */
-.dose-screen { padding: 20px 16px; }
-.dose-product-info {
-  background: white;
-  border-radius: 16px;
-  padding: 20px;
-  text-align: center;
-  margin-bottom: 20px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-}
-.dose-emoji { font-size: 50px; }
-.dose-name { font-size: 18px; font-weight: 700; color: #1a1a2e; margin-top: 8px; }
-.dose-desc { font-size: 13px; color: #888; margin-top: 4px; }
-
-.dose-options {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-bottom: 24px;
-}
-.dose-option {
-  padding: 12px 20px;
-  background: white;
-  border: 2px solid #e0e0e0;
-  border-radius: 12px;
-  font-size: 15px;
-  font-weight: 600;
-  color: #555;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-.dose-option.selected {
-  border-color: #4f6ef7;
-  background: linear-gradient(135deg, #4f6ef7, #8b5cf6);
-  color: white;
+.action-btn-secondary {
+  background: linear-gradient(135deg, #5d4037 0%, #3e2723 100%);
+  box-shadow: 0 4px 15px rgba(62,39,35,0.3);
 }
 
-/* ===== Commitment Meter ===== */
-.commitment-area {
-  background: white;
-  border-radius: 20px;
-  padding: 30px 20px;
-  text-align: center;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-  margin-bottom: 20px;
-}
-.commitment-title { font-size: 16px; color: #666; margin-bottom: 8px; }
-.commitment-amount {
-  font-size: 48px;
-  font-weight: 800;
-  background: linear-gradient(135deg, #4f6ef7, #8b5cf6);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-.commitment-label { font-size: 14px; color: #999; margin-top: 4px; }
-
-.commitment-slider-container {
-  margin: 24px 0;
-  position: relative;
-}
-.commitment-slider {
-  width: 100%;
-  height: 12px;
-  border-radius: 6px;
-  background: #e8e8e8;
-  -webkit-appearance: none;
-  appearance: none;
-  outline: none;
-}
-.commitment-slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #4f6ef7, #8b5cf6);
-  cursor: pointer;
-  box-shadow: 0 2px 10px rgba(79,110,247,0.4);
-}
-.commitment-slider::-moz-range-thumb {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #4f6ef7, #8b5cf6);
-  cursor: pointer;
-  border: none;
-  box-shadow: 0 2px 10px rgba(79,110,247,0.4);
-}
-
-.hold-button {
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #4f6ef7 0%, #8b5cf6 100%);
-  color: white;
-  border: none;
-  font-size: 18px;
-  font-weight: 700;
-  cursor: pointer;
-  box-shadow: 0 8px 30px rgba(79,110,247,0.4);
-  margin: 20px auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  transition: transform 0.1s;
-  user-select: none;
-  -webkit-user-select: none;
-}
-.hold-button:active { transform: scale(0.95); }
-.hold-button .btn-icon { font-size: 40px; }
-.hold-button .btn-text { font-size: 14px; opacity: 0.9; }
-
-.progress-ring-container {
-  position: relative;
-  width: 220px;
-  height: 220px;
-  margin: 0 auto;
-}
-.progress-ring-svg {
-  transform: rotate(-90deg);
-}
-.progress-ring-bg {
-  fill: none;
-  stroke: #e8e8e8;
-  stroke-width: 8;
-}
-.progress-ring-fill {
-  fill: none;
-  stroke: url(#grad1);
-  stroke-width: 8;
-  stroke-linecap: round;
-  transition: stroke-dashoffset 0.1s;
-}
-
-/* ===== Result Screen ===== */
-.result-screen { padding: 20px 16px; }
-.result-card {
-  background: white;
-  border-radius: 20px;
-  padding: 30px 20px;
-  text-align: center;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-  margin-bottom: 20px;
-}
-.result-emoji { font-size: 60px; }
-.result-title { font-size: 22px; font-weight: 700; color: #1a1a2e; margin: 12px 0; }
-.result-saved {
-  font-size: 42px;
-  font-weight: 800;
-  background: linear-gradient(135deg, #4f6ef7, #8b5cf6);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-.result-saved-label { font-size: 14px; color: #666; margin-bottom: 16px; }
-.result-equivalent {
-  background: linear-gradient(135deg, #f0f4ff 0%, #fff0f5 100%);
-  border-radius: 12px;
-  padding: 16px;
-  margin: 16px 0;
-}
-.result-equivalent-text { font-size: 15px; color: #555; line-height: 1.8; }
-.result-equivalent-highlight { font-weight: 700; color: #4f6ef7; }
-
-/* ===== Poster Card ===== */
-.poster-card {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 16px;
-  padding: 30px 24px;
-  color: white;
-  text-align: center;
-  margin: 20px 0;
-  position: relative;
-  overflow: hidden;
-}
-.poster-card::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
-}
-.poster-title { font-size: 20px; font-weight: 700; position: relative; z-index: 1; }
-.poster-amount { font-size: 48px; font-weight: 800; position: relative; z-index: 1; margin: 12px 0; }
-.poster-subtitle { font-size: 14px; opacity: 0.9; position: relative; z-index: 1; }
-.poster-footer {
-  margin-top: 20px;
-  padding-top: 16px;
-  border-top: 1px solid rgba(255,255,255,0.2);
-  font-size: 12px;
-  opacity: 0.8;
-  position: relative;
-  z-index: 1;
-}
-
-/* ===== Share Buttons ===== */
-.share-btns {
-  display: flex;
-  gap: 10px;
-  margin: 16px 0;
-}
-.share-btn {
-  flex: 1;
-  padding: 14px;
-  border: none;
-  border-radius: 12px;
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-.share-btn-wechat {
-  background: linear-gradient(135deg, #07C160, #05a350);
-  color: white;
-  box-shadow: 0 4px 12px rgba(7,193,96,0.3);
-}
-.share-btn-save {
-  background: white;
-  color: #4f6ef7;
-  border: 2px solid #4f6ef7;
-}
-
-/* ===== Science Entry ===== */
-.science-entry {
-  background: linear-gradient(135deg, #f0f4ff 0%, #e8f5e9 100%);
+/* ===== Share Card ===== */
+.share-card {
+  background: linear-gradient(135deg, #fdf8e8, #f5edd8);
   border-radius: 16px;
   padding: 24px 20px;
-  margin: 20px 0;
-  border: 2px dashed #4f6ef7;
+  margin: 16px;
+  text-align: center;
+  border: 2px dashed #d4a574;
 }
-.science-entry-title { font-size: 18px; font-weight: 700; color: #1a1a2e; margin-bottom: 8px; }
-.science-entry-desc { font-size: 14px; color: #555; line-height: 1.6; margin-bottom: 16px; }
-.science-entry-btn {
-  width: 100%;
-  padding: 14px;
-  background: linear-gradient(135deg, #4f6ef7 0%, #8b5cf6 100%);
-  color: white;
-  border: none;
-  border-radius: 12px;
-  font-size: 16px;
-  font-weight: 700;
-  cursor: pointer;
-}
+.share-title { font-size: 16px; font-weight: 700; color: #5d4037; margin-bottom: 12px; }
 
-/* ===== Form Screen ===== */
-.form-screen { padding: 20px 16px; }
-.form-card {
-  background: white;
+/* ===== Consult Entry ===== */
+.consult-card {
+  background: linear-gradient(135deg, #fff3e0 0%, #fce4ec 100%);
   border-radius: 16px;
   padding: 24px 20px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-  margin-bottom: 16px;
+  margin: 16px;
+  border: 2px dashed #c62828;
 }
-.form-group { margin-bottom: 20px; }
-.form-label { font-size: 14px; font-weight: 600; color: #333; margin-bottom: 8px; display: block; }
+.consult-title { font-size: 18px; font-weight: 700; color: #c62828; margin-bottom: 8px; }
+.consult-desc { font-size: 13px; color: #5d4037; line-height: 1.8; margin-bottom: 16px; }
+
+/* ===== Form ===== */
+.form-group { margin-bottom: 16px; }
+.form-label { font-size: 14px; font-weight: 600; color: #5d4037; margin-bottom: 6px; display: block; }
 .form-input {
   width: 100%;
   padding: 12px 14px;
-  border: 2px solid #e8e8e8;
+  border: 2px solid #d4a574;
   border-radius: 10px;
   font-size: 15px;
   outline: none;
-  transition: border-color 0.3s;
+  background: #fdf8e8;
+  font-family: inherit;
 }
-.form-input:focus { border-color: #4f6ef7; }
+.form-input:focus { border-color: #c62828; }
 .form-select {
   width: 100%;
   padding: 12px 14px;
-  border: 2px solid #e8e8e8;
+  border: 2px solid #d4a574;
   border-radius: 10px;
   font-size: 15px;
   outline: none;
-  background: white;
-}
-.radio-group { display: flex; gap: 10px; flex-wrap: wrap; }
-.radio-option {
-  padding: 10px 16px;
-  background: #f5f5f5;
-  border-radius: 10px;
-  font-size: 14px;
-  cursor: pointer;
-  transition: all 0.2s;
-  border: 2px solid transparent;
-}
-.radio-option.selected {
-  background: linear-gradient(135deg, #4f6ef7, #8b5cf6);
-  color: white;
-  border-color: transparent;
+  background: #fdf8e8;
+  font-family: inherit;
 }
 
-/* ===== AI Result ===== */
-.ai-result {
-  background: white;
-  border-radius: 16px;
-  padding: 24px 20px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+/* ===== Progress ===== */
+.progress-bar {
+  height: 6px;
+  background: #e8dcc8;
+  border-radius: 3px;
+  margin: 0 16px 16px;
+  overflow: hidden;
 }
-.ai-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 20px;
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #c62828, #d4a574);
+  border-radius: 3px;
+  transition: width 0.5s ease;
 }
-.ai-avatar {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #4f6ef7, #8b5cf6);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 24px;
-}
-.ai-title { font-size: 18px; font-weight: 700; color: #1a1a2e; }
-.ai-subtitle { font-size: 12px; color: #888; }
-
-.ai-section { margin-bottom: 20px; }
-.ai-section-title {
-  font-size: 15px;
-  font-weight: 700;
-  color: #4f6ef7;
-  margin-bottom: 10px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-.ai-section-content {
-  font-size: 14px;
-  color: #555;
-  line-height: 1.8;
-  background: #f8f9fa;
-  padding: 14px;
-  border-radius: 10px;
-}
-.ai-tag {
-  display: inline-block;
-  padding: 4px 10px;
-  background: linear-gradient(135deg, #e3f2fd, #f3e5f5);
-  border-radius: 12px;
-  font-size: 12px;
-  color: #4f6ef7;
-  margin: 4px 4px 0 0;
-}
-
-/* ===== Disclaimer ===== */
-.disclaimer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(255,255,255,0.95);
-  backdrop-filter: blur(10px);
-  padding: 10px 16px;
-  font-size: 11px;
-  color: #999;
-  text-align: center;
-  border-top: 1px solid #eee;
-  z-index: 100;
-}
-.disclaimer a { color: #4f6ef7; text-decoration: none; }
 
 /* ===== Toast ===== */
 .toast {
@@ -495,8 +378,8 @@ body {
   top: 20px;
   left: 50%;
   transform: translateX(-50%) translateY(-100px);
-  background: #333;
-  color: white;
+  background: #3e2723;
+  color: #f4ecd8;
   padding: 12px 24px;
   border-radius: 10px;
   font-size: 14px;
@@ -505,362 +388,376 @@ body {
 }
 .toast.show { transform: translateX(-50%) translateY(0); }
 
-/* ===== Back Button ===== */
-.back-btn {
-  position: absolute;
-  left: 16px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.2);
-  border: none;
-  color: white;
-  font-size: 18px;
-  cursor: pointer;
-}
+/* ===== Hidden Canvas ===== */
+#recipeCanvas { display: none; }
 
-/* ===== Hidden canvas for poster generation ===== */
-#posterCanvas { display: none; }
-
-/* ===== WeChat Tip ===== */
-.wechat-tip {
-  display: none;
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.85);
-  color: white;
-  padding: 40px 20px;
+/* ===== Footer ===== */
+.footer {
   text-align: center;
-  z-index: 500;
+  padding: 16px;
+  font-size: 11px;
+  color: #a1887f;
 }
-.wechat-tip.show { display: flex; flex-direction: column; align-items: center; justify-content: center; }
-.wechat-tip-arrow { font-size: 40px; margin-bottom: 20px; }
 </style>
 </head>
 <body>
 
 <div class="app-container">
-  <svg width="0" height="0" style="position:absolute;">
-    <defs>
-      <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%" style="stop-color:#4f6ef7" />
-        <stop offset="100%" style="stop-color:#8b5cf6" />
-      </linearGradient>
-    </defs>
-  </svg>
 
-  <!-- ===== SCREEN 1: Product Selection ===== -->
-  <div class="screen active" id="screen-products">
-    <div class="header">
-      <h1>💉 减脂针决心计算器</h1>
-      <p>看看你的"减肥决心"值多少钱</p>
-    </div>
-    
-    <div class="product-section">
-      <div class="section-title">📋 选择你想"试"的方案</div>
-      <div class="product-grid">
-        <div class="product-card" data-product="0" onclick="selectProduct(this, 0)">
-          <div class="product-tag">热门</div>
-          <div class="product-emoji">💉</div>
-          <div class="product-name">控糖减重笔</div>
-          <div class="product-type">周制剂注射</div>
-          <div class="product-price-original">原价 ¥2,680/月</div>
-          <div class="product-price-now">¥0 体验</div>
-        </div>
-        <div class="product-card" data-product="1" onclick="selectProduct(this, 1)">
-          <div class="product-emoji">🎯</div>
-          <div class="product-name">双效控重笔</div>
-          <div class="product-type">周制剂注射</div>
-          <div class="product-price-original">原价 ¥3,280/月</div>
-          <div class="product-price-now">¥0 体验</div>
-        </div>
-        <div class="product-card" data-product="2" onclick="selectProduct(this, 2)">
-          <div class="product-emoji">📅</div>
-          <div class="product-name">日常控重笔</div>
-          <div class="product-type">日制剂注射</div>
-          <div class="product-price-original">原价 ¥1,880/月</div>
-          <div class="product-price-now">¥0 体验</div>
-        </div>
-        <div class="product-card" data-product="3" onclick="selectProduct(this, 3)">
-          <div class="product-tag">口服</div>
-          <div class="product-emoji">💊</div>
-          <div class="product-name">脂肪阻断胶囊</div>
-          <div class="product-type">口服胶囊</div>
-          <div class="product-price-original">原价 ¥980/月</div>
-          <div class="product-price-now">¥0 体验</div>
-        </div>
-      </div>
-    </div>
-    
-    <button class="commit-btn" id="btn-to-dose" onclick="goToDose()" disabled>
-      下一步：投入决心 💪
-    </button>
+<!-- ===== SCREEN 0: Welcome ===== -->
+<div class="screen active" id="screen-welcome">
+  <div class="header">
+    <div class="header-icon">🌿</div>
+    <h1>杏林妙手</h1>
+    <p>探秘中医传世名方</p>
   </div>
-
-  <!-- ===== SCREEN 2: Dose & Commitment ===== -->
-  <div class="screen" id="screen-dose">
-    <div class="header" style="position:relative;">
-      <button class="back-btn" onclick="goBack('screen-products')">←</button>
-      <h1>💪 投入你的决心</h1>
-      <p>长按按钮，积累减脂意志</p>
-    </div>
-    
-    <div class="dose-screen">
-      <div class="dose-product-info">
-        <div class="dose-emoji" id="dose-emoji">💉</div>
-        <div class="dose-name" id="dose-name">控糖减重笔</div>
-        <div class="dose-desc" id="dose-desc">选择你的起始决心值</div>
-      </div>
-      
-      <div class="dose-options" id="dose-options">
-        <div class="dose-option selected" data-dose="0" onclick="selectDose(this, 0)">2.5mg</div>
-        <div class="dose-option" data-dose="1" onclick="selectDose(this, 1)">5mg</div>
-        <div class="dose-option" data-dose="2" onclick="selectDose(this, 2)">7.5mg</div>
-        <div class="dose-option" data-dose="3" onclick="selectDose(this, 3)">10mg</div>
-        <div class="dose-option" data-dose="4" onclick="selectDose(this, 4)">12.5mg</div>
-        <div class="dose-option" data-dose="5" onclick="selectDose(this, 5)">15mg</div>
-      </div>
-      
-      <div class="commitment-area">
-        <div class="commitment-title">本次模拟投入</div>
-        <div class="commitment-amount" id="commit-amount">¥0</div>
-        <div class="commitment-label">长按下方按钮投入决心</div>
-        
-        <div class="progress-ring-container" id="progress-container" style="display:none;">
-          <svg class="progress-ring-svg" width="220" height="220">
-            <circle class="progress-ring-bg" cx="110" cy="110" r="100"/>
-            <circle class="progress-ring-fill" id="progress-ring" cx="110" cy="110" r="100"
-              stroke-dasharray="628" stroke-dashoffset="628"/>
-          </svg>
-        </div>
-        
-        <button class="hold-button" id="hold-btn"
-          ontouchstart="startHolding(event)" 
-          ontouchend="stopHolding(event)"
-          onmousedown="startHolding(event)" 
-          onmouseup="stopHolding(event)"
-          onmouseleave="stopHolding(event)">
-          <span class="btn-icon">👆</span>
-          <span class="btn-text">长按投入决心</span>
-        </button>
-        
-        <div class="commitment-slider-container">
-          <input type="range" class="commitment-slider" id="commit-slider" 
-            min="0" max="100" value="0" oninput="onSliderChange(this.value)">
-        </div>
-      </div>
-      
-      <button class="commit-btn" onclick="goToResult()">
-        查看我的决心账单 📊
-      </button>
+  
+  <div class="welcome-deco">
+    <span class="big-emoji">🏮</span>
+    <div class="welcome-title">踏入杏林，识方悟道</div>
+    <div class="welcome-subtitle">
+      中医千年智慧，凝于方寸方剂<br>
+      今天，你将以学徒之身<br>
+      习得三剂传世名方
     </div>
   </div>
-
-  <!-- ===== SCREEN 3: Result & Poster ===== -->
-  <div class="screen" id="screen-result">
-    <div class="header" style="position:relative;">
-      <button class="back-btn" onclick="goBack('screen-dose')">←</button>
-      <h1>🎉 决心投入完成</h1>
-      <p>你的意志力省下了真金白银</p>
-    </div>
-    
-    <div class="result-screen">
-      <div class="result-card">
-        <div class="result-emoji">🎯</div>
-        <div class="result-title">恭喜你！</div>
-        <div class="result-saved" id="result-saved">¥0</div>
-        <div class="result-saved-label">本次模拟已省下</div>
-        
-        <div class="result-equivalent">
-          <div class="result-equivalent-text" id="result-equivalent">
-            省下的钱可以<br>
-            <span class="result-equivalent-highlight">买 15 杯奶茶 🧋</span><br>
-            或 <span class="result-equivalent-highlight">1 套健身装备 👟</span><br>
-            或 <span class="result-equivalent-highlight">2 个月通勤卡 🚇</span>
-          </div>
-        </div>
-        
-        <div style="font-size:13px;color:#888;margin-top:12px;">
-          💡 提示：模拟体验仅供娱乐，不构成医疗建议
-        </div>
-      </div>
-      
-      <!-- Poster Preview -->
-      <div class="poster-card" id="poster-preview">
-        <div class="poster-title">💪 我的减脂决心值</div>
-        <div class="poster-amount" id="poster-amount">¥0</div>
-        <div class="poster-subtitle">已通过虚拟体验"注射"完成</div>
-        <div class="poster-footer">
-          扫码测测你的决心值 →<br>
-          <span style="font-size:10px;">减脂针决心计算器</span>
-        </div>
-      </div>
-      
-      <div class="share-btns">
-        <button class="share-btn share-btn-wechat" onclick="sharePoster()">📤 分享给好友</button>
-        <button class="share-btn share-btn-save" onclick="savePoster()">💾 保存海报</button>
-      </div>
-      
-      <!-- Science Entry -->
-      <div class="science-entry">
-        <div class="science-entry-title">🧠 真正想科学减重？</div>
-        <div class="science-entry-desc">
-          基于你的身高、体重、生活习惯，AI 可生成个性化减重方案，包括运动计划、饮食建议、营养补剂推荐等。
-        </div>
-        <button class="science-entry-btn" onclick="goToScience()">
-          获取我的 AI 减重方案 →
-        </button>
-      </div>
-      
-      <button class="commit-btn" onclick="goToProducts()" style="background:#f0f0f0;color:#666;box-shadow:none;">
-        ↩️ 再体验一次
-      </button>
+  
+  <div class="wood-card" style="margin-top:30px;">
+    <div style="text-align:center;color:#5d4037;">
+      <div style="font-size:14px;margin-bottom:8px;">📜 你将学习</div>
+      <div style="font-size:16px;font-weight:700;">玉屏风散 · 桂枝汤 · 麦门冬汤</div>
     </div>
   </div>
-
-  <!-- ===== SCREEN 4: Science Form ===== -->
-  <div class="screen" id="screen-form">
-    <div class="header" style="position:relative;">
-      <button class="back-btn" onclick="goBack('screen-result')">←</button>
-      <h1>📝 身体数据收集</h1>
-      <p>AI 需要了解你，才能帮到你</p>
-    </div>
-    
-    <div class="form-screen">
-      <div class="form-card">
-        <div class="form-group">
-          <label class="form-label">📏 身高 (cm)</label>
-          <input type="number" class="form-input" id="form-height" placeholder="例如：165" min="100" max="250">
-        </div>
-        
-        <div class="form-group">
-          <label class="form-label">⚖️ 当前体重 (kg)</label>
-          <input type="number" class="form-input" id="form-weight" placeholder="例如：60" min="30" max="200">
-        </div>
-        
-        <div class="form-group">
-          <label class="form-label">🎯 目标体重 (kg)</label>
-          <input type="number" class="form-input" id="form-target" placeholder="例如：55" min="30" max="200">
-        </div>
-        
-        <div class="form-group">
-          <label class="form-label">🎂 年龄段</label>
-          <div class="radio-group">
-            <div class="radio-option" data-age="18-25" onclick="selectRadio(this, 'age')">18-25</div>
-            <div class="radio-option" data-age="26-35" onclick="selectRadio(this, 'age')">26-35</div>
-            <div class="radio-option" data-age="36-45" onclick="selectRadio(this, 'age')">36-45</div>
-            <div class="radio-option" data-age="46+" onclick="selectRadio(this, 'age')">46+</div>
-          </div>
-        </div>
-        
-        <div class="form-group">
-          <label class="form-label">🏃 每周运动频率</label>
-          <div class="radio-group">
-            <div class="radio-option" data-exercise="0" onclick="selectRadio(this, 'exercise')">几乎不</div>
-            <div class="radio-option" data-exercise="1-2" onclick="selectRadio(this, 'exercise')">1-2次</div>
-            <div class="radio-option" data-exercise="3-4" onclick="selectRadio(this, 'exercise')">3-4次</div>
-            <div class="radio-option" data-exercise="5+" onclick="selectRadio(this, 'exercise')">5次以上</div>
-          </div>
-        </div>
-        
-        <div class="form-group">
-          <label class="form-label">🍔 饮食习惯</label>
-          <div class="radio-group">
-            <div class="radio-option" data-diet="规律" onclick="selectRadio(this, 'diet')">规律三餐</div>
-            <div class="radio-option" data-diet="外卖" onclick="selectRadio(this, 'diet')">外卖为主</div>
-            <div class="radio-option" data-diet="夜宵" onclick="selectRadio(this, 'diet')">爱吃夜宵</div>
-            <div class="radio-option" data-diet="节食" onclick="selectRadio(this, 'diet')">经常节食</div>
-          </div>
-        </div>
-        
-        <div class="form-group">
-          <label class="form-label">😴 睡眠质量</label>
-          <div class="radio-group">
-            <div class="radio-option" data-sleep="好" onclick="selectRadio(this, 'sleep')">很好</div>
-            <div class="radio-option" data-sleep="一般" onclick="selectRadio(this, 'sleep')">一般</div>
-            <div class="radio-option" data-sleep="差" onclick="selectRadio(this, 'sleep')">经常熬夜</div>
-            <div class="radio-option" data-sleep="失眠" onclick="selectRadio(this, 'sleep')">失眠</div>
-          </div>
-        </div>
-      </div>
-      
-      <button class="commit-btn" onclick="generateAIPlan()">
-        🧠 AI 生成我的减重方案
-      </button>
-    </div>
+  
+  <button class="action-btn" onclick="goToSyndrome()" style="margin-top:30px;">
+    踏入医馆 🏮
+  </button>
+  
+  <div class="footer">
+    本游戏仅供中医文化学习，不构成诊疗建议<br>
+    身体不适请及时就医
   </div>
-
-  <!-- ===== SCREEN 5: AI Plan Result ===== -->
-  <div class="screen" id="screen-ai">
-    <div class="header" style="position:relative;">
-      <button class="back-btn" onclick="goBack('screen-form')">←</button>
-      <h1>📋 你的 AI 减重方案</h1>
-      <p>基于数据分析的个性化建议</p>
-    </div>
-    
-    <div class="form-screen">
-      <div class="ai-result" id="ai-result">
-        <!-- Generated by JS -->
-      </div>
-      
-      <div class="science-entry" style="margin-top:20px;background:linear-gradient(135deg,#fff3e0,#fce4ec);">
-        <div class="science-entry-title">⚠️ 重要提醒</div>
-        <div class="science-entry-desc">
-          以上方案由 AI 基于通用知识生成，仅供参考。BMI≥28 或伴有高血压/糖尿病等慢性病者，建议优先前往医院内分泌科或营养科就诊。
-        </div>
-      </div>
-      
-      <button class="commit-btn" onclick="shareAIPlan()">
-        📤 分享我的方案
-      </button>
-      
-      <button class="commit-btn" onclick="goToProducts()" style="background:#f0f0f0;color:#666;box-shadow:none;margin-top:10px;">
-        ↩️ 返回首页
-      </button>
-    </div>
-  </div>
-
 </div>
 
-<!-- WeChat Share Tip -->
-<div class="wechat-tip" id="wechatTip" onclick="this.classList.remove('show')">
-  <div class="wechat-tip-arrow">👆</div>
-  <div style="font-size:18px;font-weight:700;margin-bottom:12px;">点击右上角菜单</div>
-  <div style="font-size:14px;opacity:0.9;">选择「发送给朋友」或「分享到朋友圈」<br>把这份决心传递给更多人 💪</div>
+<!-- ===== SCREEN 1: Syndrome Selection ===== -->
+<div class="screen" id="screen-syndrome">
+  <div class="header" style="position:relative;">
+    <button class="back-btn" onclick="goBack('screen-welcome')">←</button>
+    <div class="header-icon" style="font-size:32px;margin-bottom:4px;">🩺</div>
+    <h1 style="font-size:20px;">悬壶问诊</h1>
+    <p>请选择一位求诊者</p>
+  </div>
+  
+  <div class="syndrome-grid">
+    <div class="syndrome-card" onclick="selectSyndrome(0)">
+      <div class="syndrome-emoji">🤧</div>
+      <div class="syndrome-info">
+        <div class="syndrome-name">鼻塞流涕，喷嚏连连</div>
+        <div class="syndrome-desc">一遇风冷便发作，鼻痒眼痒，反复发作难愈</div>
+        <span class="syndrome-tag">过敏性鼻炎</span>
+      </div>
+    </div>
+    
+    <div class="syndrome-card" onclick="selectSyndrome(1)">
+      <div class="syndrome-emoji">🤒</div>
+      <div class="syndrome-info">
+        <div class="syndrome-name">头疼发热，汗出恶风</div>
+        <div class="syndrome-desc">鼻塞干呕，苔白不渴，脉浮缓而弱</div>
+        <span class="syndrome-tag">风寒感冒</span>
+      </div>
+    </div>
+    
+    <div class="syndrome-card" onclick="selectSyndrome(2)">
+      <div class="syndrome-emoji">😷</div>
+      <div class="syndrome-info">
+        <div class="syndrome-name">咽干口燥，干咳少痰</div>
+        <div class="syndrome-desc">秋季干燥，咽喉疼痛，声音嘶哑，痰中带血</div>
+        <span class="syndrome-tag">秋燥伤肺</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SCREEN 2: Prescription ===== -->
+<div class="screen" id="screen-prescription">
+  <div class="prescription-header">
+    <button class="back-btn" onclick="goBack('screen-syndrome')">←</button>
+    <div class="prescription-name" id="rx-name">玉屏风散</div>
+    <div class="prescription-source" id="rx-source">出自《丹溪心法》</div>
+  </div>
+  
+  <div class="paper-card">
+    <div class="recipe-section">
+      <div class="recipe-section-title">📖 典籍记载</div>
+      <div class="recipe-section-content" id="rx-classic"></div>
+    </div>
+    <div class="recipe-section">
+      <div class="recipe-section-title">🎯 主治证候</div>
+      <div class="recipe-section-content" id="rx-syndrome"></div>
+    </div>
+    <div class="recipe-section">
+      <div class="recipe-section-title">💊 组方药材</div>
+      <div class="recipe-herbs" id="rx-herbs"></div>
+    </div>
+  </div>
+  
+  <div class="herb-section-title">🌿 请选出方剂中的药材</div>
+  <div class="herb-grid" id="herb-grid"></div>
+  
+  <div class="progress-bar">
+    <div class="progress-fill" id="herb-progress" style="width:0%"></div>
+  </div>
+  
+  <button class="action-btn" id="btn-brew" onclick="goToBrew()" disabled>
+    开始熬药 🔥
+  </button>
+</div>
+
+<!-- ===== SCREEN 3: Brewing ===== -->
+<div class="screen" id="screen-brew">
+  <div class="prescription-header">
+    <div class="prescription-name">⚗️ 砂锅熬药</div>
+    <div class="prescription-source">武火煮沸，文火慢煎</div>
+  </div>
+  
+  <div class="cauldron-area">
+    <div class="cauldron">
+      🍵
+      <div class="steam active" style="left:30%;">〰️</div>
+      <div class="steam active" style="left:50%;">〰️</div>
+      <div class="steam active" style="left:70%;">〰️</div>
+    </div>
+    <div style="font-size:16px;color:#5d4037;margin-top:16px;font-weight:600;" id="brew-text">
+      正在熬制...
+    </div>
+    <div style="font-size:13px;color:#8d6e63;margin-top:8px;" id="brew-subtext">
+      先武火煮沸，后文火慢煎三十分钟
+    </div>
+  </div>
+  
+  <div class="wood-card" style="text-align:center;">
+    <div style="font-size:14px;color:#5d4037;line-height:1.8;" id="brew-fact">
+      💡 煎药小常识：解表药宜武火急煎，补益药宜文火久煎
+    </div>
+  </div>
+</div>
+
+<!-- ===== SCREEN 4: Result ===== -->
+<div class="screen" id="screen-result">
+  <div class="prescription-header">
+    <div class="prescription-name" id="res-name">玉屏风散</div>
+    <div class="prescription-source">方剂已学成</div>
+  </div>
+  
+  <div class="recipe-card" id="recipe-card">
+    <div class="recipe-title">📜 药方笺</div>
+    
+    <div class="recipe-section">
+      <div class="recipe-section-title">📖 方源</div>
+      <div class="recipe-section-content" id="res-source"></div>
+    </div>
+    
+    <div class="recipe-section">
+      <div class="recipe-section-title">💊 组成</div>
+      <div class="recipe-herbs" id="res-herbs"></div>
+    </div>
+    
+    <div class="recipe-section">
+      <div class="recipe-section-title">🎯 主治</div>
+      <div class="recipe-section-content" id="res-indication"></div>
+    </div>
+    
+    <div class="recipe-section">
+      <div class="recipe-section-title">📐 方解</div>
+      <div class="recipe-section-content" id="res-analysis"></div>
+    </div>
+    
+    <div class="recipe-section">
+      <div class="recipe-section-title">✨ 配伍特点</div>
+      <div class="recipe-section-content" id="res-feature"></div>
+    </div>
+  </div>
+  
+  <div class="share-card">
+    <div class="share-title">📤 分享你的药方笺</div>
+    <button class="action-btn action-btn-secondary" onclick="saveRecipeCard()">
+      💾 保存药方笺图片
+    </button>
+  </div>
+  
+  <button class="action-btn" onclick="goToSyndrome()" style="background:linear-gradient(135deg,#5d4037,#3e2723);">
+    再学一方 📚
+  </button>
+  
+  <button class="action-btn" onclick="goToConsult()" style="margin-top:10px;">
+    🏥 咨询中医师
+  </button>
+</div>
+
+<!-- ===== SCREEN 5: Consult ===== -->
+<div class="screen" id="screen-consult">
+  <div class="prescription-header">
+    <button class="back-btn" onclick="goBack('screen-result')">←</button>
+    <div class="prescription-name">🩺 中医咨询</div>
+    <div class="prescription-source">专业医师一对一问诊</div>
+  </div>
+  
+  <div class="consult-card">
+    <div class="consult-title">🏥 寻找您的专属中医师</div>
+    <div class="consult-desc">
+      填写您的基本情况和症状描述，我们的专业中医师将为您提供个性化的辨证论治建议。包括体质辨识、食疗方案、起居调摄等。
+    </div>
+  </div>
+  
+  <div class="paper-card">
+    <div class="form-group">
+      <label class="form-label">👤 称呼</label>
+      <input type="text" class="form-input" id="c-name" placeholder="您的称呼">
+    </div>
+    <div class="form-group">
+      <label class="form-label">🎂 年龄</label>
+      <input type="number" class="form-input" id="c-age" placeholder="您的年龄">
+    </div>
+    <div class="form-group">
+      <label class="form-label">📝 主要症状</label>
+      <select class="form-select" id="c-symptom">
+        <option value="">请选择主要症状</option>
+        <option value="鼻塞流涕，喷嚏连连">鼻塞流涕，喷嚏连连</option>
+        <option value="头疼发热，汗出恶风">头疼发热，汗出恶风</option>
+        <option value="咽干口燥，干咳少痰">咽干口燥，干咳少痰</option>
+        <option value="失眠多梦，心悸健忘">失眠多梦，心悸健忘</option>
+        <option value="胃脘胀痛，食欲不振">胃脘胀痛，食欲不振</option>
+        <option value="腰膝酸软，畏寒肢冷">腰膝酸软，畏寒肢冷</option>
+        <option value="其他">其他</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="form-label">📱 联系方式（手机号）</label>
+      <input type="tel" class="form-input" id="c-phone" placeholder="用于医师回电">
+    </div>
+    <div class="form-group">
+      <label class="form-label">💬 症状描述（可选）</label>
+      <input type="text" class="form-input" id="c-desc" placeholder="详细描述您的症状和持续时间">
+    </div>
+  </div>
+  
+  <button class="action-btn" onclick="submitConsult()">
+    📨 提交咨询
+  </button>
+  
+  <div style="text-align:center;padding:16px;font-size:11px;color:#a1887f;">
+    提交后，中医师将在24小时内与您联系<br>
+    本服务为健康咨询，紧急病情请直接就医
+  </div>
+</div>
+
 </div>
 
 <!-- Toast -->
 <div class="toast" id="toast"></div>
 
-<!-- Hidden Canvas for Poster -->
-<canvas id="posterCanvas" width="750" height="1334"></canvas>
+<!-- Canvas for Recipe Card -->
+<canvas id="recipeCanvas" width="750" height="1100"></canvas>
 
 <script>
-// ===== Data =====
-const products = [
-  { name: '控糖减重笔', emoji: '💉', type: '周制剂注射', original: 2680, doseFactor: 1.0 },
-  { name: '双效控重笔', emoji: '🎯', type: '周制剂注射', original: 3280, doseFactor: 1.2 },
-  { name: '日常控重笔', emoji: '📅', type: '日制剂注射', original: 1880, doseFactor: 0.8 },
-  { name: '脂肪阻断胶囊', emoji: '💊', type: '口服胶囊', original: 980, doseFactor: 0.5 }
-];
-
-const equivalents = [
-  { max: 500, items: ['5杯奶茶 🧋', '2顿火锅 🍲', '1个月视频会员 📺'] },
-  { max: 1000, items: ['10杯奶茶 🧋', '1套运动装备 👟', '3个月通勤卡 🚇'] },
-  { max: 1500, items: ['15杯奶茶 🧋', '1套护肤品 💄', '2个月健身卡 🏋️'] },
-  { max: 2500, items: ['25杯奶茶 🧋', '1双限量球鞋 👟', '1次周边游 🚗'] },
-  { max: 3500, items: ['35杯奶茶 🧋', '1台Switch Lite 🎮', '1次省内旅行 ✈️'] },
-  { max: 5000, items: ['50杯奶茶 🧋', '1台iPad 📱', '1次跨省旅行 🌏'] }
+// ===== Prescription Data =====
+const prescriptions = [
+  {
+    id: 'yupingfeng',
+    name: '玉屏风散',
+    emoji: '🛡️',
+    source: '《丹溪心法》',
+    author: '朱丹溪（元代）',
+    herbs: [
+      { name: '黄芪', emoji: '🌾', amount: '30g', role: '君药' },
+      { name: '白术', emoji: '🌿', amount: '15g', role: '臣药' },
+      { name: '防风', emoji: '🍃', amount: '10g', role: '佐使' }
+    ],
+    allHerbs: [
+      { name: '黄芪', emoji: '🌾', correct: true },
+      { name: '白术', emoji: '🌿', correct: true },
+      { name: '防风', emoji: '🍃', correct: true },
+      { name: '桂枝', emoji: '🌲', correct: false },
+      { name: '白芍', emoji: '🌸', correct: false },
+      { name: '甘草', emoji: '🍂', correct: false },
+      { name: '当归', emoji: '🌺', correct: false },
+      { name: '川芎', emoji: '🌱', correct: false },
+      { name: '麦冬', emoji: '🌾', correct: false }
+    ],
+    indication: '表虚自汗，易感风邪。症见汗出恶风，面色㿠白，舌淡苔薄白，脉浮虚。亦治过敏性鼻炎、荨麻疹属表虚易感风邪者。',
+    analysis: '黄芪甘温，内可大补脾肺之气，外可固表止汗，为君药。白术健脾益气，助黄芪以加强益气固表之力，为臣药。防风走表而散风邪，合黄芪、白术以益气散邪，为佐使药。',
+    feature: '三药合用，补中有疏，散中有补，共奏益气固表止汗之功。',
+    classic: '《丹溪心法》原载："气虚表弱者，皆可用之。"',
+    brewFact: '玉屏风散为散剂，现代多作汤剂煎服。煎时宜文火慢煎，以充分提取有效成分。'
+  },
+  {
+    id: 'guizhi',
+    name: '桂枝汤',
+    emoji: '🍵',
+    source: '《伤寒论》',
+    author: '张仲景（东汉）',
+    herbs: [
+      { name: '桂枝', emoji: '🌲', amount: '9g', role: '君药' },
+      { name: '白芍', emoji: '🌸', amount: '9g', role: '臣药' },
+      { name: '生姜', emoji: '🫚', amount: '9g', role: '佐药' },
+      { name: '大枣', emoji: '🫘', amount: '4枚', role: '佐药' },
+      { name: '甘草', emoji: '🍂', amount: '6g', role: '使药' }
+    ],
+    allHerbs: [
+      { name: '桂枝', emoji: '🌲', correct: true },
+      { name: '白芍', emoji: '🌸', correct: true },
+      { name: '生姜', emoji: '🫚', correct: true },
+      { name: '大枣', emoji: '🫘', correct: true },
+      { name: '甘草', emoji: '🍂', correct: true },
+      { name: '黄芪', emoji: '🌾', correct: false },
+      { name: '白术', emoji: '🌿', correct: false },
+      { name: '防风', emoji: '🍃', correct: false },
+      { name: '柴胡', emoji: '🌱', correct: false }
+    ],
+    indication: '外感风寒表虚证。症见发热头痛，汗出恶风，鼻鸣干呕，苔白不渴，脉浮缓或浮弱。',
+    analysis: '桂枝辛温，解肌发表，散外感风寒，为君药。白芍酸寒，益阴敛营，敛固外泄之营阴，为臣药。桂芍等量合用，一治卫强，一治营弱，散中有收，汗中寓补。生姜助桂枝辛散表邪，大枣助白芍养营，姜枣合用，补脾和胃。甘草调和诸药。',
+    feature: '桂枝汤外证得之解肌和营卫，内证得之化气调阴阳。为群方之冠，调和营卫第一方。',
+    classic: '《伤寒论》第12条："太阳中风，阳浮而阴弱，阳浮者热自发，阴弱者汗自出，啬啬恶寒，淅淅恶风，翕翕发热，鼻鸣干呕者，桂枝汤主之。"',
+    brewFact: '桂枝汤煎法讲究：以水七升，微火煮取三升。服已须臾，啜热稀粥一升余，以助药力。'
+  },
+  {
+    id: 'maimendong',
+    name: '麦门冬汤',
+    emoji: '🍐',
+    source: '《金匮要略》',
+    author: '张仲景（东汉）',
+    herbs: [
+      { name: '麦冬', emoji: '🌾', amount: '60g', role: '君药' },
+      { name: '半夏', emoji: '🍄', amount: '9g', role: '臣药' },
+      { name: '人参', emoji: '🥕', amount: '6g', role: '佐药' },
+      { name: '甘草', emoji: '🍂', amount: '6g', role: '使药' },
+      { name: '粳米', emoji: '🍚', amount: '6g', role: '佐药' },
+      { name: '大枣', emoji: '🫘', amount: '4枚', role: '佐药' }
+    ],
+    allHerbs: [
+      { name: '麦冬', emoji: '🌾', correct: true },
+      { name: '半夏', emoji: '🍄', correct: true },
+      { name: '人参', emoji: '🥕', correct: true },
+      { name: '甘草', emoji: '🍂', correct: true },
+      { name: '粳米', emoji: '🍚', correct: true },
+      { name: '大枣', emoji: '🫘', correct: true },
+      { name: '桂枝', emoji: '🌲', correct: false },
+      { name: '白芍', emoji: '🌸', correct: false },
+      { name: '黄连', emoji: '🌿', correct: false }
+    ],
+    indication: '肺痿。症见咳唾涎沫，短气喘促，咽干口燥，舌干红少苔，脉虚数。亦治肺胃阴虚，气火上逆之咳嗽、呕吐。',
+    analysis: '重用麦冬为君，甘寒清润，既养肺胃之阴，又清肺胃虚热。半夏为臣，降逆下气，化其痰涎，虽属辛温之性，但与大量麦冬相配，则温燥之性减而降逆之用存。人参、甘草、粳米、大枣益胃气，生津液，共为佐使。',
+    feature: '麦冬与半夏比例为7:1，润燥得宜，滋而不腻，燥不伤正。培土生金，虚则补其母。',
+    classic: '《金匮要略·肺痿肺痈咳嗽上气病脉证治》："大逆上气，咽喉不利，止逆下气者，麦门冬汤主之。"',
+    brewFact: '麦门冬汤重用麦冬，煎时宜先煎麦冬，后下其他药物，以充分提取其甘寒生津之效。'
+  }
 ];
 
 // ===== State =====
 let state = {
-  selectedProduct: null,
-  selectedDose: 0,
-  commitmentValue: 0,
-  formData: {}
+  currentRx: null,
+  selectedHerbs: new Set(),
+  unlocked: [false, false, false]
 };
 
 // ===== Navigation =====
@@ -870,350 +767,249 @@ function showScreen(id) {
   window.scrollTo(0, 0);
 }
 
-function goBack(screenId) {
-  showScreen(screenId);
+function goBack(id) {
+  showScreen(id);
 }
 
-function goToProducts() {
-  state.selectedProduct = null;
-  state.selectedDose = 0;
-  state.commitmentValue = 0;
-  document.getElementById('commit-slider').value = 0;
-  document.getElementById('commit-amount').textContent = '¥0';
-  document.querySelectorAll('.product-card').forEach(c => c.classList.remove('selected'));
-  document.getElementById('btn-to-dose').disabled = true;
-  showScreen('screen-products');
+function goToSyndrome() {
+  state.selectedHerbs.clear();
+  showScreen('screen-syndrome');
 }
 
-// ===== Product Selection =====
-function selectProduct(el, index) {
-  document.querySelectorAll('.product-card').forEach(c => c.classList.remove('selected'));
-  el.classList.add('selected');
-  state.selectedProduct = index;
-  document.getElementById('btn-to-dose').disabled = false;
-}
-
-function goToDose() {
-  if (state.selectedProduct === null) return;
-  const p = products[state.selectedProduct];
-  document.getElementById('dose-emoji').textContent = p.emoji;
-  document.getElementById('dose-name').textContent = p.name;
-  document.getElementById('dose-desc').textContent = p.type + ' · 选择起始决心值';
-  showScreen('screen-dose');
-}
-
-// ===== Dose Selection =====
-function selectDose(el, index) {
-  document.querySelectorAll('.dose-option').forEach(o => o.classList.remove('selected'));
-  el.classList.add('selected');
-  state.selectedDose = index;
-}
-
-// ===== Commitment Holding =====
-let holdInterval = null;
-let holdValue = 0;
-const HOLD_MAX = 100;
-
-function startHolding(e) {
-  if (e) e.preventDefault();
-  if (holdInterval) return;
+// ===== Syndrome Selection =====
+function selectSyndrome(index) {
+  state.currentRx = index;
+  const rx = prescriptions[index];
   
-  holdValue = state.commitmentValue;
-  holdInterval = setInterval(() => {
-    holdValue += 2;
-    if (holdValue > HOLD_MAX) holdValue = HOLD_MAX;
-    updateCommitment(holdValue);
-    
-    // Vibrate on mobile
-    if (navigator.vibrate && holdValue % 10 === 0) {
-      navigator.vibrate(20);
-    }
-  }, 50);
-}
-
-function stopHolding(e) {
-  if (e) e.preventDefault();
-  if (holdInterval) {
-    clearInterval(holdInterval);
-    holdInterval = null;
-  }
-  state.commitmentValue = holdValue;
-}
-
-function onSliderChange(val) {
-  holdValue = parseInt(val);
-  updateCommitment(holdValue);
-  state.commitmentValue = holdValue;
-}
-
-function updateCommitment(val) {
-  const p = products[state.selectedProduct];
-  const amount = Math.round(p.original * p.doseFactor * (val / 100));
-  document.getElementById('commit-amount').textContent = '¥' + amount.toLocaleString();
-  document.getElementById('commit-slider').value = val;
+  document.getElementById('rx-name').textContent = rx.name;
+  document.getElementById('rx-source').textContent = '出自' + rx.source + ' · ' + rx.author;
+  document.getElementById('rx-classic').textContent = rx.classic;
+  document.getElementById('rx-syndrome').textContent = rx.indication;
   
-  // Update ring progress
-  const ring = document.getElementById('progress-ring');
-  if (ring) {
-    const circumference = 2 * Math.PI * 100;
-    const offset = circumference - (val / 100) * circumference;
-    ring.style.strokeDashoffset = offset;
+  const herbsDiv = document.getElementById('rx-herbs');
+  herbsDiv.innerHTML = rx.herbs.map(h => 
+    '<span class="recipe-herb-tag">' + h.emoji + ' ' + h.name + ' ' + h.amount + '</span>'
+  ).join('');
+  
+  // Build herb grid
+  const grid = document.getElementById('herb-grid');
+  grid.innerHTML = '';
+  // Shuffle herbs
+  const shuffled = [...rx.allHerbs].sort(() => Math.random() - 0.5);
+  shuffled.forEach((herb, i) => {
+    const div = document.createElement('div');
+    div.className = 'herb-item';
+    div.dataset.name = herb.name;
+    div.dataset.correct = herb.correct;
+    div.innerHTML = '<span class="herb-emoji">' + herb.emoji + '</span><span class="herb-name">' + herb.name + '</span>';
+    div.onclick = () => toggleHerb(div, herb);
+    grid.appendChild(div);
+  });
+  
+  updateProgress();
+  document.getElementById('btn-brew').disabled = true;
+  showScreen('screen-prescription');
+}
+
+function toggleHerb(el, herb) {
+  if (el.classList.contains('correct') || el.classList.contains('wrong')) return;
+  
+  if (herb.correct) {
+    el.classList.add('correct');
+    state.selectedHerbs.add(herb.name);
+    showToast('✅ ' + herb.name + ' — 正确！');
+  } else {
+    el.classList.add('wrong');
+    showToast('❌ ' + herb.name + ' — 非本方药材');
   }
+  
+  updateProgress();
+  checkComplete();
+}
+
+function updateProgress() {
+  const rx = prescriptions[state.currentRx];
+  const correctCount = rx.allHerbs.filter(h => h.correct).length;
+  const selectedCount = state.selectedHerbs.size;
+  const pct = (selectedCount / correctCount) * 100;
+  document.getElementById('herb-progress').style.width = pct + '%';
+}
+
+function checkComplete() {
+  const rx = prescriptions[state.currentRx];
+  const correctCount = rx.allHerbs.filter(h => h.correct).length;
+  if (state.selectedHerbs.size >= correctCount) {
+    document.getElementById('btn-brew').disabled = false;
+    state.unlocked[state.currentRx] = true;
+  }
+}
+
+// ===== Brewing =====
+function goToBrew() {
+  showScreen('screen-brew');
+  const rx = prescriptions[state.currentRx];
+  document.getElementById('brew-fact').textContent = '💡 煎药小常识：' + rx.brewFact;
+  
+  setTimeout(() => {
+    goToResult();
+  }, 3000);
 }
 
 // ===== Result =====
 function goToResult() {
-  const p = products[state.selectedProduct];
-  const saved = Math.round(p.original * p.doseFactor * (state.commitmentValue / 100));
+  const rx = prescriptions[state.currentRx];
+  document.getElementById('res-name').textContent = rx.name;
+  document.getElementById('res-source').textContent = rx.source + ' · ' + rx.author;
+  document.getElementById('res-indication').textContent = rx.indication;
+  document.getElementById('res-analysis').textContent = rx.analysis;
+  document.getElementById('res-feature').textContent = rx.feature;
   
-  document.getElementById('result-saved').textContent = '¥' + saved.toLocaleString();
-  document.getElementById('poster-amount').textContent = '¥' + saved.toLocaleString();
-  
-  // Find equivalent
-  let eqText = '';
-  for (const eq of equivalents) {
-    if (saved <= eq.max) {
-      eqText = '省下的钱可以<br>' + eq.items.map(i => '<span class="result-equivalent-highlight">' + i + '</span>').join('<br>');
-      break;
-    }
-  }
-  if (!eqText) {
-    eqText = '省下的钱可以<br><span class="result-equivalent-highlight">请全家吃顿大餐 🍽️</span>';
-  }
-  document.getElementById('result-equivalent').innerHTML = eqText;
+  const herbsDiv = document.getElementById('res-herbs');
+  herbsDiv.innerHTML = rx.herbs.map(h => 
+    '<span class="recipe-herb-tag">' + h.emoji + ' ' + h.name + ' ' + h.amount + '（' + h.role + '）</span>'
+  ).join('');
   
   showScreen('screen-result');
 }
 
-// ===== Poster Generation =====
-function generatePosterImage() {
-  const canvas = document.getElementById('posterCanvas');
+// ===== Canvas Recipe Card =====
+function generateRecipeCanvas() {
+  const canvas = document.getElementById('recipeCanvas');
   const ctx = canvas.getContext('2d');
-  const w = 750, h = 1334;
+  const w = 750, h = 1100;
+  canvas.width = w;
+  canvas.height = h;
   
-  // Background
-  const grad = ctx.createLinearGradient(0, 0, w, h);
-  grad.addColorStop(0, '#667eea');
-  grad.addColorStop(1, '#764ba2');
-  ctx.fillStyle = grad;
+  const rx = prescriptions[state.currentRx];
+  
+  // Background - rice paper color
+  ctx.fillStyle = '#fdf8e8';
   ctx.fillRect(0, 0, w, h);
   
-  // Decorative circles
-  ctx.fillStyle = 'rgba(255,255,255,0.05)';
-  ctx.beginPath();
-  ctx.arc(w/2, h/3, 300, 0, Math.PI * 2);
-  ctx.fill();
+  // Texture dots
+  ctx.fillStyle = 'rgba(139, 110, 99, 0.03)';
+  for (let i = 0; i < 200; i++) {
+    const x = Math.random() * w;
+    const y = Math.random() * h;
+    ctx.beginPath();
+    ctx.arc(x, y, Math.random() * 2, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  
+  // Top border
+  ctx.fillStyle = '#c62828';
+  ctx.fillRect(50, 40, w - 100, 4);
   
   // Title
   ctx.textAlign = 'center';
-  ctx.fillStyle = 'white';
-  ctx.font = 'bold 48px PingFang SC, sans-serif';
-  ctx.fillText('💪 我的减脂决心值', w/2, 200);
+  ctx.fillStyle = '#c62828';
+  ctx.font = 'bold 48px "Noto Serif SC", serif';
+  ctx.fillText('📜 药方笺', w/2, 120);
   
-  // Product info
-  const p = products[state.selectedProduct];
-  ctx.font = '32px PingFang SC, sans-serif';
-  ctx.fillText(p.emoji + ' ' + p.name, w/2, 300);
+  ctx.fillStyle = '#3e2723';
+  ctx.font = 'bold 42px "Noto Serif SC", serif';
+  ctx.fillText(rx.name, w/2, 190);
   
-  // Amount
-  const saved = Math.round(p.original * p.doseFactor * (state.commitmentValue / 100));
-  ctx.font = 'bold 120px PingFang SC, sans-serif';
-  ctx.fillText('¥' + saved.toLocaleString(), w/2, 500);
+  ctx.font = '24px "Noto Serif SC", serif';
+  ctx.fillStyle = '#8d6e63';
+  ctx.fillText(rx.source + ' · ' + rx.author, w/2, 240);
   
-  ctx.font = '28px PingFang SC, sans-serif';
-  ctx.fillStyle = 'rgba(255,255,255,0.8)';
-  ctx.fillText('本次模拟体验已省下', w/2, 560);
+  // Herbs
+  ctx.font = 'bold 28px "Noto Serif SC", serif';
+  ctx.fillStyle = '#5d4037';
+  ctx.textAlign = 'left';
+  ctx.fillText('💊 组方', 60, 310);
   
-  // Divider
-  ctx.strokeStyle = 'rgba(255,255,255,0.3)';
-  ctx.lineWidth = 2;
-  ctx.beginPath();
-  ctx.moveTo(150, 620);
-  ctx.lineTo(600, 620);
-  ctx.stroke();
-  
-  // Equivalent
-  ctx.fillStyle = 'white';
-  ctx.font = '30px PingFang SC, sans-serif';
-  ctx.fillText('省下的钱可以：', w/2, 700);
-  
-  ctx.font = '28px PingFang SC, sans-serif';
-  ctx.fillStyle = 'rgba(255,255,255,0.9)';
-  const eqs = equivalents.find(e => saved <= e.max)?.items || ['请全家吃顿大餐 🍽️'];
-  eqs.slice(0, 3).forEach((item, i) => {
-    ctx.fillText(item, w/2, 780 + i * 60);
+  ctx.font = '24px "Noto Serif SC", serif';
+  let y = 360;
+  rx.herbs.forEach(h => {
+    ctx.fillText(h.emoji + ' ' + h.name + ' ' + h.amount + '（' + h.role + '）', 80, y);
+    y += 50;
   });
   
-  // QR placeholder
-  ctx.fillStyle = 'white';
-  ctx.fillRect(275, 1020, 200, 200);
-  ctx.fillStyle = '#333';
-  ctx.font = '20px PingFang SC, sans-serif';
-  ctx.fillText('扫码测决心', w/2, 1260);
+  // Indication
+  ctx.font = 'bold 28px "Noto Serif SC", serif';
+  ctx.fillStyle = '#5d4037';
+  ctx.fillText('🎯 主治', 60, y + 20);
   
-  // Disclaimer
-  ctx.font = '20px PingFang SC, sans-serif';
-  ctx.fillStyle = 'rgba(255,255,255,0.6)';
-  ctx.fillText('本体验不宣传任何药品，无减重效果', w/2, 1300);
+  ctx.font = '22px "Noto Serif SC", serif';
+  ctx.fillStyle = '#5d4037';
+  const words = rx.indication.split('');
+  let line = '';
+  let lineY = y + 70;
+  words.forEach(char => {
+    if (ctx.measureText(line + char).width > w - 160) {
+      ctx.fillText(line, 80, lineY);
+      line = char;
+      lineY += 40;
+    } else {
+      line += char;
+    }
+  });
+  if (line) ctx.fillText(line, 80, lineY);
+  
+  // Bottom seal
+  ctx.fillStyle = '#c62828';
+  ctx.save();
+  ctx.translate(w - 150, h - 150);
+  ctx.rotate(-0.2);
+  ctx.fillRect(-50, -50, 100, 100);
+  ctx.fillStyle = 'white';
+  ctx.textAlign = 'center';
+  ctx.font = 'bold 20px "Noto Serif SC", serif';
+  ctx.fillText('杏林', 0, -10);
+  ctx.fillText('妙手', 0, 25);
+  ctx.restore();
+  
+  // Footer
+  ctx.fillStyle = '#a1887f';
+  ctx.font = '18px "Noto Serif SC", serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('本笺仅供中医文化学习 · 不构成诊疗建议', w/2, h - 40);
   
   return canvas.toDataURL('image/png');
 }
 
-function sharePoster() {
-  if (/MicroMessenger/i.test(navigator.userAgent)) {
-    document.getElementById('wechatTip').classList.add('show');
-  } else if (navigator.share) {
-    const p = products[state.selectedProduct];
-    const saved = Math.round(p.original * p.doseFactor * (state.commitmentValue / 100));
-    navigator.share({
-      title: '我的减脂决心值 ¥' + saved.toLocaleString(),
-      text: '刚在「减脂针决心计算器」完成虚拟体验，省下了' + saved + '元！',
-      url: window.location.href
-    }).catch(() => {});
-  } else {
-    showToast('请截图保存海报，发给好友 💪');
-  }
-}
-
-function savePoster() {
-  const dataUrl = generatePosterImage();
+function saveRecipeCard() {
+  const dataUrl = generateRecipeCanvas();
   const link = document.createElement('a');
-  link.download = '我的减脂决心值.png';
+  link.download = '药方笺_' + prescriptions[state.currentRx].name + '.png';
   link.href = dataUrl;
   link.click();
-  showToast('海报已保存到相册！');
+  showToast('药方笺已保存！');
 }
 
-// ===== Science Form =====
-function goToScience() {
-  showScreen('screen-form');
+// ===== Consult =====
+function goToConsult() {
+  showScreen('screen-consult');
 }
 
-function selectRadio(el, group) {
-  const parent = el.parentElement;
-  parent.querySelectorAll('.radio-option').forEach(o => o.classList.remove('selected'));
-  el.classList.add('selected');
-  state.formData[group] = el.dataset[group];
-}
-
-function generateAIPlan() {
-  const height = parseFloat(document.getElementById('form-height').value);
-  const weight = parseFloat(document.getElementById('form-weight').value);
-  const target = parseFloat(document.getElementById('form-target').value);
+function submitConsult() {
+  const name = document.getElementById('c-name').value.trim();
+  const age = document.getElementById('c-age').value.trim();
+  const symptom = document.getElementById('c-symptom').value;
+  const phone = document.getElementById('c-phone').value.trim();
   
-  if (!height || !weight || !target) {
-    showToast('请填写完整的身高、体重和目标体重');
-    return;
-  }
-  if (!state.formData.age || !state.formData.exercise || !state.formData.diet || !state.formData.sleep) {
-    showToast('请完成所有选项');
+  if (!name || !age || !symptom || !phone) {
+    showToast('请填写完整信息');
     return;
   }
   
-  const bmi = (weight / (height/100) ** 2).toFixed(1);
-  const loseKg = (weight - target).toFixed(1);
-  const bmiCategory = bmi < 18.5 ? '偏瘦' : bmi < 24 ? '正常' : bmi < 28 ? '超重' : '肥胖';
-  
-  // Generate plan based on inputs
-  const exercisePlan = state.formData.exercise === '0' 
-    ? '建议从每天快走30分钟开始，逐步增加到每周3次有氧+2次力量训练。' 
-    : state.formData.exercise === '5+' 
-    ? '你的运动基础很好！建议保持现有频率，增加HIIT训练提升代谢。'
-    : '建议增加到每周4-5次运动，结合有氧（慢跑/游泳）和力量训练。';
-  
-  const dietPlan = state.formData.diet === '外卖'
-    ? '尽量减少外卖频率，学会自己做饭。控制每餐蛋白质:蔬菜:碳水 = 3:4:3。'
-    : state.formData.diet === '夜宵'
-    ? '戒掉夜宵是最快见效的方法。晚餐后禁食，实在饿可吃少量坚果或酸奶。'
-    : state.formData.diet === '节食'
-    ? '停止节食！长期低热量会导致代谢下降。建议每天吃够基础代谢的80%。'
-    : '保持规律三餐，注意蛋白质摄入（每公斤体重1.2-1.5g）。';
-  
-  const sleepPlan = state.formData.sleep === '差' || state.formData.sleep === '失眠'
-    ? '睡眠是减脂的关键！建议23点前入睡，保证7-8小时。睡前1小时远离手机。'
-    : '保持优质睡眠，睡前可补充镁元素或喝温牛奶助眠。';
-  
-  const supplementTags = ['蛋白粉', '复合维生素', '鱼油', '益生菌'];
-  if (state.formData.exercise === '0') supplementTags.push('左旋肉碱（配合运动）');
-  if (state.formData.sleep === '差') supplementTags.push('褪黑素（短期）');
-  if (bmi > 28) supplementTags.push('建议就医评估');
-  
-  const doctorAdvice = bmi > 28 
-    ? '⚠️ 你的BMI已达到' + bmi + '（肥胖范围），强烈建议先去医院内分泌科做全面检查，排除多囊卵巢综合征、甲减等病理性肥胖。医生可能会建议使用GLP-1类药物，但必须在专业指导下使用。'
-    : bmi > 24
-    ? '你的BMI为' + bmi + '（超重范围）。建议先通过饮食+运动干预3个月，如效果不佳再考虑就医。'
-    : '你的BMI为' + bmi + '，属于' + bmiCategory + '范围。通过科学饮食和运动即可达到目标。';
-  
-  const html = `
-    <div class="ai-header">
-      <div class="ai-avatar">🧠</div>
-      <div>
-        <div class="ai-title">AI 减重方案</div>
-        <div class="ai-subtitle">基于你的身体数据生成</div>
-      </div>
-    </div>
-    
-    <div class="ai-section">
-      <div class="ai-section-title">📊 身体数据分析</div>
-      <div class="ai-section-content">
-        身高 ${height}cm · 体重 ${weight}kg · 目标 ${target}kg<br>
-        BMI: <strong>${bmi}</strong>（${bmiCategory}）<br>
-        需减重: <strong>${loseKg}kg</strong>
-      </div>
-    </div>
-    
-    <div class="ai-section">
-      <div class="ai-section-title">🏃 运动计划</div>
-      <div class="ai-section-content">${exercisePlan}</div>
-    </div>
-    
-    <div class="ai-section">
-      <div class="ai-section-title">🥗 饮食建议</div>
-      <div class="ai-section-content">${dietPlan}</div>
-    </div>
-    
-    <div class="ai-section">
-      <div class="ai-section-title">😴 睡眠优化</div>
-      <div class="ai-section-content">${sleepPlan}</div>
-    </div>
-    
-    <div class="ai-section">
-      <div class="ai-section-title">💊 营养补剂参考</div>
-      <div class="ai-section-content">
-        ${supplementTags.map(t => '<span class="ai-tag">' + t + '</span>').join('')}
-        <br><small style="color:#999;">仅供参考，购买前请咨询医生或营养师</small>
-      </div>
-    </div>
-    
-    <div class="ai-section">
-      <div class="ai-section-title">🏥 就医建议</div>
-      <div class="ai-section-content">${doctorAdvice}</div>
-    </div>
-    
-    <div class="ai-section">
-      <div class="ai-section-title">📅 3个月目标</div>
-      <div class="ai-section-content">
-        第1个月：建立运动习惯，减 ${(loseKg * 0.3).toFixed(1)}kg<br>
-        第2个月：优化饮食结构，再减 ${(loseKg * 0.4).toFixed(1)}kg<br>
-        第3个月：巩固成果，冲刺目标体重
-      </div>
-    </div>
-  `;
-  
-  document.getElementById('ai-result').innerHTML = html;
-  showScreen('screen-ai');
-}
-
-function shareAIPlan() {
-  if (navigator.share) {
-    navigator.share({
-      title: '我的AI减重方案',
-      text: '刚生成了个性化的AI减重方案，包含运动、饮食、补剂建议！',
-      url: window.location.href
-    }).catch(() => {});
-  } else {
-    showToast('请截图保存，分享给好友 📤');
+  if (!/^1[3-9]\d{9}$/.test(phone)) {
+    showToast('请输入正确的手机号');
+    return;
   }
+  
+  // Save to localStorage
+  const consultData = {
+    name, age, symptom, phone,
+    desc: document.getElementById('c-desc').value.trim(),
+    timestamp: new Date().toISOString()
+  };
+  localStorage.setItem('tcm_consult_' + Date.now(), JSON.stringify(consultData));
+  
+  showToast('✅ 提交成功！中医师将在24小时内联系您');
+  setTimeout(() => goToSyndrome(), 2000);
 }
 
 // ===== Toast =====
@@ -1224,12 +1020,6 @@ function showToast(msg) {
   setTimeout(() => toast.classList.remove('show'), 2500);
 }
 </script>
-
-<!-- Disclaimer -->
-<div class="disclaimer">
-  ⚠️ 本体验仅供娱乐，不宣传任何药品，无减重效果。是否使用减重药物需经医生面诊评估。<br>
-  <a href="#" onclick="alert('本页面为虚拟体验工具，不构成医疗建议。如有减重需求，请咨询专业医生。');return false;">了解更多</a>
-</div>
 
 </body>
 </html>
