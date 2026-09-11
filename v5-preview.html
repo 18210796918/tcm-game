@@ -1102,15 +1102,9 @@ body {
       <div class="result-section-content" id="result-principles"></div>
     </div>
 
-    <div style="position:relative;">
-      <!-- Arrow hint -->
-      <div style="position:absolute;right:75px;top:50%;transform:translateY(-50%);display:flex;align-items:center;gap:6px;animation:float 2s ease-in-out infinite;">
-        <span style="font-size:12px;color:#c62828;font-weight:700;white-space:nowrap;">解锁进阶 ➜</span>
-      </div>
-      <div class="seal-stamp" id="seal-unlock" onclick="goToUnlockPage()" style="cursor:pointer;">
-        <span style="font-size:22px;">🗝️</span>
-        <span style="font-size:10px;">杏林百方</span>
-      </div>
+    <div class="seal-stamp" id="seal-unlock" onclick="goToUnlockPage()" style="cursor:pointer;">
+      <span style="font-size:22px;">🗝️</span>
+      <span style="font-size:10px;">杏林百方</span>
     </div>
   </div>
 
@@ -1120,6 +1114,13 @@ body {
     </div>
     <div style="font-size:12px;color:#8d6e63;margin-bottom:8px;">
       尚有百方典籍藏于杏林深处...
+    </div>
+    <div style="margin-top:12px;padding-top:12px;border-top:1px dashed rgba(198,40,40,0.2);">
+      <div style="font-size:12px;color:#c62828;font-weight:700;margin-bottom:6px;">🔓 进阶挑战：杏林百方</div>
+      <div style="font-size:11px;color:#8d6e63;margin-bottom:8px;">四诊合参 · 悬壶济世 · 百剂名方</div>
+      <button onclick="goToUnlockPage()" style="padding:8px 20px;background:linear-gradient(145deg,#c62828,#b71c1c);color:white;border:none;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;">
+        🗝️ 解锁进阶 ➜
+      </button>
     </div>
   </div>
 
@@ -1588,7 +1589,7 @@ const FORMULAS = {
     effects: '冲任虚寒瘀血阻滞，漏下不止，月经不调，傍晚发热，手心烦热',
     principles: '吴茱萸桂枝温经散寒为君，当归川芎芍药阿胶麦冬养血滋阴为臣，人参甘草半夏生姜益气和胃为佐',
     herbs: ['吴茱萸','当归','芍药','川芎','人参','桂枝','阿胶','牡丹皮','生姜','甘草','半夏','麦冬'],
-    locked: true
+
   },
   xiebai: {
     id: 'xiebai',
@@ -1607,7 +1608,7 @@ const FORMULAS = {
     effects: '表虚自汗证，汗出恶风，面色㿠白，易感风邪',
     principles: '黄芪大补肺脾之气固表止汗为君，白术健脾益气为臣，防风走表祛风为佐使',
     herbs: ['黄芪','白术','防风'],
-    locked: true
+
   },
   gouqi: {
     id: 'gouqi',
@@ -1618,7 +1619,7 @@ const FORMULAS = {
     principles: '肝开窍于目，春气通于肝。枸杞子滋补肝肾之阴而益精明目，杭白菊清肝泻火、平肝明目，一滋一清，滋水涵木',
     herbs: ['枸杞子','杭白菊'],
     isDrink: true,
-    locked: true
+
   },
   lvdou: {
     id: 'lvdou',
@@ -1649,7 +1650,7 @@ const FORMULAS = {
     principles: '龙眼肉甘温，补益心脾、养血安神；大枣补中益气、养血安神。二药相配，心脾同补、气血双养，使心血足则神安梦稳',
     herbs: ['龙眼肉','大枣','枸杞子'],
     isDrink: true,
-    locked: true
+
   }
 };
 
