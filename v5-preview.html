@@ -1900,8 +1900,7 @@ function startSiZhenDemo() {
   loadSiZhenPatient();
 }
 
-function loadSiZhenPatient() {
-const patients = [
+const PATIENTS = [
   {
     symptoms: '患者：男，32岁。恶寒发热，汗出头痛，鼻鸣干呕，苔白不渴，脉浮缓。',
     options: [
@@ -2623,8 +2622,9 @@ const patients = [
     ]
   },
 ]
-  
-  const p = patients[(sizhenLevel - 1) % patients.length];
+
+function loadSiZhenPatient() {
+  const p = PATIENTS[(sizhenLevel - 1) % PATIENTS.length];
   document.getElementById('patient-symptoms').textContent = p.symptoms;
   
   const optsDiv = document.getElementById('sizhen-options');
