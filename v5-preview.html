@@ -2627,6 +2627,19 @@ function loadSiZhenPatient() {
   const p = PATIENTS[(sizhenLevel - 1) % PATIENTS.length];
   document.getElementById('patient-symptoms').textContent = p.symptoms;
   
+  // Parse gender and age from symptoms
+  const match = p.symptoms.match(/患者：(.)，(\d+)岁/);
+  if (match) {
+    const genderLabel = match[1] === '男' ? '男患者' : '女患者';
+    document.getElementById('patient-name').textContent = match[2] + '岁' + genderLabel;
+    document.getElementById('patient-avatar').textContent = match[1] === '男' ? '👨' : '👩';
+  }
+  // Parse first symptom phrase for description
+  const descMatch = p.symptoms.match(/\d+岁。(.+?)[，。]/);
+  if (descMatch) {
+    document.getElementById('patient-desc').textContent = descMatch[1];
+  }
+  
   const optsDiv = document.getElementById('sizhen-options');
   optsDiv.innerHTML = '';
   p.options.forEach((opt, idx) => {
