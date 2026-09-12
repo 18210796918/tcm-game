@@ -2625,7 +2625,7 @@ const patients = [
 ]
   
   const p = patients[(sizhenLevel - 1) % patients.length];
-  document.getElementById('sizhen-symptoms').textContent = p.symptoms;
+  document.getElementById('patient-symptoms').textContent = p.symptoms;
   
   const optsDiv = document.getElementById('sizhen-options');
   optsDiv.innerHTML = '';
@@ -2638,7 +2638,6 @@ const patients = [
       <span class="opt-num">${String.fromCharCode(65 + idx)}</span>
       <div class="opt-info">
         <div class="opt-name">${opt.name}</div>
-        <div class="opt-source">${opt.source}</div>
       </div>
     `;
     optsDiv.appendChild(div);
