@@ -1101,15 +1101,14 @@ body {
       <div class="result-section-title">📐 方义原理</div>
       <div class="result-section-content" id="result-principles"></div>
     </div>
-
-    <div class="seal-stamp" id="seal-unlock" onclick="goToUnlockPage()" style="cursor:pointer;">
-      <span style="font-size:22px;">🗝️</span>
-      <span style="font-size:10px;">杏林百方</span>
-    </div>
   </div>
 
-  <div class="card" style="text-align:center;">
-    <div style="font-size:13px;color:#5d4037;line-height:1.8;margin-bottom:10px;">
+  <div class="card" style="text-align:center;position:relative;">
+    <div class="seal-stamp" id="seal-unlock" onclick="goToUnlockPage()" style="cursor:pointer;width:56px;height:56px;bottom:auto;top:10px;right:10px;animation:none;transform:rotate(-5deg) scale(0.85);">
+      <span style="font-size:18px;">🗝️</span>
+      <span style="font-size:9px;">杏林百方</span>
+    </div>
+    <div style="font-size:13px;color:#5d4037;line-height:1.8;margin-bottom:10px;padding-top:8px;">
       🏮 您已研习 <strong id="result-progress-count">0</strong> / 24 剂名方
     </div>
     <div style="font-size:12px;color:#8d6e63;margin-bottom:8px;">
@@ -1301,6 +1300,61 @@ body {
     <img id="saveModalImg" style="max-width:100%;max-height:70vh;border-radius:8px;display:block;" src="" alt="药方笺">
   </div>
   <button onclick="closeSaveModal()" style="margin-top:16px;padding:12px 32px;background:linear-gradient(145deg,#c62828,#b71c1c);color:#f4ecd8;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;">关闭</button>
+</div>
+
+<!-- Payment Modal -->
+<div id="paymentModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.75);z-index:600;flex-direction:column;align-items:center;justify-content:center;padding:20px;">
+  <div style="background:#fff;border-radius:16px;width:100%;max-width:340px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.3);">
+    <div style="background:#07c160;padding:16px;text-align:center;color:#fff;">
+      <div style="font-size:14px;opacity:0.9;margin-bottom:4px;">微信支付</div>
+      <div style="font-size:20px;font-weight:700;">¥9.90</div>
+    </div>
+    <div style="padding:20px;">
+      <div style="display:flex;align-items:center;margin-bottom:16px;">
+        <div style="width:40px;height:40px;background:linear-gradient(145deg,#c62828,#b71c1c);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px;margin-right:12px;">📜</div>
+        <div>
+          <div style="font-size:15px;font-weight:600;color:#333;">杏林百方 · 永久解锁</div>
+          <div style="font-size:12px;color:#999;">一次解锁 · 百方尽收 · 永久研习</div>
+        </div>
+      </div>
+      <div style="border-top:1px solid #eee;padding-top:12px;margin-bottom:16px;">
+        <div style="display:flex;justify-content:space-between;font-size:14px;color:#666;margin-bottom:8px;">
+          <span>商品金额</span><span>¥9.90</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:14px;color:#666;">
+          <span>优惠</span><span style="color:#c62828;">-¥0.00</span>
+        </div>
+      </div>
+      <button id="btn-pay-confirm" onclick="confirmPay()" style="width:100%;padding:12px;background:#07c160;color:#fff;border:none;border-radius:8px;font-size:16px;font-weight:700;cursor:pointer;font-family:inherit;">
+        确认支付 ¥9.90
+      </button>
+      <button onclick="closePaymentModal()" style="width:100%;padding:10px;background:none;color:#999;border:none;font-size:14px;cursor:pointer;font-family:inherit;margin-top:8px;">
+        取消
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Payment Success Modal -->
+<div id="successModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.8);z-index:700;flex-direction:column;align-items:center;justify-content:center;padding:20px;">
+  <div style="text-align:center;color:#fff;animation:stampPop 0.5s ease;">
+    <div style="font-size:80px;margin-bottom:16px;">🎊</div>
+    <div style="font-size:24px;font-weight:700;margin-bottom:8px;">解锁成功！</div>
+    <div style="font-size:14px;opacity:0.9;margin-bottom:24px;line-height:1.8;">
+      您已获得《杏林百方》典籍传承权<br>
+      百剂名方 · 四诊合参 · 悬壶济世
+    </div>
+    <div style="width:70px;height:70px;background:#c62828;border-radius:4px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;font-weight:900;transform:rotate(-5deg);margin:0 auto 24px;box-shadow:0 4px 12px rgba(198,40,40,0.4);">
+      <span style="font-size:22px;">📜</span>
+      <span style="font-size:10px;">杏林百方</span>
+    </div>
+    <button onclick="enterBaiFang()" style="padding:12px 40px;background:linear-gradient(145deg,#c62828,#b71c1c);color:#fff;border:none;border-radius:12px;font-size:16px;font-weight:700;cursor:pointer;font-family:inherit;">
+      🏮 进入杏林百方
+    </button>
+    <button onclick="closeSuccessModal()" style="padding:10px 32px;background:rgba(255,255,255,0.15);color:#fff;border:none;border-radius:12px;font-size:14px;cursor:pointer;font-family:inherit;margin-top:10px;">
+      稍后再说
+    </button>
+  </div>
 </div>
 
 <!-- Hidden Canvas for recipe card -->
@@ -1776,11 +1830,172 @@ function enterStreet() {
 }
 
 function goToUnlockPage() {
-  showScreen('screen-unlock-bai');
+  if (isBaiFangUnlocked()) {
+    enterBaiFang();
+  } else {
+    showScreen('screen-unlock-bai');
+  }
+}
+
+function isBaiFangUnlocked() {
+  return localStorage.getItem('tcm_baifang_unlocked') === 'true';
 }
 
 function buyBaiFang() {
-  showToast('🏮 《杏林百方》即将上线，敬请期待！');
+  document.getElementById('paymentModal').style.display = 'flex';
+}
+
+function closePaymentModal() {
+  document.getElementById('paymentModal').style.display = 'none';
+}
+
+function confirmPay() {
+  const btn = document.getElementById('btn-pay-confirm');
+  btn.innerHTML = '支付中...';
+  btn.style.background = '#999';
+  btn.disabled = true;
+  
+  setTimeout(() => {
+    document.getElementById('paymentModal').style.display = 'none';
+    btn.innerHTML = '确认支付 ¥9.90';
+    btn.style.background = '#07c160';
+    btn.disabled = false;
+    
+    // Mark as unlocked
+    localStorage.setItem('tcm_baifang_unlocked', 'true');
+    
+    // Show success
+    document.getElementById('successModal').style.display = 'flex';
+    
+    // Update seal to show unlocked
+    const seal = document.getElementById('seal-unlock');
+    if (seal) {
+      seal.innerHTML = '<span style="font-size:18px;">📜</span><span style="font-size:9px;">已解锁</span>';
+      seal.style.background = '#2e7d32';
+      seal.style.boxShadow = '0 4px 12px rgba(46,125,50,0.3)';
+    }
+  }, 1500);
+}
+
+function closeSuccessModal() {
+  document.getElementById('successModal').style.display = 'none';
+  goBack('screen-result');
+}
+
+function enterBaiFang() {
+  document.getElementById('successModal').style.display = 'none';
+  showScreen('screen-sizhen');
+  startSiZhenDemo();
+}
+
+// Simple SiZhen Demo Game
+let sizhenLevel = 1;
+let sizhenScore = 0;
+
+function startSiZhenDemo() {
+  sizhenLevel = 1;
+  sizhenScore = 0;
+  document.getElementById('sizhen-score').textContent = '声望 ' + sizhenScore;
+  document.getElementById('sizhen-level').textContent = sizhenLevel;
+  loadSiZhenPatient();
+}
+
+function loadSiZhenPatient() {
+  const patients = [
+    {
+      symptoms: '患者：男，32岁。恶寒发热，汗出头痛，鼻鸣干呕，苔白不渴，脉浮缓。',
+      options: [
+        { name: '桂枝汤', source: '《伤寒论》', correct: true, info: '解肌发表，调和营卫。主治外感风寒表虚证。' },
+        { name: '麻黄汤', source: '《伤寒论》', correct: false, info: '发汗解表，宣肺平喘。主治外感风寒表实证。' },
+        { name: '银翘散', source: '《温病条辨》', correct: false, info: '辛凉透表，清热解毒。主治温病初起。' },
+        { name: '小柴胡汤', source: '《伤寒论》', correct: false, info: '和解少阳。主治伤寒少阳证。' }
+      ]
+    },
+    {
+      symptoms: '患者：女，28岁。胸胁苦满，默默不欲饮食，心烦喜呕，口苦咽干，目眩，脉弦。',
+      options: [
+        { name: '大承气汤', source: '《伤寒论》', correct: false, info: '峻下热结。主治阳明腑实证。' },
+        { name: '小柴胡汤', source: '《伤寒论》', correct: true, info: '和解少阳。主治伤寒少阳证。' },
+        { name: '四君子汤', source: '《太平惠民和剂局方》', correct: false, info: '益气健脾。主治脾胃气虚证。' },
+        { name: '六味地黄丸', source: '《小儿药证直诀》', correct: false, info: '滋阴补肾。主治肾阴亏损证。' }
+      ]
+    },
+    {
+      symptoms: '患者：男，45岁。腰膝酸软，头晕目眩，盗汗遗精，骨蒸潮热，手足心热，舌红少苔，脉细数。',
+      options: [
+        { name: '补中益气汤', source: '《脾胃论》', correct: false, info: '补中益气，升阳举陷。主治脾胃气虚证。' },
+        { name: '金匮肾气丸', source: '《金匮要略》', correct: false, info: '补肾助阳。主治肾阳不足证。' },
+        { name: '六味地黄丸', source: '《小儿药证直诀》', correct: true, info: '滋阴补肾。主治肾阴亏损证。' },
+        { name: '归脾汤', source: '《济生方》', correct: false, info: '益气补血，健脾养心。主治心脾气血两虚证。' }
+      ]
+    }
+  ];
+  
+  const p = patients[(sizhenLevel - 1) % patients.length];
+  document.getElementById('sizhen-symptoms').textContent = p.symptoms;
+  
+  const optsDiv = document.getElementById('sizhen-options');
+  optsDiv.innerHTML = '';
+  p.options.forEach((opt, idx) => {
+    const div = document.createElement('div');
+    div.className = 'sizhen-option';
+    div.dataset.correct = opt.correct ? 'true' : 'false';
+    div.onclick = function() { selectSiZhenOption(this, opt.correct, opt); };
+    div.innerHTML = `
+      <span class="opt-num">${String.fromCharCode(65 + idx)}</span>
+      <div class="opt-info">
+        <div class="opt-name">${opt.name}</div>
+        <div class="opt-source">${opt.source}</div>
+      </div>
+    `;
+    optsDiv.appendChild(div);
+  });
+}
+
+function selectSiZhenOption(el, isCorrect, opt) {
+  const all = document.querySelectorAll('.sizhen-option');
+  all.forEach(o => o.style.pointerEvents = 'none');
+  
+  if (isCorrect) {
+    el.classList.add('correct');
+    sizhenScore += 10;
+    document.getElementById('sizhen-score').textContent = '声望 ' + sizhenScore;
+    
+    document.getElementById('sizhen-result-title').textContent = '🎉 辨证正确';
+    document.getElementById('sizhen-result-sub').textContent = '用药精准 · 患者康复';
+    document.getElementById('sizhen-result-emoji').textContent = '🎊';
+    document.getElementById('sizhen-result-text').textContent = '妙手回春';
+    document.getElementById('sizhen-result-detail').innerHTML = `
+      <strong>${opt.name}</strong> — ${opt.info}<br>
+      声望 +10 · 累计声望 ${sizhenScore}
+    `;
+  } else {
+    el.classList.add('wrong');
+    
+    // Highlight correct answer
+    const correctOne = Array.from(all).find(o => o.dataset.correct === 'true');
+    if (correctOne) correctOne.classList.add('correct');
+    
+    document.getElementById('sizhen-result-title').textContent = '😔 辨证有误';
+    document.getElementById('sizhen-result-sub').textContent = '用药不当 · 需再斟酌';
+    document.getElementById('sizhen-result-emoji').textContent = '📖';
+    document.getElementById('sizhen-result-text').textContent = '勤加研习';
+    document.getElementById('sizhen-result-detail').innerHTML = `
+      此案应选他方，建议回顾典籍再行挑战。<br>
+      当前声望 ${sizhenScore}
+    `;
+  }
+  
+  setTimeout(() => {
+    showScreen('screen-sizhen-result');
+  }, 600);
+}
+
+function nextSizhen() {
+  sizhenLevel++;
+  document.getElementById('sizhen-level').textContent = sizhenLevel;
+  showScreen('screen-sizhen');
+  loadSiZhenPatient();
 }
 
 function buyCourse() {
