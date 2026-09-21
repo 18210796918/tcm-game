@@ -1577,7 +1577,7 @@ body {
   <!-- Patient Card -->
   <div class="card" style="margin-top:12px;background:linear-gradient(145deg,#fdf8e8,#f5edd8);">
     <div style="text-align:center;margin-bottom:12px;">
-      <div style="font-size:60px;margin-bottom:4px;" id="patient-avatar">🤒</div>
+      <div style="width:80px;height:96px;margin:0 auto 8px;display:flex;align-items:center;justify-content:center;" id="patient-avatar">🤒</div>
       <div style="font-size:16px;font-weight:700;color:#3e2723;" id="patient-name">风寒客</div>
       <div style="font-size:12px;color:#8d6e63;" id="patient-desc">恶寒发热三日</div>
     </div>
@@ -3097,6 +3097,331 @@ const PATIENTS = [
   },
 ]
 
+// Song Dynasty patient SVG templates
+const PATIENT_SVGS = {
+  // 青年男子 - 幞头+圆领袍
+  youngMan: `<svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" style="width:80px;height:96px;">
+    <defs>
+      <linearGradient id="ymCloth" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" style="stop-color:#4a6b8a"/>
+        <stop offset="50%" style="stop-color:#6b8eae"/>
+        <stop offset="100%" style="stop-color:#4a6b8a"/>
+      </linearGradient>
+    </defs>
+    <!-- 身体/袍服 -->
+    <path d="M 30 50 L 25 110 L 75 110 L 70 50 Z" fill="url(#ymCloth)" stroke="#3a5b7a" stroke-width="1.5"/>
+    <!-- 衣领 -->
+    <path d="M 35 50 L 50 65 L 65 50" stroke="#f4ecd8" stroke-width="2" fill="none"/>
+    <path d="M 40 50 L 50 60 L 60 50" stroke="#d4a574" stroke-width="1" fill="none"/>
+    <!-- 头部 -->
+    <ellipse cx="50" cy="35" rx="16" ry="18" fill="#e8c9a0" stroke="#c4a574" stroke-width="1"/>
+    <!-- 幞头（宋朝男子头巾） -->
+    <path d="M 32 25 L 50 12 L 68 25 L 68 30 L 32 30 Z" fill="#2d3a4a" stroke="#1a2a3a" stroke-width="1"/>
+    <rect x="32" y="28" width="36" height="4" fill="#1a2a3a" rx="1"/>
+    <!-- 帽翅（展脚） -->
+    <ellipse cx="25" cy="32" rx="8" ry="3" fill="#2d3a4a" stroke="#1a2a3a" stroke-width="0.5"/>
+    <ellipse cx="75" cy="32" rx="8" ry="3" fill="#2d3a4a" stroke="#1a2a3a" stroke-width="0.5"/>
+    <!-- 眉眼 -->
+    <path d="M 42 32 L 46 32" stroke="#3e2723" stroke-width="1.5"/>
+    <path d="M 54 32 L 58 32" stroke="#3e2723" stroke-width="1.5"/>
+    <circle cx="44" cy="36" r="1.5" fill="#3e2723"/>
+    <circle cx="56" cy="36" r="1.5" fill="#3e2723"/>
+    <!-- 鼻 -->
+    <path d="M 50 38 L 50 42" stroke="#c4a574" stroke-width="1"/>
+    <!-- 嘴（病态微张） -->
+    <ellipse cx="50" cy="46" rx="3" ry="2" fill="#8b4513"/>
+    <!-- 腰带 -->
+    <rect x="28" y="75" width="44" height="6" fill="#8b6914" stroke="#6b5b4f" stroke-width="1" rx="1"/>
+    <rect x="45" y="74" width="10" height="8" fill="#d4a574" stroke="#b8941f" stroke-width="1" rx="1"/>
+  </svg>`,
+  
+  // 中年男子 - 直裰+方巾
+  middleMan: `<svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" style="width:80px;height:96px;">
+    <defs>
+      <linearGradient id="mmCloth" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" style="stop-color:#5a7a5a"/>
+        <stop offset="50%" style="stop-color:#7a9a7a"/>
+        <stop offset="100%" style="stop-color:#5a7a5a"/>
+      </linearGradient>
+    </defs>
+    <!-- 身体/直裰 -->
+    <path d="M 28 50 L 22 112 L 78 112 L 72 50 Z" fill="url(#mmCloth)" stroke="#4a6b4a" stroke-width="1.5"/>
+    <!-- 交领 -->
+    <path d="M 35 50 L 50 70 L 65 50" stroke="#f4ecd8" stroke-width="2.5" fill="none"/>
+    <path d="M 42 50 L 50 62 L 58 50" stroke="#d4a574" stroke-width="1.5" fill="none"/>
+    <!-- 头部 -->
+    <ellipse cx="50" cy="32" rx="17" ry="19" fill="#e8c9a0" stroke="#c4a574" stroke-width="1"/>
+    <!-- 方巾（儒巾） -->
+    <path d="M 30 22 L 50 8 L 70 22 L 70 28 L 30 28 Z" fill="#3a4a3a" stroke="#2a3a2a" stroke-width="1"/>
+    <rect x="30" y="26" width="40" height="5" fill="#2a3a2a" rx="1"/>
+    <!-- 巾角下垂 -->
+    <path d="M 32 28 L 28 45" stroke="#3a4a3a" stroke-width="3"/>
+    <path d="M 68 28 L 72 45" stroke="#3a4a3a" stroke-width="3"/>
+    <!-- 眉眼（疲惫） -->
+    <path d="M 40 30 Q 43 28, 46 30" stroke="#3e2723" stroke-width="1.5" fill="none"/>
+    <path d="M 54 30 Q 57 28, 60 30" stroke="#3e2723" stroke-width="1.5" fill="none"/>
+    <circle cx="43" cy="34" r="1.5" fill="#3e2723"/>
+    <circle cx="57" cy="34" r="1.5" fill="#3e2723"/>
+    <!-- 眼袋 -->
+    <path d="M 40 38 Q 43 40, 46 38" stroke="#a0845c" stroke-width="1" fill="none"/>
+    <path d="M 54 38 Q 57 40, 60 38" stroke="#a0845c" stroke-width="1" fill="none"/>
+    <!-- 胡须 -->
+    <path d="M 42 42 Q 50 48, 58 42" stroke="#8b8b8b" stroke-width="2" fill="none"/>
+    <path d="M 46 46 Q 50 50, 54 46" stroke="#8b8b8b" stroke-width="1.5" fill="none"/>
+    <!-- 腰带 -->
+    <rect x="25" y="78" width="50" height="7" fill="#8b6914" stroke="#6b5b4f" stroke-width="1" rx="1"/>
+  </svg>`,
+  
+  // 老年男子 - 襕衫+东坡巾
+  oldMan: `<svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" style="width:80px;height:96px;">
+    <defs>
+      <linearGradient id="omCloth" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" style="stop-color:#7a6a5a"/>
+        <stop offset="50%" style="stop-color:#9a8a7a"/>
+        <stop offset="100%" style="stop-color:#7a6a5a"/>
+      </linearGradient>
+    </defs>
+    <!-- 身体/襕衫 -->
+    <path d="M 26 48 L 20 114 L 80 114 L 74 48 Z" fill="url(#omCloth)" stroke="#6a5a4a" stroke-width="1.5"/>
+    <!-- 交领宽袖 -->
+    <path d="M 32 48 L 50 72 L 68 48" stroke="#f4ecd8" stroke-width="3" fill="none"/>
+    <!-- 头部 -->
+    <ellipse cx="50" cy="30" rx="18" ry="20" fill="#e8c9a0" stroke="#c4a574" stroke-width="1"/>
+    <!-- 东坡巾（高筒巾） -->
+    <rect x="32" y="5" width="36" height="20" fill="#4a3a2a" stroke="#3a2a1a" stroke-width="1" rx="2"/>
+    <ellipse cx="50" cy="5" rx="18" ry="4" fill="#5a4a3a" stroke="#4a3a2a" stroke-width="1"/>
+    <!-- 巾带 -->
+    <rect x="32" y="22" width="36" height="3" fill="#d4a574"/>
+    <!-- 眉眼（慈祥/病态） -->
+    <path d="M 40 28 Q 43 25, 46 28" stroke="#3e2723" stroke-width="1.5" fill="none"/>
+    <path d="M 54 28 Q 57 25, 60 28" stroke="#3e2723" stroke-width="1.5" fill="none"/>
+    <circle cx="43" cy="33" r="1.5" fill="#3e2723"/>
+    <circle cx="57" cy="33" r="1.5" fill="#3e2723"/>
+    <!-- 皱纹 -->
+    <path d="M 38 25 L 42 25" stroke="#a0845c" stroke-width="0.5"/>
+    <path d="M 58 25 L 62 25" stroke="#a0845c" stroke-width="0.5"/>
+    <!-- 白须 -->
+    <path d="M 40 40 Q 50 52, 60 40" stroke="#e8e8e8" stroke-width="3" fill="none"/>
+    <path d="M 45 45 Q 50 55, 55 45" stroke="#e8e8e8" stroke-width="2" fill="none"/>
+    <!-- 拐杖 -->
+    <line x1="75" y1="60" x2="80" y2="110" stroke="#8b6914" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="75" cy="60" r="4" fill="#8b6914"/>
+  </svg>`,
+  
+  // 青年女子 - 发髻+襦裙
+  youngWoman: `<svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" style="width:80px;height:96px;">
+    <defs>
+      <linearGradient id="ywCloth" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" style="stop-color:#c4a5b4"/>
+        <stop offset="50%" style="stop-color:#e8c9d4"/>
+        <stop offset="100%" style="stop-color:#c4a5b4"/>
+      </linearGradient>
+      <linearGradient id="ywSkirt" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" style="stop-color:#a5b4c4"/>
+        <stop offset="50%" style="stop-color:#c9d4e8"/>
+        <stop offset="100%" style="stop-color:#a5b4c4"/>
+      </linearGradient>
+    </defs>
+    <!-- 身体/襦裙 -->
+    <path d="M 30 50 L 25 80 L 22 112 L 78 112 L 75 80 L 70 50 Z" fill="url(#ywSkirt)" stroke="#8b9ca8" stroke-width="1.5"/>
+    <!-- 上襦 -->
+    <path d="M 32 50 L 30 80 L 70 80 L 68 50 Z" fill="url(#ywCloth)" stroke="#b48b9c" stroke-width="1"/>
+    <!-- 交领 -->
+    <path d="M 38 50 L 50 65 L 62 50" stroke="#f4ecd8" stroke-width="2" fill="none"/>
+    <path d="M 42 50 L 50 60 L 58 50" stroke="#d4a574" stroke-width="1" fill="none"/>
+    <!-- 腰带/襦带 -->
+    <rect x="28" y="72" width="44" height="5" fill="#d4a574" stroke="#b8941f" stroke-width="1" rx="1"/>
+    <!-- 头部 -->
+    <ellipse cx="50" cy="32" rx="15" ry="17" fill="#e8c9a0" stroke="#c4a574" stroke-width="1"/>
+    <!-- 发髻（双环） -->
+    <ellipse cx="38" cy="18" rx="8" ry="6" fill="#2d1b18" stroke="#1a0f0d" stroke-width="0.5"/>
+    <ellipse cx="62" cy="18" rx="8" ry="6" fill="#2d1b18" stroke="#1a0f0d" stroke-width="0.5"/>
+    <ellipse cx="50" cy="15" rx="10" ry="5" fill="#2d1b18" stroke="#1a0f0d" stroke-width="0.5"/>
+    <!-- 发簪 -->
+    <line x1="55" y1="12" x2="65" y2="8" stroke="#d4a574" stroke-width="1.5"/>
+    <circle cx="65" cy="8" r="2" fill="#c62828"/>
+    <!-- 刘海 -->
+    <path d="M 38 22 Q 50 28, 62 22" stroke="#2d1b18" stroke-width="2" fill="none"/>
+    <!-- 眉眼（柔弱） -->
+    <path d="M 42 32 Q 45 30, 48 32" stroke="#3e2723" stroke-width="1.5" fill="none"/>
+    <path d="M 52 32 Q 55 30, 58 32" stroke="#3e2723" stroke-width="1.5" fill="none"/>
+    <circle cx="45" cy="36" r="1.5" fill="#3e2723"/>
+    <circle cx="55" cy="36" r="1.5" fill="#3e2723"/>
+    <!-- 腮红（病态苍白） -->
+    <ellipse cx="40" cy="40" rx="3" ry="2" fill="#e8a0a0" opacity="0.3"/>
+    <ellipse cx="60" cy="40" rx="3" ry="2" fill="#e8a0a0" opacity="0.3"/>
+    <!-- 嘴 -->
+    <ellipse cx="50" cy="44" rx="2" ry="1.5" fill="#c62828"/>
+  </svg>`,
+  
+  // 中年女子 - 包髻+褙子
+  middleWoman: `<svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" style="width:80px;height:96px;">
+    <defs>
+      <linearGradient id="mwCloth" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" style="stop-color:#8a7a6a"/>
+        <stop offset="50%" style="stop-color:#aa9a8a"/>
+        <stop offset="100%" style="stop-color:#8a7a6a"/>
+      </linearGradient>
+    </defs>
+    <!-- 身体/褙子 -->
+    <path d="M 28 50 L 22 114 L 78 114 L 72 50 Z" fill="url(#mwCloth)" stroke="#7a6a5a" stroke-width="1.5"/>
+    <!-- 直领对襟 -->
+    <line x1="50" y1="50" x2="50" y2="75" stroke="#f4ecd8" stroke-width="2"/>
+    <line x1="35" y1="50" x2="38" y2="70" stroke="#f4ecd8" stroke-width="1.5"/>
+    <line x1="65" y1="50" x2="62" y2="70" stroke="#f4ecd8" stroke-width="1.5"/>
+    <!-- 头部 -->
+    <ellipse cx="50" cy="30" rx="16" ry="18" fill="#e8c9a0" stroke="#c4a574" stroke-width="1"/>
+    <!-- 包髻（发髻外罩巾） -->
+    <ellipse cx="50" cy="12" rx="14" ry="8" fill="#4a3a3a" stroke="#3a2a2a" stroke-width="1"/>
+    <path d="M 36 15 Q 50 22, 64 15" stroke="#4a3a3a" stroke-width="3" fill="none"/>
+    <!-- 髻簪 -->
+    <line x1="45" y1="8" x2="40" y2="4" stroke="#d4a574" stroke-width="1.5"/>
+    <circle cx="40" cy="4" r="1.5" fill="#c62828"/>
+    <!-- 眉眼 -->
+    <path d="M 42 30 L 46 30" stroke="#3e2723" stroke-width="1.5"/>
+    <path d="M 54 30 L 58 30" stroke="#3e2723" stroke-width="1.5"/>
+    <circle cx="44" cy="34" r="1.5" fill="#3e2723"/>
+    <circle cx="56" cy="34" r="1.5" fill="#3e2723"/>
+    <!-- 法令纹 -->
+    <path d="M 42 40 Q 45 42, 48 40" stroke="#a0845c" stroke-width="0.8" fill="none"/>
+    <path d="M 52 40 Q 55 42, 58 40" stroke="#a0845c" stroke-width="0.8" fill="none"/>
+    <!-- 嘴 -->
+    <path d="M 46 44 Q 50 46, 54 44" stroke="#c62828" stroke-width="1.5" fill="none"/>
+  </svg>`,
+  
+  // 老年女子 - 花白发髻+深色褙子
+  oldWoman: `<svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" style="width:80px;height:96px;">
+    <defs>
+      <linearGradient id="owCloth" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" style="stop-color:#6a6a6a"/>
+        <stop offset="50%" style="stop-color:#8a8a8a"/>
+        <stop offset="100%" style="stop-color:#6a6a6a"/>
+      </linearGradient>
+    </defs>
+    <!-- 身体/褙子 -->
+    <path d="M 26 48 L 20 114 L 80 114 L 74 48 Z" fill="url(#owCloth)" stroke="#5a5a5a" stroke-width="1.5"/>
+    <!-- 直领 -->
+    <line x1="50" y1="48" x2="50" y2="72" stroke="#e8e8e8" stroke-width="2"/>
+    <!-- 头部 -->
+    <ellipse cx="50" cy="28" rx="17" ry="19" fill="#e8c9a0" stroke="#c4a574" stroke-width="1"/>
+    <!-- 花白包髻 -->
+    <ellipse cx="50" cy="10" rx="15" ry="8" fill="#a8a8a8" stroke="#888888" stroke-width="1"/>
+    <path d="M 35 13 Q 50 20, 65 13" stroke="#a8a8a8" stroke-width="3" fill="none"/>
+    <!-- 银簪 -->
+    <line x1="45" y1="6" x2="38" y2="2" stroke="#c4c4c4" stroke-width="1.5"/>
+    <circle cx="38" cy="2" r="2" fill="#e8e8e8"/>
+    <!-- 眉眼（慈祥/病态） -->
+    <path d="M 40 26 Q 43 24, 46 26" stroke="#3e2723" stroke-width="1.5" fill="none"/>
+    <path d="M 54 26 Q 57 24, 60 26" stroke="#3e2723" stroke-width="1.5" fill="none"/>
+    <circle cx="43" cy="31" r="1.5" fill="#3e2723"/>
+    <circle cx="57" cy="31" r="1.5" fill="#3e2723"/>
+    <!-- 眼袋皱纹 -->
+    <path d="M 38 34 Q 42 37, 46 34" stroke="#a0845c" stroke-width="0.8" fill="none"/>
+    <path d="M 54 34 Q 58 37, 62 34" stroke="#a0845c" stroke-width="0.8" fill="none"/>
+    <!-- 法令纹深 -->
+    <path d="M 40 38 Q 44 42, 48 38" stroke="#a0845c" stroke-width="1" fill="none"/>
+    <path d="M 52 38 Q 56 42, 60 38" stroke="#a0845c" stroke-width="1" fill="none"/>
+    <!-- 嘴（微张/喘息） -->
+    <ellipse cx="50" cy="44" rx="3" ry="2" fill="#8b4513"/>
+    <!-- 拐杖 -->
+    <line x1="72" y1="55" x2="78" y2="110" stroke="#8b6914" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="72" cy="55" r="4" fill="#8b6914"/>
+  </svg>`,
+  
+  // 儿童（男）- 总角+布袄
+  youngBoy: `<svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" style="width:70px;height:84px;">
+    <defs>
+      <linearGradient id="ybCloth" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" style="stop-color:#a5c4a5"/>
+        <stop offset="50%" style="stop-color:#c9e8c9"/>
+        <stop offset="100%" style="stop-color:#a5c4a5"/>
+      </linearGradient>
+    </defs>
+    <!-- 身体/布袄 -->
+    <path d="M 32 50 L 28 95 L 72 95 L 68 50 Z" fill="url(#ybCloth)" stroke="#8ab48a" stroke-width="1.5"/>
+    <!-- 圆领 -->
+    <ellipse cx="50" cy="50" rx="10" ry="4" fill="#f4ecd8" stroke="#c4a574" stroke-width="1"/>
+    <!-- 头部（较大，儿童特征） -->
+    <ellipse cx="50" cy="32" rx="18" ry="20" fill="#e8c9a0" stroke="#c4a574" stroke-width="1"/>
+    <!-- 总角（双丫髻） -->
+    <circle cx="35" cy="15" r="5" fill="#2d1b18" stroke="#1a0f0d" stroke-width="0.5"/>
+    <circle cx="65" cy="15" r="5" fill="#2d1b18" stroke="#1a0f0d" stroke-width="0.5"/>
+    <line x1="35" y1="12" x2="35" y2="8" stroke="#c62828" stroke-width="1.5"/>
+    <line x1="65" y1="12" x2="65" y2="8" stroke="#c62828" stroke-width="1.5"/>
+    <!-- 眉（淡） -->
+    <path d="M 42 30 L 46 30" stroke="#a0845c" stroke-width="1"/>
+    <path d="M 54 30 L 58 30" stroke="#a0845c" stroke-width="1"/>
+    <!-- 眼（大） -->
+    <circle cx="44" cy="34" r="2" fill="#3e2723"/>
+    <circle cx="56" cy="34" r="2" fill="#3e2723"/>
+    <circle cx="44" cy="33" r="0.8" fill="#fff"/>
+    <circle cx="56" cy="33" r="0.8" fill="#fff"/>
+    <!-- 鼻 -->
+    <circle cx="50" cy="38" r="1" fill="#c4a574"/>
+    <!-- 嘴（微张/哭相） -->
+    <ellipse cx="50" cy="43" rx="3" ry="2" fill="#8b4513"/>
+    <!-- 肚兜/围嘴 -->
+    <path d="M 40 55 L 50 65 L 60 55" stroke="#c62828" stroke-width="2" fill="none"/>
+  </svg>`,
+  
+  // 儿童（女）- 双丫髻+花袄
+  youngGirl: `<svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" style="width:70px;height:84px;">
+    <defs>
+      <linearGradient id="ygCloth" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" style="stop-color:#e8c9a0"/>
+        <stop offset="50%" style="stop-color:#f4e0c8"/>
+        <stop offset="100%" style="stop-color:#e8c9a0"/>
+      </linearGradient>
+    </defs>
+    <!-- 身体/花袄 -->
+    <path d="M 32 50 L 28 95 L 72 95 L 68 50 Z" fill="url(#ygCloth)" stroke="#d4b896" stroke-width="1.5"/>
+    <!-- 花纹 -->
+    <circle cx="40" cy="65" r="3" fill="#c62828" opacity="0.5"/>
+    <circle cx="60" cy="70" r="2.5" fill="#c62828" opacity="0.5"/>
+    <circle cx="45" cy="80" r="2" fill="#c62828" opacity="0.5"/>
+    <!-- 圆领 -->
+    <ellipse cx="50" cy="50" rx="10" ry="4" fill="#f4ecd8" stroke="#c4a574" stroke-width="1"/>
+    <!-- 头部 -->
+    <ellipse cx="50" cy="32" rx="17" ry="19" fill="#e8c9a0" stroke="#c4a574" stroke-width="1"/>
+    <!-- 双丫髻 -->
+    <circle cx="36" cy="16" r="6" fill="#2d1b18" stroke="#1a0f0d" stroke-width="0.5"/>
+    <circle cx="64" cy="16" r="6" fill="#2d1b18" stroke="#1a0f0d" stroke-width="0.5"/>
+    <!-- 红绳 -->
+    <circle cx="36" cy="13" r="1.5" fill="#c62828"/>
+    <circle cx="64" cy="13" r="1.5" fill="#c62828"/>
+    <!-- 刘海 -->
+    <path d="M 38 20 Q 50 26, 62 20" stroke="#2d1b18" stroke-width="2" fill="none"/>
+    <!-- 眉 -->
+    <path d="M 42 30 Q 45 28, 48 30" stroke="#a0845c" stroke-width="1" fill="none"/>
+    <path d="M 52 30 Q 55 28, 58 30" stroke="#a0845c" stroke-width="1" fill="none"/>
+    <!-- 眼（含泪） -->
+    <circle cx="44" cy="34" r="2" fill="#3e2723"/>
+    <circle cx="56" cy="34" r="2" fill="#3e2723"/>
+    <circle cx="44" cy="33" r="0.8" fill="#fff"/>
+    <circle cx="56" cy="33" r="0.8" fill="#fff"/>
+    <!-- 泪珠 -->
+    <ellipse cx="42" cy="38" rx="1" ry="1.5" fill="#a5c4d4" opacity="0.8"/>
+    <!-- 嘴（微张） -->
+    <ellipse cx="50" cy="43" rx="2.5" ry="1.5" fill="#c62828"/>
+  </svg>`
+};
+
+// Get patient SVG based on gender and age
+function getPatientSVG(gender, age) {
+  const ageNum = parseInt(age);
+  if (gender === '男') {
+    if (ageNum <= 12) return PATIENT_SVGS.youngBoy;
+    if (ageNum <= 35) return PATIENT_SVGS.youngMan;
+    if (ageNum <= 55) return PATIENT_SVGS.middleMan;
+    return PATIENT_SVGS.oldMan;
+  } else {
+    if (ageNum <= 12) return PATIENT_SVGS.youngGirl;
+    if (ageNum <= 35) return PATIENT_SVGS.youngWoman;
+    if (ageNum <= 55) return PATIENT_SVGS.middleWoman;
+    return PATIENT_SVGS.oldWoman;
+  }
+}
+
 function loadSiZhenPatient() {
   const p = PATIENTS[(sizhenLevel - 1) % PATIENTS.length];
   document.getElementById('patient-symptoms').textContent = p.symptoms;
@@ -3106,7 +3431,7 @@ function loadSiZhenPatient() {
   if (match) {
     const genderLabel = match[1] === '男' ? '男患者' : '女患者';
     document.getElementById('patient-name').textContent = match[2] + '岁' + genderLabel;
-    document.getElementById('patient-avatar').textContent = match[1] === '男' ? '👨' : '👩';
+    document.getElementById('patient-avatar').innerHTML = getPatientSVG(match[1], match[2]);
   }
   // Parse first symptom phrase for description
   const descMatch = p.symptoms.match(/\d+岁。(.+?)[，。]/);
