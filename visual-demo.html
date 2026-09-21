@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>杏林街市 - 视觉素材示例</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'PingFang SC', 'Microsoft YaHei', serif;
+  background: #1a1a2e;
+  min-height: 100vh;
+  padding: 40px 20px;
+  color: #eee;
+}
+.demo-section {
+  max-width: 800px;
+  margin: 0 auto 60px;
+}
+.demo-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #d4a574;
+}
+.demo-desc {
+  font-size: 14px;
+  color: #888;
+  margin-bottom: 24px;
+}
+.demo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+.demo-card {
+  background: #16213e;
+  border-radius: 16px;
+  padding: 24px;
+  text-align: center;
+  border: 1px solid rgba(212, 165, 116, 0.2);
+}
+.demo-card svg, .demo-card canvas {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+.demo-label {
+  margin-top: 12px;
+  font-size: 13px;
+  color: #aaa;
+}
+</style>
+</head>
+<body>
+
+<!-- ==================== SVG 药柜 ==================== -->
+<div class="demo-section">
+  <div class="demo-title">SVG 矢量图形示例</div>
+  <div class="demo-desc">纯代码绘制，可无限缩放，适配任何屏幕</div>
+  
+  <div class="demo-grid">
+    <!-- 中药柜 -->
+    <div class="demo-card">
+      <svg viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="woodGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#8B6914"/>
+            <stop offset="50%" style="stop-color:#A0782E"/>
+            <stop offset="100%" style="stop-color:#8B6914"/>
+          </linearGradient>
+          <linearGradient id="drawerGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#C4A574"/>
+            <stop offset="100%" style="stop-color:#A0782E"/>
+          </linearGradient>
+        </defs>
+        
+        <!-- 柜体边框 -->
+        <rect x="10" y="10" width="180" height="220" fill="url(#woodGradient)" rx="4" stroke="#5d4037" stroke-width="2"/>
+        
+        <!-- 抽屉网格 4x6 -->
+        <g id="drawers">
+          <!-- 第一行 -->
+          <rect x="20" y="25" width="35" height="28" fill="url(#drawerGradient)" stroke="#6b5b4f" stroke-width="1" rx="2"/>
+          <rect x="60" y="25" width="35" height="28" fill="url(#drawerGradient)" stroke="#6b5b4f" stroke-width="1" rx="2"/>
+          <rect x="100" y="25" width="35" height="28" fill="url(#drawerGradient)" stroke="#6b5b4f" stroke-width="1" rx="2"/>
+          <rect x="140" y="25" width="35" height="28" fill="url(#drawerGradient)" stroke="#6b5b4f" stroke-width="1" rx="2"/>
+          
+          <!-- 第二行 -->
+          <rect x="20" y="60" width="35" height="28" fill="url(#drawerGradient)" stroke="#6b5b4f" stroke-width="1" rx="2"/>
+          <rect x="60" y="60" width="35" height="28" fill="url(#drawerGradient)" stroke="#6b5b4f" stroke-width="1" rx="2"/>
+          <rect x="100" y="60" width="35" height="28" fill="url(#drawerGradient)" stroke="#6b5b4f" stroke-width="1" rx="2"/>
+          <rect x="140" y="60" width="35" height="28" fill="url(#drawerGradient)" stroke="#6b5b4f" stroke-width="1" rx="2"/>
+          
+          <!-- 第三行 -->
+          <rect x="20" y="95" width="35" height="28" fill="url(#drawerGradient)" stroke="#6b5b4f" stroke-width="1" rx="2"/>
+          <rect x="60" y="95" width="35" height="28" fill="url(#drawerGradient)" stroke="#6b5b4f" stroke-width="1" rx="2"/>
+          <rect x="100" y="95" width="35" height="28" fill="url(#drawerGradient)" stroke="#6b5b4f" stroke-width="1" rx="2"/>
+          <rect x="140" y="95" width="35" height="28" fill="url(#drawerGradient)" stroke="#6b5b4f" stroke-width="1" rx="2"/>
+          
+          <!-- 第四行 -->
+          <rect x="20" y="130" width="35" height="28" fill="url(#drawerGradient)" stroke="#6b5b4f" stroke-width="1" rx="2"/>
+          <rect x="60" y="130" width="35" height="28" fill="url(#drawerGradient)" stroke="#6b5b4f" stroke-width="1" rx="2"/>
+          <rect x="100" y="130" width="35" height="28" fill="url(#drawerGradient)" stroke="#6b5b4f" stroke-width="1" rx="2"/>
+          <rect x="140" y="130" width="35" height="28" fill="url(#drawerGradient)" stroke="#6b5b4f" stroke-width="1" rx="2"/>
+          
+          <!-- 第五行 -->
+          <rect x="20" y="165" width="35" height="28" fill="url(#drawerGradient)" stroke="#6b5b4f" stroke-width="1" rx="2"/>
+          <rect x="60" y="165" width="35" height="28" fill="url(#drawerGradient)" stroke="#6b5b4f" stroke-width="1" rx="2"/>
+          <rect x="100" y="165" width="35" height="28" fill="url(#drawerGradient)" stroke="#6b5b4f" stroke-width="1" rx="2"/>
+          <rect x="140" y="165" width="35" height="28" fill="url(#drawerGradient)" stroke="#6b5b4f" stroke-width="1" rx="2"/>
+          
+          <!-- 第六行 -->
+          <rect x="20" y="200" width="35" height="20" fill="url(#drawerGradient)" stroke="#6b5b4f" stroke-width="1" rx="2"/>
+          <rect x="60" y="200" width="35" height="20" fill="url(#drawerGradient)" stroke="#6b5b4f" stroke-width="1" rx="2"/>
+          <rect x="100" y="200" width="35" height="20" fill="url(#drawerGradient)" stroke="#6b5b4f" stroke-width="1" rx="2"/>
+          <rect x="140" y="200" width="35" height="20" fill="url(#drawerGradient)" stroke="#6b5b4f" stroke-width="1" rx="2"/>
+        </g>
+        
+        <!-- 抽屉把手 -->
+        <g fill="#5d4037">
+          <circle cx="37" cy="39" r="3"/><circle cx="77" cy="39" r="3"/><circle cx="117" cy="39" r="3"/><circle cx="157" cy="39" r="3"/>
+          <circle cx="37" cy="74" r="3"/><circle cx="77" cy="74" r="3"/><circle cx="117" cy="74" r="3"/><circle cx="157" cy="74" r="3"/>
+          <circle cx="37" cy="109" r="3"/><circle cx="77" cy="109" r="3"/><circle cx="117" cy="109" r="3"/><circle cx="157" cy="109" r="3"/>
+          <circle cx="37" cy="144" r="3"/><circle cx="77" cy="144" r="3"/><circle cx="117" cy="144" r="3"/><circle cx="157" cy="144" r="3"/>
+          <circle cx="37" cy="179" r="3"/><circle cx="77" cy="179" r="3"/><circle cx="117" cy="179" r="3"/><circle cx="157" cy="179" r="3"/>
+        </g>
+        
+        <!-- 中药标签（示例几个） -->
+        <text x="37" y="42" text-anchor="middle" font-size="6" fill="#3e2723" font-weight="bold">当归</text>
+        <text x="77" y="42" text-anchor="middle" font-size="6" fill="#3e2723" font-weight="bold">黄芪</text>
+        <text x="117" y="42" text-anchor="middle" font-size="6" fill="#3e2723" font-weight="bold">白术</text>
+        <text x="157" y="42" text-anchor="middle" font-size="6" fill="#3e2723" font-weight="bold">茯苓</text>
+      </svg>
+      <div class="demo-label">中药柜 - 纯SVG矢量</div>
+    </div>
+
+    <!-- 秤杆 -->
+    <div class="demo-card">
+      <svg viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="scaleGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#d4a574"/>
+            <stop offset="50%" style="stop-color:#f0e6d0"/>
+            <stop offset="100%" style="stop-color:#d4a574"/>
+          </linearGradient>
+        </defs>
+        
+        <!-- 秤杆 -->
+        <rect x="20" y="45" width="160" height="6" fill="url(#scaleGradient)" rx="3" stroke="#8b6914" stroke-width="1"/>
+        
+        <!-- 秤星（刻度） -->
+        <g fill="#c62828">
+          <circle cx="40" cy="48" r="1.5"/>
+          <circle cx="55" cy="48" r="1.5"/>
+          <circle cx="70" cy="48" r="1.5"/>
+          <circle cx="85" cy="48" r="1.5"/>
+          <circle cx="100" cy="48" r="1.5"/>
+          <circle cx="115" cy="48" r="1.5"/>
+          <circle cx="130" cy="48" r="1.5"/>
+          <circle cx="145" cy="48" r="1.5"/>
+          <circle cx="160" cy="48" r="1.5"/>
+        </g>
+        
+        <!-- 秤砣 -->
+        <g transform="translate(140, 51)">
+          <line x1="0" y1="0" x2="0" y2="25" stroke="#5d4037" stroke-width="2"/>
+          <path d="M -8 25 L 8 25 L 5 45 L -5 45 Z" fill="#5d4037" stroke="#3e2723" stroke-width="1"/>
+          <circle cx="0" cy="25" r="3" fill="#3e2723"/>
+        </g>
+        
+        <!-- 秤盘（悬挂药材） -->
+        <g transform="translate(50, 51)">
+          <line x1="0" y1="0" x2="-15" y2="20" stroke="#5d4037" stroke-width="1.5"/>
+          <line x1="0" y1="0" x2="15" y2="20" stroke="#5d4037" stroke-width="1.5"/>
+          <line x1="0" y1="0" x2="0" y2="22" stroke="#5d4037" stroke-width="1.5"/>
+          <!-- 盘子 -->
+          <ellipse cx="0" cy="25" rx="25" ry="8" fill="#c4a574" stroke="#8b6914" stroke-width="1"/>
+          <ellipse cx="0" cy="23" rx="20" ry="5" fill="#a0782e"/>
+          <!-- 药材 -->
+          <g fill="#8b7355">
+            <ellipse cx="-5" cy="20" rx="4" ry="2"/>
+            <ellipse cx="5" cy="21" rx="3" ry="1.5"/>
+            <ellipse cx="0" cy="18" rx="3" ry="1.5"/>
+          </g>
+        </g>
+        
+        <!-- 提纽 -->
+        <circle cx="100" cy="42" r="4" fill="none" stroke="#c62828" stroke-width="2"/>
+        <line x1="100" y1="38" x2="100" y2="30" stroke="#c62828" stroke-width="2"/>
+      </svg>
+      <div class="demo-label">中药秤 - 纯SVG矢量</div>
+    </div>
+
+    <!-- 砂锅 -->
+    <div class="demo-card">
+      <svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="potGradient" cx="50%" cy="40%" r="60%">
+            <stop offset="0%" style="stop-color:#5d4037"/>
+            <stop offset="70%" style="stop-color:#3e2723"/>
+            <stop offset="100%" style="stop-color:#2d1b18"/>
+          </radialGradient>
+          <linearGradient id="liquidGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#8b4513"/>
+            <stop offset="100%" style="stop-color:#654321"/>
+          </linearGradient>
+        </defs>
+        
+        <!-- 锅身 -->
+        <ellipse cx="100" cy="100" rx="60" ry="45" fill="url(#potGradient)" stroke="#1a1a1a" stroke-width="2"/>
+        <ellipse cx="100" cy="95" rx="55" ry="40" fill="#4a3728" opacity="0.3"/>
+        
+        <!-- 锅口 -->
+        <ellipse cx="100" cy="55" rx="45" ry="12" fill="#2d1b18" stroke="#1a1a1a" stroke-width="2"/>
+        
+        <!-- 药汤 -->
+        <ellipse cx="100" cy="58" rx="40" ry="10" fill="url(#liquidGradient)"/>
+        
+        <!-- 锅盖（半开） -->
+        <g transform="translate(100, 45) rotate(-15)">
+          <ellipse cx="0" cy="0" rx="48" ry="14" fill="#5d4037" stroke="#3e2723" stroke-width="2"/>
+          <ellipse cx="0" cy="-2" rx="40" ry="10" fill="#6b5b4f"/>
+          <!-- 锅盖把手 -->
+          <circle cx="0" cy="-8" r="5" fill="#3e2723"/>
+        </g>
+        
+        <!-- 蒸汽（静态示意） -->
+        <g opacity="0.6" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round">
+          <path d="M 80 35 Q 75 25, 80 15 Q 85 5, 80 -5" opacity="0.4">
+            <animate attributeName="d" values="M 80 35 Q 75 25, 80 15 Q 85 5, 80 -5;M 80 35 Q 85 25, 80 15 Q 75 5, 80 -5;M 80 35 Q 75 25, 80 15 Q 85 5, 80 -5" dur="3s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0.4;0.2;0.4" dur="3s" repeatCount="indefinite"/>
+          </path>
+          <path d="M 100 30 Q 95 20, 100 10 Q 105 0, 100 -10" opacity="0.5">
+            <animate attributeName="d" values="M 100 30 Q 95 20, 100 10 Q 105 0, 100 -10;M 100 30 Q 105 20, 100 10 Q 95 0, 100 -10;M 100 30 Q 95 20, 100 10 Q 105 0, 100 -10" dur="2.5s" repeatCount="indefinite"/>
+          </path>
+          <path d="M 120 35 Q 115 25, 120 15 Q 125 5, 120 -5" opacity="0.3">
+            <animate attributeName="d" values="M 120 35 Q 115 25, 120 15 Q 125 5, 120 -5;M 120 35 Q 125 25, 120 15 Q 115 5, 120 -5;M 120 35 Q 115 25, 120 15 Q 125 5, 120 -5" dur="3.5s" repeatCount="indefinite"/>
+          </path>
+        </g>
+        
+        <!-- 锅底火焰示意 -->
+        <g transform="translate(100, 148)">
+          <ellipse cx="0" cy="0" rx="35" ry="8" fill="#c62828" opacity="0.3"/>
+          <ellipse cx="0" cy="-2" rx="25" ry="5" fill="#d4a574" opacity="0.5"/>
+        </g>
+      </svg>
+      <div class="demo-label">砂锅熬药 - SVG+SMIL动画</div>
+    </div>
+
+    <!-- 灯笼 -->
+    <div class="demo-card">
+      <svg viewBox="0 0 120 180" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="lanternGradient" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" style="stop-color:#ff6b6b"/>
+            <stop offset="60%" style="stop-color:#c62828"/>
+            <stop offset="100%" style="stop-color:#8e1616"/>
+          </radialGradient>
+          <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#d4a574"/>
+            <stop offset="50%" style="stop-color:#f0e6d0"/>
+            <stop offset="100%" style="stop-color:#d4a574"/>
+          </linearGradient>
+        </defs>
+        
+        <!-- 悬挂线 -->
+        <line x1="60" y1="0" x2="60" y2="30" stroke="#8b6914" stroke-width="2"/>
+        
+        <!-- 灯笼顶部 -->
+        <rect x="45" y="30" width="30" height="8" fill="url(#goldGradient)" rx="2" stroke="#b8941f" stroke-width="1"/>
+        
+        <!-- 灯笼主体 -->
+        <ellipse cx="60" cy="80" rx="35" ry="40" fill="url(#lanternGradient)" stroke="#8e1616" stroke-width="2">
+          <animate attributeName="ry" values="40;42;40" dur="4s" repeatCount="indefinite"/>
+        </ellipse>
+        
+        <!-- 灯笼骨架线 -->
+        <g stroke="#8e1616" stroke-width="1" fill="none" opacity="0.4">
+          <ellipse cx="60" cy="80" rx="20" ry="40"/>
+          <ellipse cx="60" cy="80" rx="10" ry="40"/>
+          <line x1="25" y1="80" x2="95" y2="80"/>
+          <line x1="28" y1="65" x2="92" y2="65"/>
+          <line x1="28" y1="95" x2="92" y2="95"/>
+        </g>
+        
+        <!-- 灯笼底部 -->
+        <rect x="45" y="118" width="30" height="8" fill="url(#goldGradient)" rx="2" stroke="#b8941f" stroke-width="1"/>
+        
+        <!-- 流苏 -->
+        <g transform="translate(60, 126)">
+          <line x1="0" y1="0" x2="0" y2="15" stroke="#c62828" stroke-width="3"/>
+          <circle cx="0" cy="18" r="4" fill="#d4a574"/>
+          <g stroke="#c62828" stroke-width="1.5" opacity="0.8">
+            <line x1="-3" y1="22" x2="-3" y2="40"/>
+            <line x1="0" y1="22" x2="0" y2="45"/>
+            <line x1="3" y1="22" x2="3" y2="40"/>
+          </g>
+        </g>
+        
+        <!-- 光晕效果 -->
+        <circle cx="60" cy="80" r="50" fill="url(#lanternGradient)" opacity="0.15">
+          <animate attributeName="opacity" values="0.15;0.25;0.15" dur="2s" repeatCount="indefinite"/>
+          <animate attributeName="r" values="50;55;50" dur="2s" repeatCount="indefinite"/>
+        </circle>
+      </svg>
+      <div class="demo-label">红灯笼 - SVG+呼吸光效</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ==================== Canvas 动态纹理 ==================== -->
+<div class="demo-section">
+  <div class="demo-title">Canvas 动态纹理示例</div>
+  <div class="demo-desc">程序化生成，实时渲染，可交互</div>
+  
+  <div class="demo-grid">
+    <!-- 药汤沸腾 -->
+    <div class="demo-card">
+      <canvas id="brewCanvas" width="300" height="200"></canvas>
+      <div class="demo-label">药汤沸腾 - Canvas粒子系统</div>
+    </div>
+    
+    <!-- 蒸汽飘散 -->
+    <div class="demo-card">
+      <canvas id="steamCanvas" width="300" height="200"></canvas>
+      <div class="demo-label">蒸汽飘散 - Canvas烟雾模拟</div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ==================== 药汤沸腾效果 ====================
+function initBrewCanvas() {
+  const canvas = document.getElementById('brewCanvas');
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  
+  // 药汤颜色
+  const liquidColor = '#8b4513';
+  const bubbleColor = '#a0522d';
+  
+  // 气泡粒子
+  const bubbles = [];
+  for (let i = 0; i < 30; i++) {
+    bubbles.push({
+      x: Math.random() * W,
+      y: H + Math.random() * 50,
+      radius: Math.random() * 8 + 3,
+      speed: Math.random() * 2 + 1,
+      wobble: Math.random() * Math.PI * 2,
+      opacity: Math.random() * 0.5 + 0.3
+    });
+  }
+  
+  function draw() {
+    // 清空
+    ctx.clearRect(0, 0, W, H);
+    
+    // 背景（锅底）
+    const bgGrad = ctx.createRadialGradient(W/2, H/2, 50, W/2, H/2, 150);
+    bgGrad.addColorStop(0, '#3e2723');
+    bgGrad.addColorStop(1, '#1a1a2e');
+    ctx.fillStyle = bgGrad;
+    ctx.fillRect(0, 0, W, H);
+    
+    // 药汤液面
+    ctx.fillStyle = liquidColor;
+    ctx.beginPath();
+    ctx.ellipse(W/2, H/2 + 20, 120, 60, 0, 0, Math.PI * 2);
+    ctx.fill();
+    
+    // 液面高光
+    ctx.fillStyle = 'rgba(255,255,255,0.1)';
+    ctx.beginPath();
+    ctx.ellipse(W/2 - 20, H/2, 80, 30, -0.2, 0, Math.PI * 2);
+    ctx.fill();
+    
+    // 更新和绘制气泡
+    bubbles.forEach(b => {
+      b.y -= b.speed;
+      b.wobble += 0.05;
+      b.x += Math.sin(b.wobble) * 0.5;
+      
+      if (b.y < H/2 - 40) {
+        b.y = H + 20;
+        b.x = Math.random() * W;
+      }
+      
+      // 气泡
+      ctx.beginPath();
+      ctx.arc(b.x, b.y, b.radius, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(160, 82, 45, ${b.opacity})`;
+      ctx.fill();
+      
+      // 气泡高光
+      ctx.beginPath();
+      ctx.arc(b.x - b.radius/3, b.y - b.radius/3, b.radius/3, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(255,255,255,0.3)';
+      ctx.fill();
+    });
+    
+    requestAnimationFrame(draw);
+  }
+  
+  draw();
+}
+
+// ==================== 蒸汽飘散效果 ====================
+function initSteamCanvas() {
+  const canvas = document.getElementById('steamCanvas');
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  
+  // 蒸汽粒子
+  const particles = [];
+  for (let i = 0; i < 40; i++) {
+    particles.push({
+      x: W/2 + (Math.random() - 0.5) * 60,
+      y: H + Math.random() * 50,
+      radius: Math.random() * 20 + 10,
+      speedY: Math.random() * 1 + 0.5,
+      speedX: (Math.random() - 0.5) * 0.5,
+      opacity: Math.random() * 0.3,
+      life: Math.random()
+    });
+  }
+  
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    
+    // 背景
+    const bgGrad = ctx.createLinearGradient(0, 0, 0, H);
+    bgGrad.addColorStop(0, '#1a1a2e');
+    bgGrad.addColorStop(1, '#16213e');
+    ctx.fillStyle = bgGrad;
+    ctx.fillRect(0, 0, W, H);
+    
+    // 绘制蒸汽
+    particles.forEach(p => {
+      p.y -= p.speedY;
+      p.x += p.speedX + Math.sin(p.y * 0.02) * 0.3;
+      p.life += 0.005;
+      p.opacity = Math.sin(p.life * Math.PI) * 0.25;
+      p.radius += 0.2;
+      
+      if (p.y < -50 || p.life > 1) {
+        p.x = W/2 + (Math.random() - 0.5) * 60;
+        p.y = H + 20;
+        p.radius = Math.random() * 20 + 10;
+        p.life = 0;
+        p.speedY = Math.random() * 1 + 0.5;
+      }
+      
+      // 绘制烟雾
+      const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.radius);
+      grad.addColorStop(0, `rgba(255, 255, 255, ${p.opacity})`);
+      grad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+      
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+      ctx.fill();
+    });
+    
+    // 底部热源微光
+    const glowGrad = ctx.createRadialGradient(W/2, H, 0, W/2, H, 100);
+    glowGrad.addColorStop(0, 'rgba(198, 40, 40, 0.2)');
+    glowGrad.addColorStop(1, 'rgba(198, 40, 40, 0)');
+    ctx.fillStyle = glowGrad;
+    ctx.fillRect(0, 0, W, H);
+    
+    requestAnimationFrame(draw);
+  }
+  
+  draw();
+}
+
+// 启动
+initBrewCanvas();
+initSteamCanvas();
+</script>
+
+</body>
+</html>
