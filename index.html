@@ -1769,6 +1769,7 @@ body {
 // Audio helper - Web Audio API synth
 const AudioSys = {
   ctx: null,
+  unlocked: false,
   init() {
     if (!this.ctx) {
       try { this.ctx = new (window.AudioContext || window.webkitAudioContext)(); }
@@ -1776,8 +1777,23 @@ const AudioSys = {
     }
     if (this.ctx && this.ctx.state === 'suspended') this.ctx.resume();
   },
+  unlock() {
+    this.init();
+    if (this.ctx && !this.unlocked) {
+      // Play a silent tone to fully unlock audio on iOS/Android
+      const o = this.ctx.createOscillator();
+      const g = this.ctx.createGain();
+      g.gain.setValueAtTime(0.001, this.ctx.currentTime);
+      o.connect(g);
+      g.connect(this.ctx.destination);
+      o.start();
+      o.stop(this.ctx.currentTime + 0.01);
+      this.unlocked = true;
+    }
+  },
   tone(freq, dur, type, vol) {
     if (!this.ctx) return;
+    if (this.ctx.state === 'suspended') this.ctx.resume();
     const o = this.ctx.createOscillator();
     const g = this.ctx.createGain();
     o.type = type || 'sine';
@@ -1796,6 +1812,16 @@ const AudioSys = {
   paySuccess() { this.init(); [523,659,784,1047].forEach((f,i) => setTimeout(() => this.tone(f, 0.2), i * 100)); },
   enterStreet() { this.init(); [659,784,880,1047].forEach((f,i) => setTimeout(() => this.tone(f, 0.15, 'sine', 0.07), i * 120)); }
 };
+
+// Global first-touch audio unlock (required by iOS/Android browsers)
+document.addEventListener('touchstart', function unlockAudio() {
+  AudioSys.unlock();
+  document.removeEventListener('touchstart', unlockAudio);
+}, { once: true });
+document.addEventListener('click', function unlockAudio() {
+  AudioSys.unlock();
+  document.removeEventListener('click', unlockAudio);
+}, { once: true });
 
 // ============================================
 // GAME DATA - All 20 Formulas / Drinks
