@@ -1769,6 +1769,7 @@ body {
 // Audio helper - Web Audio API synth
 const AudioSys = {
   ctx: null,
+  unlocked: false,
   init() {
     if (!this.ctx) {
       try { this.ctx = new (window.AudioContext || window.webkitAudioContext)(); }
@@ -1776,8 +1777,23 @@ const AudioSys = {
     }
     if (this.ctx && this.ctx.state === 'suspended') this.ctx.resume();
   },
+  unlock() {
+    this.init();
+    if (this.ctx && !this.unlocked) {
+      // Play a silent tone to fully unlock audio on iOS/Android
+      const o = this.ctx.createOscillator();
+      const g = this.ctx.createGain();
+      g.gain.setValueAtTime(0.001, this.ctx.currentTime);
+      o.connect(g);
+      g.connect(this.ctx.destination);
+      o.start();
+      o.stop(this.ctx.currentTime + 0.01);
+      this.unlocked = true;
+    }
+  },
   tone(freq, dur, type, vol) {
     if (!this.ctx) return;
+    if (this.ctx.state === 'suspended') this.ctx.resume();
     const o = this.ctx.createOscillator();
     const g = this.ctx.createGain();
     o.type = type || 'sine';
@@ -1796,6 +1812,16 @@ const AudioSys = {
   paySuccess() { this.init(); [523,659,784,1047].forEach((f,i) => setTimeout(() => this.tone(f, 0.2), i * 100)); },
   enterStreet() { this.init(); [659,784,880,1047].forEach((f,i) => setTimeout(() => this.tone(f, 0.15, 'sine', 0.07), i * 120)); }
 };
+
+// Global first-touch audio unlock (required by iOS/Android browsers)
+document.addEventListener('touchstart', function unlockAudio() {
+  AudioSys.unlock();
+  document.removeEventListener('touchstart', unlockAudio);
+}, { once: true });
+document.addEventListener('click', function unlockAudio() {
+  AudioSys.unlock();
+  document.removeEventListener('click', unlockAudio);
+}, { once: true });
 
 // ============================================
 // GAME DATA - All 20 Formulas / Drinks
@@ -2372,14 +2398,38 @@ let sizhenScore = 0;
 let sizhenCorrect = 0;
 let sizhenWrong = 0;
 
+const SIZHEN_SAVE_KEY = 'xingshi_sizhen_save';
+
 function startSiZhenDemo() {
-  sizhenLevel = 1;
-  sizhenScore = 0;
-  sizhenCorrect = 0;
-  sizhenWrong = 0;
+  const saved = localStorage.getItem(SIZHEN_SAVE_KEY);
+  if (saved) {
+    try {
+      const d = JSON.parse(saved);
+      sizhenLevel = d.level || 1;
+      sizhenScore = d.score || 0;
+      sizhenCorrect = d.correct || 0;
+      sizhenWrong = d.wrong || 0;
+    } catch(e) {
+      sizhenLevel = 1; sizhenScore = 0; sizhenCorrect = 0; sizhenWrong = 0;
+    }
+  } else {
+    sizhenLevel = 1;
+    sizhenScore = 0;
+    sizhenCorrect = 0;
+    sizhenWrong = 0;
+  }
   document.getElementById('sizhen-score').textContent = '声望 ' + sizhenScore;
   document.getElementById('sizhen-level').textContent = sizhenLevel;
   loadSiZhenPatient();
+}
+
+function saveSiZhenProgress() {
+  localStorage.setItem(SIZHEN_SAVE_KEY, JSON.stringify({
+    level: sizhenLevel,
+    score: sizhenScore,
+    correct: sizhenCorrect,
+    wrong: sizhenWrong
+  }));
 }
 
 const PATIENTS = [
@@ -3487,6 +3537,7 @@ function selectSiZhenOption(el, isCorrect, opt) {
     el.classList.add('wrong');
     sizhenWrong++;
     AudioSys.wrong();
+    saveSiZhenProgress();
     
     // Highlight correct answer
     const correctOne = Array.from(all).find(o => o.dataset.correct === 'true');
@@ -3509,10 +3560,17 @@ function selectSiZhenOption(el, isCorrect, opt) {
 
 function nextSizhen() {
   if (sizhenLevel >= 100) {
+    // Clear saved progress so re-entering starts fresh
+    localStorage.removeItem(SIZHEN_SAVE_KEY);
+    sizhenLevel = 1;
+    sizhenScore = 0;
+    sizhenCorrect = 0;
+    sizhenWrong = 0;
     showSizhenFinal();
     return;
   }
   sizhenLevel++;
+  saveSiZhenProgress();
   document.getElementById('sizhen-level').textContent = sizhenLevel;
   showScreen('screen-sizhen');
   loadSiZhenPatient();
@@ -3562,6 +3620,8 @@ function showSizhenFinal() {
 }
 
 function restartSizhen() {
+  localStorage.removeItem(SIZHEN_SAVE_KEY);
+  sizhenLevel = 1; sizhenScore = 0; sizhenCorrect = 0; sizhenWrong = 0;
   startSiZhenDemo();
   showScreen('screen-sizhen');
   loadSiZhenPatient();

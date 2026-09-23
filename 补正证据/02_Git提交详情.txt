@@ -1,0 +1,97 @@
+=== ef3052c 2026-09-13 01:24 ===
+Add 软著 application materials: source code doc, design spec, application form draft
+ VERSION.txt                                        |    1 +
+ ...73\243\347\240\201\346\226\207\346\241\243.txt" | 3553 ++++++++++++++++++++
+ ...257\267\350\241\250\350\215\211\347\250\277.md" |  109 +
+ ...256\241\350\257\264\346\230\216\344\271\246.md" |  394 +++
+ 4 files changed, 4057 insertions(+)
+
+=== fb2f0c6 2026-09-13 01:12 ===
+Add backup README for v5k_final
+ BACKUP_README.md | 37 +++++++++++++++++++++++++++++++++++++
+ 1 file changed, 37 insertions(+)
+
+=== ab231a6 2026-09-13 01:06 ===
+v5k_final: add synthesized audio effects (click/collect/correct/wrong/pay/enter)
+ v5-preview.html | 73 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 73 insertions(+)
+
+=== 2b6f7a7 2026-09-13 00:10 ===
+v5k: limit sizhen to 100 patients, add final score screen with ancient Chinese rating
+ v5-preview.html | 115 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 115 insertions(+)
+
+=== 2954743 2026-09-12 23:20 ===
+v5j: dynamically generate patient name/desc/avatar from symptoms text
+ v5-preview.html | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
+
+=== 7b06294 2026-09-12 20:57 ===
+v5i: move patients array to global scope, fix variable reference
+ v5-preview.html | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+=== f6c1bd4 2026-09-12 20:18 ===
+v5h: fix sizhen symptoms ID mismatch + remove undefined source field
+ v5-preview.html | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+=== a509e18 2026-09-12 19:36 ===
+v5g: fix JS syntax error - remove invalid backslash escapes in patients array
+ v5-preview.html | 640 ++++++++++++++++++++++++++++----------------------------
+ 1 file changed, 320 insertions(+), 320 deletions(-)
+
+=== d9fee0f 2026-09-12 17:58 ===
+v5f: 80 sizhen cases with source+formula combo options
+ v5-preview.html | 859 +++++++++++++++++++++++++++++++++++++++++++++++---------
+ 1 file changed, 722 insertions(+), 137 deletions(-)
+
+=== b89fbbc 2026-09-12 17:43 ===
+v5e: expand sizhen demo from 3 to 15 cases
+ v5-preview.html | 108 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 108 insertions(+)
+
+=== 1822229 2026-09-12 17:28 ===
+v5d: move seal stamp to progress card, add payment demo + sizhen game
+ v5-preview.html | 233 +++++++++++++++++++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 224 insertions(+), 9 deletions(-)
+
+=== bfb117b 2026-09-11 20:48 ===
+v5c: remove locked flags from all 24 formulas, move unlock hint to progress card
+ patch_v5c.py    | 59 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ v5-preview.html | 27 +++++++++++++-------------
+ 2 files changed, 73 insertions(+), 13 deletions(-)
+
+=== 4d8f1a1 2026-09-11 20:22 ===
+v5 fix: emoji corrections, add missing JS functions, unlock arrow hint
+ patch_v5b.py    | 110 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ v5-preview.html |  32 +++++++++++++----
+ 2 files changed, 135 insertions(+), 7 deletions(-)
+
+=== fba5596 2026-09-11 19:34 ===
+v5: 删除首页学堂卡片,去大夫化,古风锁图标,饮子铺/老妪换古风emoji,优化解锁页游戏规则
+ patch_v5.py     |  251 ++++++
+ v5-preview.html | 2276 +++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 2527 insertions(+)
+
+=== 21cf397 2026-09-11 19:13 ===
+v4: 四诊合参进阶游戏 + 古风NPC解锁页 + 结果页杏林百方入口
+ patch_v4.py     |  202 +++++
+ patch_v4b.py    |  341 +++++++++
+ v4-preview.html | 2227 +++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 2770 insertions(+)
+
+=== 2ce05bd 2026-09-11 18:22 ===
+v3: restore original UI, add course lock system (4 locked formulas)
+ v3-preview.html | 2061 +++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 2061 insertions(+)
+
+=== 98745fb 2026-09-11 17:43 ===
+v2: restore effects/principles labels, switch to course model
+ v1-preview.html | 26 +++++++++++++-------------
+ 1 file changed, 13 insertions(+), 13 deletions(-)
+
+=== aaffdfd 2026-09-11 16:00 ===
+v1 preview
+ v1-preview.html | 1735 +++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 1735 insertions(+)

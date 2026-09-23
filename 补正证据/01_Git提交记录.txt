@@ -1,0 +1,18 @@
+ef3052c | 2026-09-13 01:24 | Add 软著 application materials: source code doc, design spec, application form draft
+fb2f0c6 | 2026-09-13 01:12 | Add backup README for v5k_final
+ab231a6 | 2026-09-13 01:06 | v5k_final: add synthesized audio effects (click/collect/correct/wrong/pay/enter)
+2b6f7a7 | 2026-09-13 00:10 | v5k: limit sizhen to 100 patients, add final score screen with ancient Chinese rating
+2954743 | 2026-09-12 23:20 | v5j: dynamically generate patient name/desc/avatar from symptoms text
+7b06294 | 2026-09-12 20:57 | v5i: move patients array to global scope, fix variable reference
+f6c1bd4 | 2026-09-12 20:18 | v5h: fix sizhen symptoms ID mismatch + remove undefined source field
+a509e18 | 2026-09-12 19:36 | v5g: fix JS syntax error - remove invalid backslash escapes in patients array
+d9fee0f | 2026-09-12 17:58 | v5f: 80 sizhen cases with source+formula combo options
+b89fbbc | 2026-09-12 17:43 | v5e: expand sizhen demo from 3 to 15 cases
+1822229 | 2026-09-12 17:28 | v5d: move seal stamp to progress card, add payment demo + sizhen game
+bfb117b | 2026-09-11 20:48 | v5c: remove locked flags from all 24 formulas, move unlock hint to progress card
+4d8f1a1 | 2026-09-11 20:22 | v5 fix: emoji corrections, add missing JS functions, unlock arrow hint
+fba5596 | 2026-09-11 19:34 | v5: 删除首页学堂卡片,去大夫化,古风锁图标,饮子铺/老妪换古风emoji,优化解锁页游戏规则
+21cf397 | 2026-09-11 19:13 | v4: 四诊合参进阶游戏 + 古风NPC解锁页 + 结果页杏林百方入口
+2ce05bd | 2026-09-11 18:22 | v3: restore original UI, add course lock system (4 locked formulas)
+98745fb | 2026-09-11 17:43 | v2: restore effects/principles labels, switch to course model
+aaffdfd | 2026-09-11 16:00 | v1 preview
