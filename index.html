@@ -3560,6 +3560,12 @@ function selectSiZhenOption(el, isCorrect, opt) {
 
 function nextSizhen() {
   if (sizhenLevel >= 100) {
+    // Clear saved progress so re-entering starts fresh
+    localStorage.removeItem(SIZHEN_SAVE_KEY);
+    sizhenLevel = 1;
+    sizhenScore = 0;
+    sizhenCorrect = 0;
+    sizhenWrong = 0;
     showSizhenFinal();
     return;
   }
