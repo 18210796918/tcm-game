@@ -1542,27 +1542,14 @@ body {
 
     <!-- Pricing -->
     <div style="text-align:center;margin:20px 0;">
-      <div style="font-size:32px;font-weight:900;color:#c62828;margin-bottom:4px;">🎮 升级挑战</div>
-      <div style="font-size:12px;color:#8d6e63;margin-bottom:16px;">四诊合参 · 百诊试炼 · 免费挑战</div>
-      <button class="btn-primary" onclick="enterBaiFang()">
-        🏮 开始挑战
+      <div style="font-size:32px;font-weight:900;color:#c62828;margin-bottom:4px;">¥9.9</div>
+      <div style="font-size:12px;color:#8d6e63;margin-bottom:16px;">一次解锁 · 永久研习 · 百方尽收</div>
+      <button class="btn-primary" onclick="buyBaiFang()">
+        🏮 接典济世
       </button>
       <button class="btn-primary btn-secondary" onclick="goBack('screen-result')" style="margin-top:10px;">
         ← 容后再议
       </button>
-    </div>
-
-    <!-- Support Developer -->
-    <div style="background:linear-gradient(145deg,#fff8e1,#fdf8e8);border-radius:14px;padding:16px;margin:16px 0;border:1px solid rgba(198,40,40,0.15);text-align:center;">
-      <div style="font-size:14px;font-weight:700;color:#c62828;margin-bottom:8px;">🌟 支持开发者</div>
-      <div style="font-size:12px;color:#8d6e63;margin-bottom:12px;">杏林街市是独立开发者的心血之作<br>您的支持是我继续创作的动力</div>
-      <div style="display:flex;justify-content:center;gap:10px;margin-bottom:12px;">
-        <button onclick="showSupportModal(1)" style="padding:8px 16px;background:#fff;border:1px solid #c62828;border-radius:8px;color:#c62828;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;">1元</button>
-        <button onclick="showSupportModal(3)" style="padding:8px 16px;background:#fff;border:1px solid #c62828;border-radius:8px;color:#c62828;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;">3元</button>
-        <button onclick="showSupportModal(5)" style="padding:8px 16px;background:#fff;border:1px solid #c62828;border-radius:8px;color:#c62828;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;">5元</button>
-        <button onclick="showSupportModal(0)" style="padding:8px 16px;background:#fff;border:1px solid #c62828;border-radius:8px;color:#c62828;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;">自定义</button>
-      </div>
-      <div style="font-size:11px;color:#8d6e63;">打赏后截图发我，解锁隐藏成就</div>
     </div>
   </div>
 
@@ -1691,19 +1678,6 @@ body {
     </div>
   </div>
 
-  <!-- Support Developer Section -->
-  <div class="card" style="margin-top:12px;text-align:center;background:linear-gradient(145deg,#fff8e1,#fdf8e8);border:1px solid rgba(198,40,40,0.15);">
-    <div style="font-size:16px;font-weight:700;color:#c62828;margin-bottom:8px;">🌟 支持开发者</div>
-    <div style="font-size:13px;color:#8d6e63;margin-bottom:12px;">您的鼓励是我继续创作的动力<br>打赏后截图发我，解锁隐藏成就</div>
-    <div style="display:flex;justify-content:center;gap:10px;margin-bottom:12px;">
-      <button onclick="showSupportModal(1)" style="padding:10px 18px;background:#fff;border:1px solid #c62828;border-radius:8px;color:#c62828;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;">1元</button>
-      <button onclick="showSupportModal(3)" style="padding:10px 18px;background:#fff;border:1px solid #c62828;border-radius:8px;color:#c62828;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;">3元</button>
-      <button onclick="showSupportModal(5)" style="padding:10px 18px;background:#fff;border:1px solid #c62828;border-radius:8px;color:#c62828;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;">5元</button>
-      <button onclick="showSupportModal(0)" style="padding:10px 18px;background:#fff;border:1px solid #c62828;border-radius:8px;color:#c62828;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;">自定义</button>
-    </div>
-    <div style="font-size:11px;color:#8d6e63;">微信 / 支付宝均可</div>
-  </div>
-
   <button class="btn-primary" onclick="restartSizhen()">
     🔄 再试百诊
   </button>
@@ -1780,38 +1754,6 @@ body {
     <button onclick="closeSuccessModal()" style="padding:10px 32px;background:rgba(255,255,255,0.15);color:#fff;border:none;border-radius:12px;font-size:14px;cursor:pointer;font-family:inherit;margin-top:10px;">
       稍后再说
     </button>
-  </div>
-</div>
-
-<!-- Support Developer Modal -->
-<div id="supportModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.85);z-index:800;flex-direction:column;align-items:center;justify-content:center;padding:20px;">
-  <div style="background:#fdf8e8;border-radius:16px;width:100%;max-width:320px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.4);text-align:center;">
-    <div style="background:linear-gradient(145deg,#c62828,#b71c1c);padding:16px;color:#fff;">
-      <div style="font-size:18px;font-weight:700;margin-bottom:4px;">🌟 支持开发者</div>
-      <div style="font-size:12px;opacity:0.9;" id="supportAmountText">打赏金额</div>
-    </div>
-    <div style="padding:20px;">
-      <div style="background:#fff;border-radius:12px;padding:16px;margin-bottom:12px;border:1px solid #e0d5c5;">
-        <div style="font-size:14px;font-weight:700;color:#c62828;margin-bottom:8px;">📱 微信收款码</div>
-        <div style="width:160px;height:160px;margin:0 auto;background:#f5f5f5;border-radius:8px;display:flex;align-items:center;justify-content:center;overflow:hidden;">
-          <img src="wechat-qr.jpg" alt="微信收款码" style="max-width:100%;max-height:100%;display:block;" onerror="this.parentElement.innerHTML='<div style=&quot;color:#999;font-size:12px;padding:20px;&quot;>请替换为实际微信收款码图片</div>'">
-        </div>
-        <div style="font-size:11px;color:#8d6e63;margin-top:8px;">保存图片 → 微信扫码打赏</div>
-      </div>
-      <div style="background:#fff;border-radius:12px;padding:16px;margin-bottom:12px;border:1px solid #e0d5c5;">
-        <div style="font-size:14px;font-weight:700;color:#1677ff;margin-bottom:8px;">📱 支付宝收款码</div>
-        <div style="width:160px;height:160px;margin:0 auto;background:#f5f5f5;border-radius:8px;display:flex;align-items:center;justify-content:center;overflow:hidden;">
-          <img src="alipay-qr.png" alt="支付宝收款码" style="max-width:100%;max-height:100%;display:block;" onerror="this.parentElement.innerHTML='<div style=&quot;color:#999;font-size:12px;padding:20px;&quot;>请替换为实际支付宝收款码图片</div>'">
-        </div>
-        <div style="font-size:11px;color:#8d6e63;margin-top:8px;">保存图片 → 支付宝扫码打赏</div>
-      </div>
-      <div style="font-size:12px;color:#8d6e63;margin-bottom:16px;line-height:1.8;">
-        打赏后截图发送至小红书私信<br>解锁「杏林恩人」隐藏称号
-      </div>
-      <button onclick="closeSupportModal()" style="padding:12px 32px;background:linear-gradient(145deg,#c62828,#b71c1c);color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;">
-        关闭
-      </button>
-    </div>
   </div>
 </div>
 
@@ -2344,8 +2286,11 @@ function enterStreet() {
 }
 
 function goToUnlockPage() {
-  // 直接进入杏林百方挑战
-  showScreen('screen-unlock-bai');
+  if (isBaiFangUnlocked()) {
+    enterBaiFang();
+  } else {
+    showScreen('screen-unlock-bai');
+  }
 }
 
 function isBaiFangUnlocked() {
@@ -2360,30 +2305,20 @@ const PAYMENT_CONFIG = {
 };
 
 function buyBaiFang() {
-  // 直接免费进入四诊合参挑战
-  enterBaiFang();
+  // If Youzan URL is configured, redirect to Youzan
+  if (PAYMENT_CONFIG.youzanProductUrl) {
+    // Save return URL for post-payment callback
+    const returnUrl = encodeURIComponent(window.location.href + '?paid=baifang');
+    window.location.href = PAYMENT_CONFIG.youzanProductUrl + '?redirect=' + returnUrl;
+    return;
+  }
+  
+  // Otherwise show local payment modal (demo mode)
+  document.getElementById('paymentModal').style.display = 'flex';
 }
 
 function closePaymentModal() {
   document.getElementById('paymentModal').style.display = 'none';
-}
-
-// Support Developer Modal
-function showSupportModal(amount) {
-  const modal = document.getElementById('supportModal');
-  const amountText = document.getElementById('supportAmountText');
-  
-  if (amount === 0) {
-    amountText.textContent = '自定义金额 · 随心意';
-  } else {
-    amountText.textContent = `打赏金额 ¥${amount}元`;
-  }
-  
-  modal.style.display = 'flex';
-}
-
-function closeSupportModal() {
-  document.getElementById('supportModal').style.display = 'none';
 }
 
 // Check if returning from successful payment
@@ -2456,6 +2391,8 @@ function enterBaiFang() {
   showScreen('screen-sizhen');
   startSiZhenDemo();
 }
+
+// Simple SiZhen Demo Game
 let sizhenLevel = 1;
 let sizhenScore = 0;
 let sizhenCorrect = 0;
