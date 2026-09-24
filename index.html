@@ -2264,7 +2264,10 @@ function loadCollection() {
 function saveCollection() {
   try {
     localStorage.setItem('tcm_street_collection', JSON.stringify(gameState.collected));
-  } catch(e) {}
+    console.log('[DEBUG] Saved collection:', gameState.collected.length, 'items');
+  } catch(e) { 
+    console.error('[DEBUG] Failed to save collection:', e);
+  }
 }
 
 function isCollected(id) {
@@ -2272,10 +2275,12 @@ function isCollected(id) {
 }
 
 function collectFormula(id) {
+  console.log('[DEBUG] collectFormula called:', id, 'already collected:', isCollected(id));
   if (!isCollected(id)) {
     gameState.collected.push(id);
     saveCollection();
     AudioSys.collect();
+    console.log('[DEBUG] Now collected:', gameState.collected.length);
   }
 }
 
